@@ -62,7 +62,7 @@ export async function computeBundleManifestChecksum(manifest: BundleManifest): P
   return sha256Hex(JSON.stringify(manifestForHash))
 }
 
-export async function sha256Hex(value: string): Promise<string> {
+async function sha256Hex(value: string): Promise<string> {
   const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
   return Array.from(new Uint8Array(hashBuffer))
     .map((byte) => byte.toString(HEX_RADIX).padStart(2, '0'))
