@@ -19,7 +19,7 @@ export type StableVideoSequenceComparatorItem = VideoItem & {
   _sharedTransitionSync?: boolean
 }
 
-type StableVideoRenderSignature = {
+type StableVideoRenderBaseSignature = {
   id: string
   speed: number | undefined
   sourceStart: number | undefined
@@ -42,12 +42,15 @@ type StableVideoRenderSignature = {
   reverseConformStatus: StableVideoSequenceComparatorItem['reverseConformStatus']
   audioPitchSemitones: number
   audioPitchCents: number
+}
+
+type StableVideoRenderSignature = StableVideoRenderBaseSignature & {
   audioEqStages: ReturnType<typeof appendResolvedAudioEqSources>
 }
 
-export function getStableVideoRenderSignature(
+function getStableVideoRenderBaseSignature(
   item: StableVideoSequenceComparatorItem,
-): StableVideoRenderSignature {
+): StableVideoRenderBaseSignature {
   return {
     id: item.id,
     speed: item.speed,
@@ -71,17 +74,25 @@ export function getStableVideoRenderSignature(
     reverseConformStatus: item.reverseConformStatus,
     audioPitchSemitones: item.audioPitchSemitones ?? 0,
     audioPitchCents: item.audioPitchCents ?? 0,
-    audioEqStages: appendResolvedAudioEqSources(
-      undefined,
-      item.trackAudioEq,
-      getAudioEqSettings(item),
-    ),
   }
 }
 
-function areStableVideoRenderSignaturesEqual(
-  prevSignature: StableVideoRenderSignature,
-  nextSignature: StableVideoRenderSignature,
+function getStableVideoAudioEqStages(item: StableVideoSequenceComparatorItem) {
+  return appendResolvedAudioEqSources(undefined, item.trackAudioEq, getAudioEqSettings(item))
+}
+
+export function getStableVideoRenderSignature(
+  item: StableVideoSequenceComparatorItem,
+): StableVideoRenderSignature {
+  return {
+    ...getStableVideoRenderBaseSignature(item),
+    audioEqStages: getStableVideoAudioEqStages(item),
+  }
+}
+
+function areStableVideoRenderBaseSignaturesEqual(
+  prevSignature: StableVideoRenderBaseSignature,
+  nextSignature: StableVideoRenderBaseSignature,
 ): boolean {
   return (
     prevSignature.id === nextSignature.id &&
@@ -105,8 +116,26 @@ function areStableVideoRenderSignaturesEqual(
     prevSignature.reverseConformPreviewSrc === nextSignature.reverseConformPreviewSrc &&
     prevSignature.reverseConformStatus === nextSignature.reverseConformStatus &&
     prevSignature.audioPitchSemitones === nextSignature.audioPitchSemitones &&
-    prevSignature.audioPitchCents === nextSignature.audioPitchCents &&
-    areAudioEqStagesEqual(prevSignature.audioEqStages, nextSignature.audioEqStages)
+    prevSignature.audioPitchCents === nextSignature.audioPitchCents
+  )
+}
+
+function areStableVideoItemsRenderEqual(
+  prevItem: StableVideoSequenceComparatorItem,
+  nextItem: StableVideoSequenceComparatorItem,
+): boolean {
+  if (
+    !areStableVideoRenderBaseSignaturesEqual(
+      getStableVideoRenderBaseSignature(prevItem),
+      getStableVideoRenderBaseSignature(nextItem),
+    )
+  ) {
+    return false
+  }
+
+  return areAudioEqStagesEqual(
+    getStableVideoAudioEqStages(prevItem),
+    getStableVideoAudioEqStages(nextItem),
   )
 }
 
@@ -159,12 +188,7 @@ export function areGroupPropsEqual(
   for (let i = 0; i < prevProps.group.items.length; i++) {
     const prevItem = prevProps.group.items[i]!
     const nextItem = nextProps.group.items[i]!
-    if (
-      !areStableVideoRenderSignaturesEqual(
-        getStableVideoRenderSignature(prevItem),
-        getStableVideoRenderSignature(nextItem),
-      )
-    ) {
+    if (!areStableVideoItemsRenderEqual(prevItem, nextItem)) {
       return false
     }
   }
