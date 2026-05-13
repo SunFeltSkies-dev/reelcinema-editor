@@ -24,6 +24,7 @@ export const SUPPORTED_LANGUAGES: readonly AppLanguage[] = [
     englishName: 'Portuguese (Brazil)',
     dir: 'ltr',
   },
+  { code: 'tr', nativeName: 'Türkçe', englishName: 'Turkish', dir: 'ltr' },
   { code: 'ja', nativeName: '日本語', englishName: 'Japanese', dir: 'ltr' },
   { code: 'ko', nativeName: '한국어', englishName: 'Korean', dir: 'ltr' },
   { code: 'zh', nativeName: '简体中文', englishName: 'Chinese (Simplified)', dir: 'ltr' },

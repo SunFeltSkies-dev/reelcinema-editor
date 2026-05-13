@@ -62,10 +62,6 @@
       "storage": "Storage"
     },
     "general": {
-      "language": "Language",
-      "languageDescription": "Choose the language used throughout the app.",
-      "editorDensity": "Editor Density",
-      "editorDensityDescription": "Compact fits more of the editor into a 1080p screen. Default restores the roomier layout.",
       "autoSave": "Auto-save",
       "interval": "Interval",
       "intervalMinutes": "{{count}}m",

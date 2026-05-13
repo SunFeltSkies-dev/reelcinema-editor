@@ -62,10 +62,6 @@
       "storage": "Almacenamiento"
     },
     "general": {
-      "language": "Idioma",
-      "languageDescription": "Elige el idioma utilizado en toda la aplicación.",
-      "editorDensity": "Densidad del editor",
-      "editorDensityDescription": "Compacto encaja más del editor en una pantalla de 1080p. Predeterminado restaura el diseño más amplio.",
       "autoSave": "Guardado automático",
       "interval": "Intervalo",
       "intervalMinutes": "{{count}} min",

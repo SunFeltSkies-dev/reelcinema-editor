@@ -62,10 +62,6 @@
       "storage": "Speicher"
     },
     "general": {
-      "language": "Sprache",
-      "languageDescription": "Wähle die in der gesamten App verwendete Sprache.",
-      "editorDensity": "Editor-Dichte",
-      "editorDensityDescription": "Kompakt zeigt mehr vom Editor auf einem 1080p-Bildschirm. Standard stellt das großzügigere Layout wieder her.",
       "autoSave": "Automatisches Speichern",
       "interval": "Intervall",
       "intervalMinutes": "{{count}} Min.",

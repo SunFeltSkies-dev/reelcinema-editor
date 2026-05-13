@@ -62,10 +62,6 @@
       "storage": "ストレージ"
     },
     "general": {
-      "language": "言語",
-      "languageDescription": "アプリ全体で使用する言語を選択します。",
-      "editorDensity": "エディターの密度",
-      "editorDensityDescription": "コンパクトは 1080p の画面によりエディターを多く表示します。デフォルトはゆとりのあるレイアウトに戻します。",
       "autoSave": "自動保存",
       "interval": "間隔",
       "intervalMinutes": "{{count}} 分",

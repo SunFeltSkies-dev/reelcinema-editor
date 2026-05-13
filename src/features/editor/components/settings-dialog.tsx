@@ -17,13 +17,6 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Slider } from '@/components/ui/slider'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -65,8 +58,6 @@ import {
 import { clearPreviewAudioCache } from '@/features/editor/deps/composition-runtime'
 import { createLogger } from '@/shared/logging/logger'
 import { cn } from '@/shared/ui/cn'
-import { EDITOR_DENSITY_OPTIONS } from '@/app/editor-layout'
-import { SUPPORTED_LANGUAGES, resolveSupportedLanguage } from '@/i18n/languages'
 
 const log = createLogger('SettingsDialog')
 
@@ -361,9 +352,8 @@ async function regenerateProjectThumbnails(
 }
 
 export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const snapEnabled = useSettingsStore((s) => s.snapEnabled)
-  const editorDensity = useSettingsStore((s) => s.editorDensity)
   const showWaveforms = useSettingsStore((s) => s.showWaveforms)
   const showFilmstrips = useSettingsStore((s) => s.showFilmstrips)
   const autoSaveInterval = useSettingsStore((s) => s.autoSaveInterval)
@@ -535,8 +525,6 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
       proxyStatus.get(media.id) !== 'ready' &&
       proxyStatus.get(media.id) !== 'generating',
   ).length
-  const currentLanguage = resolveSupportedLanguage(i18n.resolvedLanguage ?? i18n.language)
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl gap-0 overflow-hidden p-0 sm:top-16 sm:max-h-[calc(100vh-4rem)] sm:translate-y-0 sm:origin-top">
@@ -581,52 +569,6 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
             <div className="space-y-3 px-6 py-5 pr-7">
               {activeSection === 'general' && (
                 <div className="space-y-3">
-                  <div className="space-y-1.5">
-                    <Label className="text-sm">{t('settings.general.language')}</Label>
-                    <Select
-                      value={currentLanguage}
-                      onValueChange={(value) => {
-                        void i18n.changeLanguage(resolveSupportedLanguage(value))
-                      }}
-                    >
-                      <SelectTrigger aria-label={t('language.ariaLabel')}>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {SUPPORTED_LANGUAGES.map((lng) => (
-                          <SelectItem key={lng.code} value={lng.code}>
-                            {lng.nativeName}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <p className="text-xs text-muted-foreground">
-                      {t('settings.general.languageDescription')}
-                    </p>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label className="text-sm">{t('settings.general.editorDensity')}</Label>
-                    <Select
-                      value={editorDensity}
-                      onValueChange={(value) =>
-                        setSetting('editorDensity', value as typeof editorDensity)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {EDITOR_DENSITY_OPTIONS.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <p className="text-xs text-muted-foreground">
-                      {t('settings.general.editorDensityDescription')}
-                    </p>
-                  </div>
                   <div className="flex items-center justify-between">
                     <Label className="text-sm">{t('settings.general.autoSave')}</Label>
                     <Switch

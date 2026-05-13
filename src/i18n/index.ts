@@ -8,6 +8,7 @@ import es from './locales/es.json'
 import fr from './locales/fr.json'
 import de from './locales/de.json'
 import ptBR from './locales/pt-BR.json'
+import tr from './locales/tr.json'
 import ja from './locales/ja.json'
 import ko from './locales/ko.json'
 import zh from './locales/zh.json'
@@ -24,6 +25,7 @@ const baseLocales: Record<string, LocaleTree> = {
   fr: fr as LocaleTree,
   de: de as LocaleTree,
   'pt-BR': ptBR as LocaleTree,
+  tr: tr as LocaleTree,
   ja: ja as LocaleTree,
   ko: ko as LocaleTree,
   zh: zh as LocaleTree,

@@ -62,10 +62,6 @@
       "storage": "Stockage"
     },
     "general": {
-      "language": "Langue",
-      "languageDescription": "Choisissez la langue utilisée dans toute l'application.",
-      "editorDensity": "Densité de l'éditeur",
-      "editorDensityDescription": "Compact fait tenir davantage de l'éditeur sur un écran 1080p. Par défaut restaure la disposition plus aérée.",
       "autoSave": "Enregistrement automatique",
       "interval": "Intervalle",
       "intervalMinutes": "{{count}} min",

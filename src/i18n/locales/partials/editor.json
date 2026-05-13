@@ -2606,5 +2606,331 @@
         "audioMixer": "音频混音器"
       }
     }
+  },
+  "tr": {
+    "editor": {
+      "shortcutsDialog": {
+        "title": "Klavye Kısayolları",
+        "description": "Klavye kısayol atamalarını düzenleyin."
+      },
+      "interactionLock": {
+        "maskEditing": "Devam etmek için maske düzenlemeyi bitirin veya çıkın"
+      },
+      "localInferencePill": {
+        "loading": "Yerel YZ Yükleniyor",
+        "active": "Yerel YZ Etkin",
+        "error": "Yerel YZ Hatası",
+        "ready": "Yerel YZ Hazır",
+        "jobs_one": "{{count}} iş",
+        "jobs_other": "{{count}} iş"
+      },
+      "clearKeyframesDialog": {
+        "titleProperty": "{{property}} Anahtar Karelerini Temizle",
+        "titleAll": "Tüm Anahtar Kareleri Temizle",
+        "descriptionProperty_one": "{{count}} klipten tüm {{property}} anahtar karelerini temizlemek istediğinizden emin misiniz?",
+        "descriptionProperty_other": "{{count}} klipten tüm {{property}} anahtar karelerini temizlemek istediğinizden emin misiniz?",
+        "descriptionAll_one": "{{count}} klipten tüm anahtar kareleri temizlemek istediğinizden emin misiniz?",
+        "descriptionAll_other": "{{count}} klipten tüm anahtar kareleri temizlemek istediğinizden emin misiniz?",
+        "undoHint": "Bu işlem Ctrl+Z ile geri alınabilir.",
+        "confirm": "Anahtar Kareleri Temizle"
+      },
+      "projectUpgradeDialog": {
+        "title": "Açmadan Önce Projeyi Yükselt",
+        "versionMismatch": "<strong>{{projectName}}</strong> proje şeması v{{storedSchemaVersion}} ile kaydedilmiş, ancak bu sürüm v{{currentSchemaVersion}} bekliyor.",
+        "explanation": "FreeCut, editörü yüklemeden önce projeyi sizin için yükseltebilir. Bir şey ters görünürse eski veriye dönebilmeniz için önce yükseltme öncesi bir yedek oluşturulur.",
+        "backupCopy": "Yedek kopya: <strong>{{backupName}}</strong>",
+        "creatingBackup": "Yedek Oluşturuluyor...",
+        "confirm": "Yedek Oluştur ve Yükselt"
+      },
+      "autoSave": {
+        "failed": "Otomatik kaydetme başarısız"
+      },
+      "whatsNew": {
+        "title": "Yenilikler",
+        "thisWeek": "Bu Hafta",
+        "asOf": "{{date}} itibarıyla",
+        "weekOf": "{{range}} haftası",
+        "newBadge": "Yeni",
+        "released": "Yayınlandı: v{{version}}",
+        "preRelease": "Ön sürüm",
+        "fullChangelog": "Tam değişiklik günlüğü",
+        "groupAdded": "Eklendi",
+        "groupFixed": "Düzeltildi",
+        "groupImproved": "İyileştirildi"
+      },
+      "transitions": {
+        "hintClickToApply": "Seçili kesime uygulamak için tıklayın veya geçişi zaman çizelgesindeki geçerli bir kesime sürükleyin.",
+        "hintUnavailable": "Geçişi geçerli bir kesime sürükleyin. Burada tıklayarak uygulama kullanılamaz: {{reason}}.",
+        "hintSelectOne": "Geçişi geçerli bir kesime sürükleyin veya klipleri yan yana koyup tıklayarak uygulamak için bir klip seçin.",
+        "hintSelectSingle": "Geçişi geçerli bir kesime sürükleyin veya tıklayarak uygulamak için tek bir video ya da görsel klip seçin.",
+        "hintSelectClip": "Geçişi geçerli bir kesime sürükleyin veya komşusuna geçiş eklemek için bir video ya da görsel klip seçin.",
+        "category": {
+          "basic": "Temel",
+          "dissolve": "Çözülme",
+          "motion": "Hareket",
+          "wipe": "Silme",
+          "slide": "Kaydırma",
+          "flip": "Çevirme",
+          "mask": "Maske",
+          "iris": "İris",
+          "shape": "Şekil",
+          "light": "Işık",
+          "chromatic": "Kromatik",
+          "custom": "Özel"
+        }
+      },
+      "transitionPanel": {
+        "sectionTitle": "Geçiş",
+        "preset": "Ön ayar",
+        "presetTooltip": "Geçiş stili ön ayarı",
+        "selectPreset": "Ön ayar seç",
+        "searchTransitions": "Geçişlerde ara",
+        "noTransitionsFound": "Geçiş bulunamadı",
+        "notFound": "Geçiş bulunamadı",
+        "duration": "Süre",
+        "durationTooltip": "Geçiş süresi",
+        "resetToDefault": "1 sn'ye sıfırla",
+        "placement": "Yerleşim",
+        "placementTooltip": "Geçişi kesimin önüne, üzerine veya sonrasına konumlandır",
+        "placementLeft": "Sol",
+        "placementCenter": "Merkez",
+        "placementRight": "Sağ",
+        "placementLeftTooltip": "Geçişi kesimden önce yerleştir",
+        "placementCenterTooltip": "Geçişi kesimin ortasına yerleştir",
+        "placementRightTooltip": "Geçişi kesimden sonra yerleştir",
+        "placementAria": "{{label}} yerleşimi",
+        "placementDisabled": "{{title}} (yeterli kaynak payı yok)",
+        "ease": "Yumuşatma",
+        "easeTooltip": "Geçiş için yumuşatma eğrisi",
+        "easeLinear": "Doğrusal",
+        "easeIn": "Giriş",
+        "easeOut": "Çıkış",
+        "easeInOut": "Giriş ve Çıkış",
+        "direction": "Yön",
+        "directionTooltip": "Geçiş hareketinin yönü",
+        "directionLeft": "Sol",
+        "directionRight": "Sağ",
+        "directionTop": "Üst",
+        "directionBottom": "Alt",
+        "resetParam": "{{label}} sıfırla",
+        "paramColorAria": "{{label}} rengi"
+      },
+      "propertiesSidebar": {
+        "title": "Özellikler",
+        "clipsSelected_one": "{{count}} klip seçildi",
+        "clipsSelected_other": "{{count}} klip seçildi",
+        "dockToPreview": "Önizlemeye sabitle",
+        "expandFullColumn": "Tam sütuna genişlet",
+        "showPanel": "Özellikler Panelini Göster"
+      },
+      "markerPanel": {
+        "notFound": "İşaretçi bulunamadı",
+        "title": "İşaretçi",
+        "frame": "Kare",
+        "time": "Zaman",
+        "label": "Etiket",
+        "labelPlaceholder": "Etiket girin...",
+        "color": "Renk",
+        "deleteMarker": "İşaretçiyi Sil"
+      },
+      "canvasPanel": {
+        "updateFailed": "Tuval ayarları güncellenemedi",
+        "tryAgain": "Lütfen tekrar deneyin.",
+        "noProjectLoaded": "Proje yüklenmedi",
+        "canvas": "Tuval",
+        "swap": "Değiştir",
+        "background": "Arka plan",
+        "resetToBlack": "Siyaha sıfırla",
+        "duration": "Süre",
+        "frameRate": "Kare Hızı",
+        "totalFrames": "Toplam Kare"
+      },
+      "clipPanel": {
+        "tabVideo": "Video",
+        "tabAudio": "Ses",
+        "tabEffects": "Efektler",
+        "adjustmentLayerHint": "Ayar katmanlarındaki efektler, üst izlerdeki tüm öğelere uygulanır."
+      },
+      "gifSection": {
+        "animation": "Animasyon",
+        "speed": "Hız",
+        "resetSpeed": "1x'e sıfırla"
+      },
+      "cornerPinSection": {
+        "title": "Köşe Sabitleme",
+        "exitEditor": "Köşe sabitleme düzenleyicisinden çık",
+        "editOnPreview": "Köşeleri önizlemede düzenle",
+        "editing": "Düzenleniyor...",
+        "edit": "Düzenle",
+        "reset": "Köşe sabitlemeyi sıfırla"
+      },
+      "fillSection": {
+        "composite": "Bileşik",
+        "opacity": "Opaklık",
+        "resetOpacity": "%100'e sıfırla",
+        "blend": "Karışım",
+        "blendNormal": "Normal",
+        "blendMixed": "Karışık",
+        "radius": "Yarıçap",
+        "resetRadius": "0'a sıfırla"
+      },
+      "fontPicker": {
+        "selectFont": "Yazı tipi seç",
+        "searchFonts": "Yazı tiplerinde ara...",
+        "livePreview": "Canlı Önizleme",
+        "allFonts": "Tüm Yazı Tipleri",
+        "fontOptions": "Yazı tipi seçenekleri",
+        "noMatch": "Aramanızla eşleşen yazı tipi yok.",
+        "previewPangram": "Pijamalı hasta yağız şoföre çabucak güvendi"
+      },
+      "layoutSection": {
+        "transform": "Dönüşüm",
+        "position": "Konum",
+        "resetPosition": "Ortaya sıfırla",
+        "size": "Boyut",
+        "unlockAspect": "En-boy oranı kilidini aç",
+        "lockAspect": "En-boy oranını kilitle",
+        "resetSize": "Özgün boyuta sıfırla",
+        "rotation": "Döndürme",
+        "resetRotation": "Döndürmeyi sıfırla",
+        "anchor": "Bağlantı noktası",
+        "resetAnchor": "Bağlantı noktasını ortaya sıfırla",
+        "flip": "Çevir",
+        "flipHorizontalAria": "Videoyu yatay çevir",
+        "flipVerticalAria": "Videoyu dikey çevir",
+        "horizontal": "Yatay",
+        "horizontalMixed": "Yatay (karışık)",
+        "vertical": "Dikey",
+        "verticalMixed": "Dikey (karışık)"
+      },
+      "shapeSection": {
+        "shape": "Şekil",
+        "type": "Tür",
+        "mixed": "Karışık",
+        "selectShape": "Şekil seç",
+        "typeRectangle": "Dikdörtgen",
+        "typeCircle": "Daire",
+        "typeTriangle": "Üçgen",
+        "typeEllipse": "Elips",
+        "typeStar": "Yıldız",
+        "typePolygon": "Çokgen",
+        "typeHeart": "Kalp",
+        "path": "Yol",
+        "editPath": "Yolu Düzenle",
+        "editPathHint": "Önizlemede noktaları ve tutamaçları sürükleyin.",
+        "fill": "Dolgu",
+        "strokeWidth": "Kontur G.",
+        "stroke": "Kontur",
+        "radius": "Yarıçap",
+        "direction": "Yön",
+        "directionUp": "Yukarı",
+        "directionDown": "Aşağı",
+        "directionLeft": "Sol",
+        "directionRight": "Sağ",
+        "points": "Noktalar",
+        "innerRadius": "İç Y.",
+        "useAsMask": "Maske Olarak Kullan",
+        "on": "Açık",
+        "off": "Kapalı",
+        "maskType": "Maske Türü",
+        "selectType": "Tür seç",
+        "maskTypeClip": "Klip (Sert kenarlar)",
+        "maskTypeAlpha": "Alfa (Yumuşak kenarlar)",
+        "feather": "Yumuşatma",
+        "resetFeather": "10px'e sıfırla",
+        "invert": "Ters çevir"
+      },
+      "subtitleSection": {
+        "title": "Altyazı",
+        "multiSelectHint": "{{segments}} segment seçildi · toplam {{cues}} ipucu. Stil hepsine uygulanır. Tek tek ipuçlarını düzenlemek için tek bir segment seçin.",
+        "trackLabel": "İz {{number}}",
+        "transcript": "Döküm",
+        "cueCount_one": "{{count}} ipucu",
+        "cueCount_other": "{{count}} ipucu",
+        "seekToCue": "Oynatma kafasını bu ipucuna taşı",
+        "start": "Başlangıç",
+        "end": "Bitiş",
+        "italic": "İtalik",
+        "bold": "Kalın",
+        "underline": "Altı çizili",
+        "cuePosition": "İpucu konumu: {{vertical}} {{horizontal}}"
+      },
+      "audioSection": {
+        "audio": "Ses",
+        "gain": "Kazanç",
+        "resetGain": "0 dB'ye sıfırla",
+        "fadeIn": "Açılma",
+        "fadeOut": "Kapanma",
+        "resetToZero": "0'a sıfırla",
+        "pitch": "Perde",
+        "semitones": "Yarım Sesler",
+        "resetSemitones": "Yarım ses perdesini sıfırla",
+        "cents": "Sent",
+        "resetCents": "Sent perdesini sıfırla",
+        "equalizer": "Ekolayzer"
+      },
+      "captionStyleControls": {
+        "stylePreset": "Stil ön ayarı",
+        "color": "Renk",
+        "size": "Boyut",
+        "vertical": "Dikey",
+        "background": "Arka plan",
+        "on": "Açık",
+        "off": "Kapalı",
+        "padding": "Dolgu"
+      },
+      "captionPresets": {
+        "netflixHint": "Yuvarlatılmış koyu kutuda Inter, alt üçte birlik konum — yayın kalitesinde nötr.",
+        "youtubeHint": "Yumuşak gölgeli Roboto, kutusuz — otomatik altyazı havası.",
+        "boldYellowHint": "Siyah gölgeli sinema sarısı Roboto Slab — DVD dönemi klasiği.",
+        "outlinedHint": "İnce konturlu Manrope — temiz, modern, gölgesiz.",
+        "tiktokHint": "Anton display, büyük ve ortalanmış — dikey video viral görünümü."
+      },
+      "alignment": {
+        "left": "Sola Hizala",
+        "centerHorizontally": "Yatay Ortala",
+        "right": "Sağa Hizala",
+        "top": "Üste Hizala",
+        "centerVertically": "Dikey Ortala",
+        "bottom": "Alta Hizala",
+        "distributeHorizontally": "Yatay Dağıt",
+        "distributeVertically": "Dikey Dağıt"
+      },
+      "projectMediaMatch": {
+        "updateFailed": "Proje ayarları güncellenemedi",
+        "tryAgain": "Lütfen tekrar deneyin.",
+        "title": "Proje İlk Videoya Uydurulsun mu?",
+        "descriptionWithFile": "\"{{fileName}}\" bu projeye eklenen ilk video.",
+        "description": "İlk içe aktarılan video proje boyutunu ve kare hızını belirleyebilir.",
+        "current": "Geçerli",
+        "clip": "Klip",
+        "size": "Boyut",
+        "frameRate": "Kare hızı",
+        "fpsRoundedHint": "FreeCut içe aktarılan videoyu en yakın desteklenen proje kare hızına eşler. Bu klip {{fps}} fps kullanır.",
+        "keepCurrent": "Geçerli Olanı Koru",
+        "fpsOnly": "Yalnızca FPS",
+        "sizeOnly": "Yalnızca Boyut",
+        "matchBoth": "İkisini de Eşle",
+        "matchFps": "FPS'yi Eşle",
+        "matchSize": "Boyutu Eşle"
+      },
+      "editor": {
+        "appLabel": "FreeCut Video Editörü",
+        "backupCreated": "Yükseltmeden önce yedek oluşturuldu",
+        "backupFailed": "Yükseltmeden önce yedek oluşturulamadı",
+        "tryAgain": "Lütfen tekrar deneyin.",
+        "projectSaved": "Proje kaydedildi",
+        "projectSaveFailed": "Proje kaydedilemedi",
+        "projectBundle": "FreeCut Proje Paketi"
+      },
+      "audioMeters": {
+        "meters": "Sayaçlar",
+        "mixer": "Mikser",
+        "floatMixer": "Mikseri Ayır",
+        "panelMode": "Panel modu",
+        "audioMeter": "Ses sayacı",
+        "audioMixer": "Ses mikseri"
+      }
+    }
   }
 }

@@ -62,10 +62,6 @@
       "storage": "Armazenamento"
     },
     "general": {
-      "language": "Idioma",
-      "languageDescription": "Escolha o idioma usado em todo o aplicativo.",
-      "editorDensity": "Densidade do editor",
-      "editorDensityDescription": "Compacto exibe mais do editor em uma tela 1080p. Padrão restaura o layout mais espaçoso.",
       "autoSave": "Salvamento automático",
       "interval": "Intervalo",
       "intervalMinutes": "{{count}} min",

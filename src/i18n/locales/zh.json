@@ -62,10 +62,6 @@
       "storage": "存储"
     },
     "general": {
-      "language": "语言",
-      "languageDescription": "选择整个应用使用的语言。",
-      "editorDensity": "编辑器密度",
-      "editorDensityDescription": "紧凑可在 1080p 屏幕上显示更多编辑器内容。默认恢复更宽松的布局。",
       "autoSave": "自动保存",
       "interval": "间隔",
       "intervalMinutes": "{{count}} 分钟",
