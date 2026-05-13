@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useEffect, memo, Activity } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   ChevronDown,
   ChevronLeft,
@@ -264,14 +265,18 @@ function renderTextTemplatePreview(preset?: TextStylePreset) {
 
 const TEXT_TEMPLATE_GROUPS: ReadonlyArray<{
   key: TextStylePresetLayout
-  label: string
+  labelKey: string
 }> = [
-  { key: 'single', label: 'Single' },
-  { key: 'two', label: '2 Spans' },
-  { key: 'three', label: '3 Spans' },
+  { key: 'single', labelKey: 'editor.mediaSidebar.textGroupSingle' },
+  { key: 'two', labelKey: 'editor.mediaSidebar.textGroupTwoSpans' },
+  { key: 'three', labelKey: 'editor.mediaSidebar.textGroupThreeSpans' },
 ]
 
+const DEFAULT_TEXT_TEMPLATE_LABEL = 'Text'
+const ADD_TEXT_TEMPLATE_LABEL = 'Add Text'
+
 export const MediaSidebar = memo(function MediaSidebar() {
+  const { t } = useTranslation()
   const editorDensity = useSettingsStore((s) => s.editorDensity)
   const editorLayout = getEditorLayout(editorDensity)
   // Use granular selectors - Zustand v5 best practice
@@ -563,12 +568,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
 
   // Category items for the vertical nav
   const categories = [
-    { id: 'media' as const, icon: Film, label: 'Media' },
-    { id: 'text' as const, icon: Type, label: 'Text' },
-    { id: 'shapes' as const, icon: Pentagon, label: 'Shapes' },
-    { id: 'effects' as const, icon: Layers, label: 'Effects' },
-    { id: 'transitions' as const, icon: Blend, label: 'Transitions' },
-    { id: 'ai' as const, icon: WandSparkles, label: 'AI' },
+    { id: 'media' as const, icon: Film, label: t('editor.mediaSidebar.media') },
+    { id: 'text' as const, icon: Type, label: t('editor.mediaSidebar.text') },
+    { id: 'shapes' as const, icon: Pentagon, label: t('editor.mediaSidebar.shapes') },
+    { id: 'effects' as const, icon: Layers, label: t('editor.mediaSidebar.effects') },
+    { id: 'transitions' as const, icon: Blend, label: t('editor.mediaSidebar.transitions') },
+    { id: 'ai' as const, icon: WandSparkles, label: t('editor.mediaSidebar.ai') },
   ]
 
   const shouldSuppressGeneratedItemClick = useCallback(() => {
@@ -628,7 +633,11 @@ export const MediaSidebar = memo(function MediaSidebar() {
               width: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderButtonSize,
               height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderButtonSize,
             }}
-            data-tooltip={leftSidebarOpen ? 'Collapse Panel' : 'Expand Panel'}
+            data-tooltip={
+              leftSidebarOpen
+                ? t('editor.mediaSidebar.collapsePanel')
+                : t('editor.mediaSidebar.expandPanel')
+            }
             data-tooltip-side="right"
           >
             {leftSidebarOpen ? (
@@ -680,9 +689,17 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
               }
             `}
-            data-tooltip={keyframeEditorOpen ? 'Hide Keyframe Editor' : 'Keyframe Editor'}
+            data-tooltip={
+              keyframeEditorOpen
+                ? t('editor.mediaSidebar.hideKeyframeEditor')
+                : t('editor.mediaSidebar.keyframeEditor')
+            }
             data-tooltip-side="right"
-            aria-label={keyframeEditorOpen ? 'Hide keyframe editor' : 'Show keyframe editor'}
+            aria-label={
+              keyframeEditorOpen
+                ? t('editor.mediaSidebar.hideKeyframeEditor')
+                : t('editor.mediaSidebar.showKeyframeEditor')
+            }
           >
             <LineChart className="w-4 h-4" />
           </button>
@@ -727,7 +744,11 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderButtonSize,
                 }}
                 onClick={toggleMediaFullColumn}
-                data-tooltip={mediaFullColumn ? 'Dock to preview' : 'Expand full column'}
+                data-tooltip={
+                  mediaFullColumn
+                    ? t('editor.propertiesSidebar.dockToPreview')
+                    : t('editor.propertiesSidebar.expandFullColumn')
+                }
                 data-tooltip-side="bottom"
               >
                 {mediaFullColumn ? (
@@ -752,7 +773,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
               <div className="space-y-3">
                 <div className="space-y-3">
                   <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
-                    Templates
+                    {t('editor.mediaSidebar.templates')}
                   </div>
                   {TEXT_TEMPLATE_GROUPS.map((group) => {
                     const presets = textTemplatesByLayout[group.key]
@@ -765,7 +786,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     return (
                       <div key={group.key} className="space-y-1.5">
                         <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
-                          {group.label}
+                          {t(group.labelKey)}
                         </div>
                         <div className="grid grid-cols-3 gap-1.5">
                           {showAddText ? (
@@ -773,7 +794,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                               draggable={true}
                               onDragStart={handleTemplateDragStart({
                                 itemType: 'text',
-                                label: 'Text',
+                                label: DEFAULT_TEXT_TEMPLATE_LABEL,
                               })}
                               onDragEnd={handleTemplateDragEnd}
                               onClick={() => {
@@ -784,7 +805,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                             >
                               {renderTextTemplatePreview()}
                               <span className="text-[9px] text-muted-foreground group-hover:text-foreground text-center leading-tight w-full">
-                                Add Text
+                                {ADD_TEXT_TEMPLATE_LABEL}
                               </span>
                             </button>
                           ) : null}
@@ -831,7 +852,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Rectangle',
+                    label: t('editor.shapeSection.typeRectangle'),
                     shapeType: 'rectangle',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -845,7 +866,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Square className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Rectangle
+                    {t('editor.shapeSection.typeRectangle')}
                   </span>
                 </button>
 
@@ -853,7 +874,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Circle',
+                    label: t('editor.shapeSection.typeCircle'),
                     shapeType: 'circle',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -867,7 +888,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Circle className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Circle
+                    {t('editor.shapeSection.typeCircle')}
                   </span>
                 </button>
 
@@ -875,7 +896,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Triangle',
+                    label: t('editor.shapeSection.typeTriangle'),
                     shapeType: 'triangle',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -889,7 +910,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Triangle className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Triangle
+                    {t('editor.shapeSection.typeTriangle')}
                   </span>
                 </button>
 
@@ -897,7 +918,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Ellipse',
+                    label: t('editor.shapeSection.typeEllipse'),
                     shapeType: 'ellipse',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -911,7 +932,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Circle className="w-3.5 h-2.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Ellipse
+                    {t('editor.shapeSection.typeEllipse')}
                   </span>
                 </button>
 
@@ -919,7 +940,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Star',
+                    label: t('editor.shapeSection.typeStar'),
                     shapeType: 'star',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -933,7 +954,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Star className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Star
+                    {t('editor.shapeSection.typeStar')}
                   </span>
                 </button>
 
@@ -941,7 +962,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Polygon',
+                    label: t('editor.shapeSection.typePolygon'),
                     shapeType: 'polygon',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -955,7 +976,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Hexagon className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Polygon
+                    {t('editor.shapeSection.typePolygon')}
                   </span>
                 </button>
 
@@ -963,7 +984,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'shape',
-                    label: 'Heart',
+                    label: t('editor.shapeSection.typeHeart'),
                     shapeType: 'heart',
                   })}
                   onDragEnd={handleTemplateDragEnd}
@@ -977,20 +998,20 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     <Heart className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Heart
+                    {t('editor.shapeSection.typeHeart')}
                   </span>
                 </button>
 
                 <button
                   onClick={() => useMaskEditorStore.getState().startShapePenMode()}
                   className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
-                  title="Draw a custom path shape with the pen tool"
+                  title={t('editor.mediaSidebar.penToolHint')}
                 >
                   <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
                     <Pen className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
                   </div>
                   <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
-                    Pen
+                    {t('editor.mediaSidebar.pen')}
                   </span>
                 </button>
               </div>
@@ -1006,7 +1027,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   draggable={true}
                   onDragStart={handleTemplateDragStart({
                     itemType: 'adjustment',
-                    label: 'Adjustment Layer',
+                    label: t('editor.mediaSidebar.adjustmentLayer'),
                   })}
                   onDragEnd={handleTemplateDragEnd}
                   onClick={() => {
@@ -1020,7 +1041,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                   </div>
                   <div className="text-left">
                     <div className="text-xs text-muted-foreground group-hover:text-foreground">
-                      Blank Adjustment Layer
+                      {t('editor.mediaSidebar.blankAdjustmentLayer')}
                     </div>
                   </div>
                 </button>
@@ -1028,7 +1049,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                 {/* Presets */}
                 <div>
                   <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">
-                    Presets
+                    {t('editor.mediaSidebar.presets')}
                   </div>
                   <div className="grid grid-cols-3 gap-1.5">
                     {EFFECT_PRESETS.map((preset) => (
