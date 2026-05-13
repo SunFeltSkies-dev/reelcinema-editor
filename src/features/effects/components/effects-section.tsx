@@ -23,6 +23,10 @@ import {
   getResolvedAnimatedEffectParamValue,
 } from '@/features/effects/deps/keyframes-contract'
 import { buildEffectAnimatableProperty, type AnimatableProperty } from '@/types/keyframe'
+import {
+  getEffectCategoryLabel,
+  getEffectDefinitionName,
+} from '@/features/effects/utils/effect-i18n'
 
 interface EffectsSectionProps {
   /** Visual items (already filtered to exclude audio) */
@@ -549,10 +553,12 @@ export const EffectsSection = memo(function EffectsSection({ items }: EffectsSec
     return gpuCategories
       .map(({ category, effects: catEffects }) => ({
         category,
-        effects: catEffects.filter((def) => def.name.toLowerCase().includes(q)),
+        effects: catEffects.filter((def) =>
+          getEffectDefinitionName(t, def).toLowerCase().includes(q),
+        ),
       }))
       .filter(({ effects: catEffects }) => catEffects.length > 0)
-  }, [gpuCategories, searchQuery])
+  }, [gpuCategories, searchQuery, t])
 
   const filteredPresets = useMemo(() => {
     if (!searchQuery.trim()) return EFFECT_PRESETS
@@ -607,7 +613,7 @@ export const EffectsSection = memo(function EffectsSection({ items }: EffectsSec
                   <div key={category}>
                     {index > 0 && <div className="-mx-1 my-1 h-px bg-muted" />}
                     <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                      {getEffectCategoryLabel(t, category)}
                     </div>
                     {catEffects.map((def) => (
                       <button
@@ -628,7 +634,7 @@ export const EffectsSection = memo(function EffectsSection({ items }: EffectsSec
                         ) : (
                           <span className="w-8 h-[18px] rounded-sm bg-muted flex-shrink-0" />
                         )}
-                        {def.name}
+                        {getEffectDefinitionName(t, def)}
                       </button>
                     ))}
                   </div>

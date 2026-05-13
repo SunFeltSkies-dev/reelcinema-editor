@@ -14,6 +14,11 @@ import type { GpuEffectDefinition } from '@/infrastructure/gpu/effects'
 import { KeyframeToggle } from '@/features/effects/deps/keyframes-contract'
 import type { AnimatableProperty } from '@/types/keyframe'
 import { ColorPicker, PropertyRow, SliderInput } from '@/shared/ui/property-controls'
+import {
+  getEffectDefinitionName,
+  getEffectOptionLabel,
+  getEffectParamLabel,
+} from '@/features/effects/utils/effect-i18n'
 
 interface GpuEffectPanelProps {
   itemIds: string[]
@@ -100,6 +105,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
   const { t } = useTranslation()
   const paramEntries = Object.entries(definition.params)
   const isDefault = paramEntries.every(([key, param]) => gpuEffect.params[key] === param.default)
+  const effectName = getEffectDefinitionName(t, definition)
 
   // Single number param: compact single-row layout matching CSS filter panels
   if (paramEntries.length === 1 && paramEntries[0]![1].type === 'number') {
@@ -107,7 +113,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
     const currentValue = (gpuEffect.params[key] ?? param.default) as number
     const keyframeProperty = getKeyframeProperty(effect.id, key)
     return (
-      <PropertyRow label={definition.name}>
+      <PropertyRow label={effectName}>
         <div className="flex items-center gap-1 min-w-0 w-full">
           <SliderInput
             value={currentValue}
@@ -143,7 +149,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
   // Zero params: header-only row with action buttons
   if (paramEntries.length === 0) {
     return (
-      <PropertyRow label={definition.name}>
+      <PropertyRow label={effectName}>
         <div className="flex items-center gap-1 min-w-0 w-full justify-end">
           <ActionButtons
             effectId={effect.id}
@@ -161,7 +167,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
   // Multi-param: header row with buttons, then one row per param
   return (
     <div className="space-y-0">
-      <PropertyRow label={definition.name}>
+      <PropertyRow label={effectName}>
         <div className="flex items-center gap-1 min-w-0 w-full justify-end">
           <ActionButtons
             effectId={effect.id}
@@ -185,7 +191,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
           return (
             <PropertyRow
               key={key}
-              label={param.label}
+              label={getEffectParamLabel(t, definition, key)}
               className={!paramEnabled ? 'opacity-50' : undefined}
             >
               <SliderInput
@@ -214,7 +220,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
           return (
             <PropertyRow
               key={key}
-              label={param.label}
+              label={getEffectParamLabel(t, definition, key)}
               className={!paramEnabled ? 'opacity-50' : undefined}
             >
               <Button
@@ -234,7 +240,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
           return (
             <PropertyRow
               key={key}
-              label={param.label}
+              label={getEffectParamLabel(t, definition, key)}
               className={!paramEnabled ? 'opacity-50' : undefined}
             >
               <Select
@@ -248,7 +254,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
                 <SelectContent>
                   {param.options.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
+                      {getEffectOptionLabel(t, definition, key, opt)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -261,7 +267,7 @@ export const GpuEffectPanel = memo(function GpuEffectPanel({
           return (
             <PropertyRow
               key={key}
-              label={param.label}
+              label={getEffectParamLabel(t, definition, key)}
               className={!paramEnabled ? 'opacity-50' : undefined}
             >
               <ColorPicker

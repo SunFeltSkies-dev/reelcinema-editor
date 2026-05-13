@@ -16,7 +16,7 @@
         "resetCropTop": "Reset Crop Top",
         "resetSoftness": "Reset Softness",
         "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
+        "resetToZero": "Reset to zero",
         "softness": "Softness",
         "speed": "Speed"
       }
@@ -689,23 +689,23 @@
   "es": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "Recorte inferior",
+        "cropLeft": "Recorte izquierdo",
+        "cropRight": "Recorte derecho",
+        "cropTop": "Recorte superior",
+        "cropping": "Recorte",
+        "fadeIn": "Fundido de entrada",
+        "fadeOut": "Fundido de salida",
+        "playback": "Reproduccion",
+        "resetCropBottom": "Restablecer recorte inferior",
+        "resetCropLeft": "Restablecer recorte izquierdo",
+        "resetCropRight": "Restablecer recorte derecho",
+        "resetCropTop": "Restablecer recorte superior",
+        "resetSoftness": "Restablecer suavidad",
+        "resetSpeed": "Restablecer velocidad",
+        "resetToZero": "Restablecer a cero",
+        "softness": "Suavidad",
+        "speed": "Velocidad"
       }
     },
     "effects": {
@@ -1376,23 +1376,23 @@
   "fr": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "Recadrage bas",
+        "cropLeft": "Recadrage gauche",
+        "cropRight": "Recadrage droit",
+        "cropTop": "Recadrage haut",
+        "cropping": "Recadrage",
+        "fadeIn": "Fondu entrant",
+        "fadeOut": "Fondu sortant",
+        "playback": "Lecture",
+        "resetCropBottom": "Reinitialiser le recadrage bas",
+        "resetCropLeft": "Reinitialiser le recadrage gauche",
+        "resetCropRight": "Reinitialiser le recadrage droit",
+        "resetCropTop": "Reinitialiser le recadrage haut",
+        "resetSoftness": "Reinitialiser la douceur",
+        "resetSpeed": "Reinitialiser la vitesse",
+        "resetToZero": "Remettre a zero",
+        "softness": "Douceur",
+        "speed": "Vitesse"
       }
     },
     "effects": {
@@ -2063,23 +2063,23 @@
   "de": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "Unten zuschneiden",
+        "cropLeft": "Links zuschneiden",
+        "cropRight": "Rechts zuschneiden",
+        "cropTop": "Oben zuschneiden",
+        "cropping": "Zuschneiden",
+        "fadeIn": "Einblenden",
+        "fadeOut": "Ausblenden",
+        "playback": "Wiedergabe",
+        "resetCropBottom": "Unteren Zuschnitt zuruecksetzen",
+        "resetCropLeft": "Linken Zuschnitt zuruecksetzen",
+        "resetCropRight": "Rechten Zuschnitt zuruecksetzen",
+        "resetCropTop": "Oberen Zuschnitt zuruecksetzen",
+        "resetSoftness": "Weichheit zuruecksetzen",
+        "resetSpeed": "Geschwindigkeit zuruecksetzen",
+        "resetToZero": "Auf null zuruecksetzen",
+        "softness": "Weichheit",
+        "speed": "Geschwindigkeit"
       }
     },
     "effects": {
@@ -3437,23 +3437,23 @@
   "ja": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "下をクロップ",
+        "cropLeft": "左をクロップ",
+        "cropRight": "右をクロップ",
+        "cropTop": "上をクロップ",
+        "cropping": "クロップ",
+        "fadeIn": "フェードイン",
+        "fadeOut": "フェードアウト",
+        "playback": "再生",
+        "resetCropBottom": "下のクロップをリセット",
+        "resetCropLeft": "左のクロップをリセット",
+        "resetCropRight": "右のクロップをリセット",
+        "resetCropTop": "上のクロップをリセット",
+        "resetSoftness": "ソフトさをリセット",
+        "resetSpeed": "速度をリセット",
+        "resetToZero": "ゼロにリセット",
+        "softness": "ソフトさ",
+        "speed": "速度"
       }
     },
     "effects": {
@@ -4124,23 +4124,23 @@
   "ko": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "아래 자르기",
+        "cropLeft": "왼쪽 자르기",
+        "cropRight": "오른쪽 자르기",
+        "cropTop": "위 자르기",
+        "cropping": "자르기",
+        "fadeIn": "페이드 인",
+        "fadeOut": "페이드 아웃",
+        "playback": "재생",
+        "resetCropBottom": "아래 자르기 재설정",
+        "resetCropLeft": "왼쪽 자르기 재설정",
+        "resetCropRight": "오른쪽 자르기 재설정",
+        "resetCropTop": "위 자르기 재설정",
+        "resetSoftness": "부드러움 재설정",
+        "resetSpeed": "속도 재설정",
+        "resetToZero": "0으로 재설정",
+        "softness": "부드러움",
+        "speed": "속도"
       }
     },
     "effects": {
@@ -4811,23 +4811,23 @@
   "zh": {
     "editor": {
       "videoSection": {
-        "cropBottom": "Crop Bottom",
-        "cropLeft": "Crop Left",
-        "cropRight": "Crop Right",
-        "cropTop": "Crop Top",
-        "cropping": "Cropping",
-        "fadeIn": "Fade In",
-        "fadeOut": "Fade Out",
-        "playback": "Playback",
-        "resetCropBottom": "Reset Crop Bottom",
-        "resetCropLeft": "Reset Crop Left",
-        "resetCropRight": "Reset Crop Right",
-        "resetCropTop": "Reset Crop Top",
-        "resetSoftness": "Reset Softness",
-        "resetSpeed": "Reset Speed",
-        "resetToZero": "Reset To Zero",
-        "softness": "Softness",
-        "speed": "Speed"
+        "cropBottom": "裁剪底部",
+        "cropLeft": "裁剪左侧",
+        "cropRight": "裁剪右侧",
+        "cropTop": "裁剪顶部",
+        "cropping": "裁剪",
+        "fadeIn": "淡入",
+        "fadeOut": "淡出",
+        "playback": "播放",
+        "resetCropBottom": "重置底部裁剪",
+        "resetCropLeft": "重置左侧裁剪",
+        "resetCropRight": "重置右侧裁剪",
+        "resetCropTop": "重置顶部裁剪",
+        "resetSoftness": "重置柔和度",
+        "resetSpeed": "重置速度",
+        "resetToZero": "重置为零",
+        "softness": "柔和度",
+        "speed": "速度"
       }
     },
     "effects": {

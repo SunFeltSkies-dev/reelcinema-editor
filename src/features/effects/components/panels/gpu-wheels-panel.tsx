@@ -8,6 +8,7 @@ import type { GpuEffectDefinition } from '@/infrastructure/gpu/effects'
 import { KeyframeToggle } from '@/features/effects/deps/keyframes-contract'
 import type { AnimatableProperty } from '@/types/keyframe'
 import { PropertyRow, SliderInput } from '@/shared/ui/property-controls'
+import { getEffectDefinitionName, getEffectParamLabel } from '@/features/effects/utils/effect-i18n'
 
 interface GpuWheelsPanelProps {
   itemIds: string[]
@@ -244,7 +245,7 @@ export const GpuWheelsPanel = memo(function GpuWheelsPanel({
 
   return (
     <div className="space-y-0">
-      <PropertyRow label={definition.name}>
+      <PropertyRow label={getEffectDefinitionName(t, definition)}>
         <div className="flex items-center gap-1 min-w-0 w-full justify-end">
           <Button
             variant="ghost"
@@ -322,7 +323,11 @@ export const GpuWheelsPanel = memo(function GpuWheelsPanel({
         const value = (gpuEffect.params[key] as number) ?? param.default
         const keyframeProperty = getKeyframeProperty(effect.id, key)
         return (
-          <PropertyRow key={key} label={param.label} className={tonalRowClass}>
+          <PropertyRow
+            key={key}
+            label={getEffectParamLabel(t, definition, key)}
+            className={tonalRowClass}
+          >
             <div className="flex items-center gap-1 min-w-0 w-full">
               <SliderInput
                 value={value}

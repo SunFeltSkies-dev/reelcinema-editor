@@ -8,8 +8,6 @@ const filmstripCacheMocks = vi.hoisted(() => ({
   needsPriorityRefinement: vi.fn(() => false),
   getFilmstrip: vi.fn(() => new Promise<never>(() => {})),
   abort: vi.fn(),
-  retainActiveConsumer: vi.fn(),
-  releaseActiveConsumer: vi.fn(),
 }))
 
 vi.mock('../services/filmstrip-cache', () => ({
@@ -48,7 +46,7 @@ describe('useFilmstrip', () => {
     filmstripCacheMocks.getFilmstrip.mockReturnValue(new Promise<never>(() => {}))
   })
 
-  it('releases active extraction ownership when the clip leaves the active workset', async () => {
+  it('aborts extraction when the clip leaves the active workset', async () => {
     const view = render(
       createElement(FilmstripProbe, {
         mediaId: 'media-1',
@@ -77,10 +75,10 @@ describe('useFilmstrip', () => {
       }),
     )
 
-    expect(filmstripCacheMocks.releaseActiveConsumer).toHaveBeenCalledWith('media-1')
+    expect(filmstripCacheMocks.abort).toHaveBeenCalledWith('media-1')
   })
 
-  it('releases active extraction ownership on unmount or media switch', async () => {
+  it('aborts extraction on unmount or media switch', async () => {
     const view = render(
       createElement(FilmstripProbe, {
         mediaId: 'media-1',
@@ -94,7 +92,7 @@ describe('useFilmstrip', () => {
 
     view.unmount()
 
-    expect(filmstripCacheMocks.releaseActiveConsumer).toHaveBeenCalledWith('media-1')
+    expect(filmstripCacheMocks.abort).toHaveBeenCalledWith('media-1')
   })
 
   it('starts visible filmstrip work without waiting on the audio startup hold', async () => {
