@@ -305,7 +305,13 @@ class FilmstripStorage {
           byteSize: blob.size,
         }
       })
-      this.replaceAllFrameUrls(mediaId, nextUrls)
+      if (requestedIndices) {
+        for (const { index, url } of nextUrls) {
+          this.setFrameUrl(mediaId, index, url)
+        }
+      } else {
+        this.replaceAllFrameUrls(mediaId, nextUrls)
+      }
 
       const existingIndices = frameFiles.map((frame) => frame.index)
 
