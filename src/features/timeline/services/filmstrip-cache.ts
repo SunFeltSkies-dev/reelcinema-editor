@@ -1131,8 +1131,28 @@ class FilmstripCacheService {
     priorityRange?: PriorityFrameRange,
     options?: FilmstripLoadOptions,
   ): Promise<Filmstrip> {
-    // Try loading from storage
-    const stored = await filmstripStorage.load(mediaId)
+    // If a disk hydration is already in flight or just completed, reuse those
+    // frames instead of re-reading the OPFS directory. The in-memory cache is
+    // populated by loadFromDisk via notifyUpdate.
+    await this.diskHydrationPromises.get(mediaId)?.catch(() => undefined)
+    const cachedAfterHydration = this.cache.get(mediaId)
+    if (cachedAfterHydration?.isComplete && !cachedAfterHydration.isExtracting) {
+      return cachedAfterHydration
+    }
+
+    // Try loading from storage when we haven't already
+    const stored = cachedAfterHydration?.frames.length
+      ? {
+          metadata: {
+            width: FILMSTRIP_EXTRACT_WIDTH,
+            height: FILMSTRIP_EXTRACT_HEIGHT,
+            isComplete: cachedAfterHydration.isComplete,
+            frameCount: cachedAfterHydration.frames.length,
+          },
+          frames: cachedAfterHydration.frames,
+          existingIndices: cachedAfterHydration.frames.map((frame) => frame.index),
+        }
+      : await filmstripStorage.load(mediaId)
 
     if (stored?.metadata.isComplete) {
       // Complete - return immediately
@@ -2358,6 +2378,8 @@ class FilmstripCacheService {
     return cached
   }
 
+  private diskHydrationPromises = new Map<string, Promise<Filmstrip | null>>()
+
   /**
    * Hydrate from persisted storage without starting extraction.
    *
@@ -2365,6 +2387,10 @@ class FilmstripCacheService {
    * are enough. This lets a clip show its cached frames before useMediaBlobUrl
    * resolves the source, which otherwise serializes (visibility → blobUrl →
    * filmstrip) and adds 50-200ms+ to re-display.
+   *
+   * Tracked in its own dedupe map (not loadingPromises) so that a later
+   * getFilmstrip() call still starts extraction when needed instead of just
+   * returning this hydration result.
    */
   async loadFromDisk(mediaId: string, duration: number): Promise<Filmstrip | null> {
     if (duration <= 0) return null
@@ -2375,24 +2401,15 @@ class FilmstripCacheService {
       return cached
     }
 
-    const inflight = this.loadingPromises.get(mediaId)
+    const inflight = this.diskHydrationPromises.get(mediaId)
     if (inflight) {
       return inflight
     }
 
-    const promise = (async (): Promise<Filmstrip> => {
+    const promise = (async (): Promise<Filmstrip | null> => {
       const stored = await filmstripStorage.load(mediaId)
       if (!stored) {
-        // Return whatever's in memory (possibly nothing) — caller will fall
-        // back to the extraction path once blobUrl is available.
-        return (
-          this.cache.get(mediaId) ?? {
-            frames: [],
-            isComplete: false,
-            isExtracting: false,
-            progress: 0,
-          }
-        )
+        return this.cache.get(mediaId) ?? null
       }
 
       const totalFrames = Math.ceil(duration * FRAME_RATE)
@@ -2417,11 +2434,11 @@ class FilmstripCacheService {
       return filmstrip
     })()
 
-    this.loadingPromises.set(mediaId, promise)
+    this.diskHydrationPromises.set(mediaId, promise)
     try {
       return await promise
     } finally {
-      this.loadingPromises.delete(mediaId)
+      this.diskHydrationPromises.delete(mediaId)
     }
   }
 
