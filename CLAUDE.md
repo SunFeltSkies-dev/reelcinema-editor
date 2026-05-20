@@ -19,21 +19,26 @@ Browser-based multi-track video editor. React 19 + TypeScript + Vite.
 
 ```text
 src/
-├── features/              # Self-contained feature modules
+├── features/              # User-facing UI modules
 │   ├── editor/            # Editor shell, toolbar, panels, stores
 │   ├── timeline/          # Multi-track timeline, actions, services
 │   ├── preview/           # Preview canvas, transform gizmo, scrub renderer
-│   ├── player/            # Playback engine (Clock, composition)
-│   ├── composition-runtime/ # Composition rendering (sequences, items, audio, transitions)
 │   ├── export/            # WebCodecs export pipeline (Web Worker)
-│   ├── effects/           # GPU effect system
+│   ├── effects/           # GPU effect UI panels and registry
 │   ├── keyframes/         # Keyframe animation, Bezier editor, easing
 │   ├── media-library/     # Media import, metadata, OPFS proxies, transcription
 │   ├── project-bundle/    # Project ZIP export/import
 │   ├── projects/          # Project management
-│   └── settings/          # App settings
-├── domain/                # Framework-agnostic domain logic
-│   └── timeline/          # Transitions (engine, registry, renderers), defaults
+│   ├── scene-browser/     # Caption and scene search UI
+│   ├── settings/          # App settings
+│   └── workspace-gate/    # Workspace picker / permission gate
+├── runtime/               # Playback and rendering engines (not user-facing UI features)
+│   ├── composition-runtime/ # Composition rendering (sequences, items, audio, transitions)
+│   └── player/            # Clock, video source pools, composition playback
+├── core/                  # Framework-agnostic domain rules and migrations
+│   ├── animation/         # Easing math primitives
+│   ├── projects/          # Schema migrations and normalization
+│   └── timeline/          # Transition engine/registry/renderers, defaults
 ├── infrastructure/        # Platform adapters — browser, storage, GPU, ML
 │   ├── gpu-effects/       # WebGPU effect pipeline + shader definitions
 │   ├── gpu-transitions/   # WebGPU transition pipeline + shaders
@@ -118,7 +123,7 @@ src/
 - `_splitItem()` returns `{ leftItem, rightItem } | null` — capture the return for correct IDs; the original item ID is stale after split
 - Timeline has its own `keydown` listener in `timeline.tsx` — new keyboard handlers on child panels must `stopPropagation()` and timeline checks `e.defaultPrevented`
 - **Effects are GPU-only** — all visual effects use WebGPU shaders (`type: 'gpu-effect'`). Legacy CSS filter, glitch, halftone, vignette, LUT types were removed in v6 migration. Effect definitions in `src/infrastructure/gpu-effects/effects/`, pipeline in `effects-pipeline.ts`. Specialized UI panels exist for `gpu-curves` and `gpu-color-wheels`; all others use the generic `GpuEffectPanel`
-- **Transitions are GPU-only** — all 13 transitions (fade, wipe, slide, flip, clockWipe, iris, dissolve, sparkles, glitch, lightLeak, pixelate, chromatic, radialBlur) render via WebGPU shaders in `infrastructure/gpu-transitions/`. Each renderer in `domain/timeline/transitions/renderers/` has `gpuTransitionId` linking to its shader, plus a `renderCanvas()` Canvas 2D fallback for non-WebGPU environments. `calculateStyles()` is dead code (CSS/DOM transition rendering was removed). Canvas `drawImage` offsets must use `Math.round()` to avoid sub-pixel interpolation artifacts
+- **Transitions are GPU-only** — all 13 transitions (fade, wipe, slide, flip, clockWipe, iris, dissolve, sparkles, glitch, lightLeak, pixelate, chromatic, radialBlur) render via WebGPU shaders in `infrastructure/gpu-transitions/`. Each renderer in `core/timeline/transitions/renderers/` has `gpuTransitionId` linking to its shader, plus a `renderCanvas()` Canvas 2D fallback for non-WebGPU environments. `calculateStyles()` is dead code (CSS/DOM transition rendering was removed). Canvas `drawImage` offsets must use `Math.round()` to avoid sub-pixel interpolation artifacts
 - After clip edits that change position/duration, call `applyTransitionRepairs(changedClipIds)` from `shared.ts` — transitions auto-heal or report breakages
 - `shared/logging/logger.ts` uses only `function` declarations (no `class`/`const` at module scope) to avoid temporal dead zone errors in production chunk ordering — maintain this pattern
 - Fast scrub render loop: prewarm frames use WASM decode (40-80ms) and block the loop from processing priority frames. During playback, skip prewarm entirely (`isPlaying` check) — priority frames render fast via DOM video zero-copy (~1ms) and the loop must stay responsive. Background worker preseek (`backgroundPreseek` in `decoder-prewarm.ts`) also fires on large timeline jumps (>3s) for all visible clips — the worker decodes off-thread and the render engine picks up the cached bitmap
