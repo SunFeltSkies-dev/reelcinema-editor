@@ -56,7 +56,7 @@ export const SceneCard = memo(function SceneCard({
       if (colorMode) {
         setReference({
           sceneId: `swatch-${Math.round(swatch.l)}-${Math.round(swatch.a)}-${Math.round(swatch.b)}`,
-          label: 'Picked swatch',
+          label: t('sceneBrowser.palette.pickedSwatch'),
           palette: [{ l: swatch.l, a: swatch.a, b: swatch.b, weight: 1 }],
         })
         return
@@ -66,7 +66,7 @@ export const SceneCard = memo(function SceneCard({
       setReference(null)
       setQuery(family)
     },
-    [colorMode, setQuery, setReference],
+    [colorMode, setQuery, setReference, t],
   )
 
   const handleFindSimilarPalette = useCallback(

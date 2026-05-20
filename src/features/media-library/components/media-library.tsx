@@ -795,6 +795,7 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
   }, [
     currentProjectBrokenMediaIds.length,
     currentProjectId,
+    headerCompactLevel,
     selectedAssetCount,
     selectedProxyEligibleCount,
     t,

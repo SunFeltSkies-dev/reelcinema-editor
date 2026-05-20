@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import {
   BrainCircuit,
   Check,
@@ -281,8 +281,11 @@ function ReanalyzingBanner({ items }: { items: Array<{ id: string; fileName: str
     <div className="flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 text-[11px] text-primary/90">
       <Loader2 className="h-3 w-3 shrink-0 animate-spin" />
       <span className="truncate">
-        {t('sceneBrowser.banners.reanalyzingPrefix')} <span className="font-medium">{label}</span>{' '}
-        {t('sceneBrowser.banners.reanalyzingSuffix')}
+        <Trans
+          i18nKey="sceneBrowser.banners.reanalyzing"
+          values={{ label }}
+          components={{ strong: <span className="font-medium" /> }}
+        />
       </span>
     </div>
   )

@@ -1310,7 +1310,7 @@ export function TextSection({
                                   className="h-7 w-7"
                                   onClick={() => handleSpanItalicToggle(index)}
                                   title={t('editor.textSection.italicSpan', {
-                                    label: config.label.toLowerCase(),
+                                    label: config.label,
                                   })}
                                 >
                                   <Italic className="w-3.5 h-3.5" />
@@ -1326,7 +1326,7 @@ export function TextSection({
                                 className="h-7 w-7"
                                 onClick={() => handleSpanUnderlineToggle(index)}
                                 title={t('editor.textSection.underlineSpan', {
-                                  label: config.label.toLowerCase(),
+                                  label: config.label,
                                 })}
                               >
                                 <Underline className="w-3.5 h-3.5" />
@@ -1672,7 +1672,7 @@ export function TextSection({
           </PropertyRow>
 
           <ColorPicker
-            label="Shadow"
+            label={t('editor.textSection.shadow')}
             color={sharedValues.shadowColor || '#000000'}
             onChange={handleShadowColorChange}
             onLiveChange={handleShadowColorLiveChange}
@@ -1680,7 +1680,7 @@ export function TextSection({
             defaultColor="#000000"
           />
 
-          <PropertyRow label="Shadow X">
+          <PropertyRow label={t('editor.textSection.shadowX')}>
             <div className="flex items-center gap-1 min-w-0 w-full">
               <NumberInput
                 value={shadowOffsetX}
@@ -1700,7 +1700,7 @@ export function TextSection({
             </div>
           </PropertyRow>
 
-          <PropertyRow label="Shadow Y">
+          <PropertyRow label={t('editor.textSection.shadowY')}>
             <div className="flex items-center gap-1 min-w-0 w-full">
               <NumberInput
                 value={shadowOffsetY}
@@ -1720,7 +1720,7 @@ export function TextSection({
             </div>
           </PropertyRow>
 
-          <PropertyRow label="Shadow B.">
+          <PropertyRow label={t('editor.textSection.shadowBlur')}>
             <div className="flex items-center gap-1 min-w-0 w-full">
               <NumberInput
                 value={shadowBlur}
@@ -1740,7 +1740,7 @@ export function TextSection({
             </div>
           </PropertyRow>
 
-          <PropertyRow label="Stroke W.">
+          <PropertyRow label={t('editor.textSection.strokeWidth')}>
             <div className="flex items-center gap-1 min-w-0 w-full">
               <NumberInput
                 value={strokeWidth}
@@ -1762,7 +1762,7 @@ export function TextSection({
 
           {(strokeWidth === 'mixed' || strokeWidth > 0) && (
             <ColorPicker
-              label="Stroke"
+              label={t('editor.textSection.stroke')}
               color={sharedValues.strokeColor || '#111827'}
               onChange={handleStrokeColorChange}
               onLiveChange={handleStrokeColorLiveChange}
@@ -1774,8 +1774,12 @@ export function TextSection({
       )}
 
       {showAnimationSection && (
-        <PropertySection title="Animation" icon={Sparkles} defaultOpen={true}>
-          <PropertyRow label="Intro" className="items-start">
+        <PropertySection
+          title={t('editor.textSection.animation')}
+          icon={Sparkles}
+          defaultOpen={true}
+        >
+          <PropertyRow label={t('editor.textSection.intro')} className="items-start">
             <div className="grid w-full grid-cols-4 gap-1.5">
               {TEXT_ANIMATION_PRESETS.map((preset) => (
                 <Button
@@ -1785,12 +1789,12 @@ export function TextSection({
                   className="h-7 text-[11px]"
                   onClick={() => handleApplyTextAnimationPreset('intro', preset.id)}
                 >
-                  {preset.label}
+                  {t(`editor.textSection.animationPresets.${preset.labelKey}`)}
                 </Button>
               ))}
             </div>
           </PropertyRow>
-          <PropertyRow label="Outro" className="items-start">
+          <PropertyRow label={t('editor.textSection.outro')} className="items-start">
             <div className="grid w-full grid-cols-4 gap-1.5">
               {TEXT_ANIMATION_PRESETS.map((preset) => (
                 <Button
@@ -1800,13 +1804,13 @@ export function TextSection({
                   className="h-7 text-[11px]"
                   onClick={() => handleApplyTextAnimationPreset('outro', preset.id)}
                 >
-                  {preset.label}
+                  {t(`editor.textSection.animationPresets.${preset.labelKey}`)}
                 </Button>
               ))}
             </div>
           </PropertyRow>
           <div className="px-1 pt-1 text-[11px] text-muted-foreground">
-            Applies short ease-out text motion at the start or end of each selected clip.
+            {t('editor.textSection.animationFooter')}
           </div>
         </PropertySection>
       )}

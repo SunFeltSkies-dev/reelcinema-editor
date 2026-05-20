@@ -165,7 +165,7 @@ export function useWaveform({
             }
             if (!blobUrl) {
               setIsLoading(false)
-              setProgress(result?.isComplete ? 100 : 0)
+              setProgress(0)
               return null
             }
 
