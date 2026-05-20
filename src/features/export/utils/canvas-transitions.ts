@@ -11,7 +11,7 @@ import { transitionRegistry } from '@/core/timeline/transitions/registry'
 import { resolveTransitionWindows } from '@/core/timeline/transitions/transition-planner'
 import { resolveTransitionFrameState } from '@/features/export/deps/composition-runtime'
 import { createLogger } from '@/shared/logging/logger'
-import type { TransitionPipeline } from '@/infrastructure/gpu/transitions'
+import type { TransitionPipeline } from '@/infrastructure/gpu-transitions'
 
 const log = createLogger('CanvasTransitions')
 

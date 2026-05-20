@@ -40,17 +40,17 @@ import {
   type AdjustmentLayerWithTrackOrder,
 } from './canvas-effects'
 import { EffectsPipeline } from '@/infrastructure/gpu-effects'
-import { TransitionPipeline } from '@/infrastructure/gpu/transitions'
-import { MediaBlendPipeline, MediaRenderPipeline } from '@/infrastructure/gpu/media'
-import { ShapeRenderPipeline } from '@/infrastructure/gpu/shapes'
-import { GlyphAtlasTextPipeline } from '@/infrastructure/gpu/text'
+import { TransitionPipeline } from '@/infrastructure/gpu-transitions'
+import { MediaBlendPipeline, MediaRenderPipeline } from '@/infrastructure/gpu-media'
+import { ShapeRenderPipeline } from '@/infrastructure/gpu-shapes'
+import { GlyphAtlasTextPipeline } from '@/infrastructure/gpu-text'
 import {
   CompositorPipeline,
   DEFAULT_LAYER_PARAMS,
   GpuTexturePool,
-} from '@/infrastructure/gpu/compositor'
-import type { CompositeLayer } from '@/infrastructure/gpu/compositor'
-import { MaskCombinePipeline, MaskTextureManager } from '@/infrastructure/gpu/masks'
+} from '@/infrastructure/gpu-compositor'
+import type { CompositeLayer } from '@/infrastructure/gpu-compositor'
+import { MaskCombinePipeline, MaskTextureManager } from '@/infrastructure/gpu-masks'
 import {
   applyMasks,
   buildMaskFrameIndex,

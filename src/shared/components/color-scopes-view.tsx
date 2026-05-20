@@ -4,7 +4,7 @@ import { getResolvedPlaybackFrame, usePlaybackStore } from '@/shared/state/playb
 import { usePreviewBridgeStore } from '@/shared/state/preview-bridge'
 import { cn } from '@/shared/ui/cn'
 import { Button } from '@/components/ui/button'
-import { ScopeRenderer } from '@/infrastructure/gpu/scopes'
+import { ScopeRenderer } from '@/infrastructure/gpu-scopes'
 
 const SAMPLE_WIDTH_PAUSED = 384
 const SAMPLE_HEIGHT_PAUSED = 216

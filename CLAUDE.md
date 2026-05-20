@@ -34,17 +34,21 @@ src/
 │   └── settings/          # App settings
 ├── domain/                # Framework-agnostic domain logic
 │   └── timeline/          # Transitions (engine, registry, renderers), defaults
-├── infrastructure/        # Browser/storage/GPU adapters
-│   ├── gpu/               # Facades for gpu-effects, gpu-transitions, gpu-compositor
-│   └── storage/           # IndexedDB persistence via idb
-├── lib/                   # Core libraries (import via infrastructure/ facades)
+├── infrastructure/        # Platform adapters — browser, storage, GPU, ML
 │   ├── gpu-effects/       # WebGPU effect pipeline + shader definitions
 │   ├── gpu-transitions/   # WebGPU transition pipeline + shaders
-│   ├── gpu-compositor/    # WebGPU blend mode compositor
-│   ├── gpu-scopes/        # WebGPU waveform/vectorscope renderers
-│   ├── fonts/             # Font loading
-│   ├── shapes/            # Shape path generators
-│   └── migrations/        # Data migration system
+│   ├── gpu-compositor/    # WebGPU blend-mode compositor
+│   ├── gpu-masks/         # Mask combine pipeline + texture manager
+│   ├── gpu-media/         # Media render/blend pipelines
+│   ├── gpu-scopes/        # Waveform/vectorscope/histogram renderers
+│   ├── gpu-shapes/        # Shape render pipeline
+│   ├── gpu-text/          # Glyph-atlas text pipeline
+│   ├── gpu-shared/        # WGSL fragments shared across GPU modules
+│   ├── analysis/          # Scene detection, captioning, embeddings, optical flow
+│   ├── audio/             # SoundTouch-based time-stretch
+│   ├── browser/           # Blob URLs, OPFS, mediabunny adapter
+│   ├── storage/           # Workspace FS persistence + legacy IDB migration
+│   └── thumbnails/        # GPU thumbnail renderer + sampling strategy
 ├── shared/                # Shared UI/state/utilities across layers
 │   ├── logging/           # Structured logger, frame jitter monitor
 │   ├── state/             # Zustand stores (playback, editor, selection)
@@ -65,10 +69,10 @@ src/
 - **Timeline item types**: `TimelineItem` is a discriminated union on `type`: `video | audio | text | image | shape | adjustment | composition` — GIFs use `image` type, no separate gif type. Types in `src/types/timeline.ts`
 - **Item positioning**: Remotion convention — `from` (start frame in project FPS) + `durationInFrames`
 - **Compositions**: Pre-compositions (sub-comps) have dedicated stores (`compositions-store.ts`, `composition-navigation-store.ts`). 1-level nesting only. Actions in `composition-actions.ts`
-- **Migrations**: `lib/migrations/` — versioned migrations + normalization run on every project load. Increment `CURRENT_SCHEMA_VERSION` in `types.ts` when adding new migrations
+- **Migrations**: `src/core/projects/migrations/` — versioned migrations + normalization run on every project load. Increment `CURRENT_SCHEMA_VERSION` in `types.ts` when adding new migrations
 - **Routing**: TanStack Router — run `npm run routes` after adding/changing route files
 - **Path alias**: `@/*` → `src/*`
-- **i18n**: i18next + react-i18next, initialized in `src/i18n/index.ts` (imported once from `main.tsx`). 8 languages (`en`, `es`, `fr`, `de`, `pt-BR`, `ja`, `ko`, `zh`) in `src/i18n/languages.ts`. Base strings in `src/i18n/locales/<lang>.json`; per-feature strings live in `src/i18n/locales/partials/<name>.json` (shape `{ "<lang>": { ...tree slice... } }`, deep-merged over base at startup). In components use `const { t } = useTranslation()`; outside React use `import { i18n } from '@/i18n'` then `i18n.t()` (`@/i18n` is allowed by the boundary checks — it's not `@/features/*` or `@/lib/*`). For strings with inline markup use `<Trans i18nKey=... components={{ strong: <strong/> }} />`. Resources are deliberately untyped (`i18next.d.ts`) so `t()` accepts any key. Language selector lives in the editor Settings dialog (General); persisted to `localStorage` key `freecut-language` by the language detector. When adding new partials, translate all 8 languages and keep identical key structure; never put a bare ASCII `"` inside a JSON string value.
+- **i18n**: i18next + react-i18next, initialized in `src/i18n/index.ts` (imported once from `main.tsx`). 8 languages (`en`, `es`, `fr`, `de`, `pt-BR`, `ja`, `ko`, `zh`) in `src/i18n/languages.ts`. Base strings in `src/i18n/locales/<lang>.json`; per-feature strings live in `src/i18n/locales/partials/<name>.json` (shape `{ "<lang>": { ...tree slice... } }`, deep-merged over base at startup). In components use `const { t } = useTranslation()`; outside React use `import { i18n } from '@/i18n'` then `i18n.t()` (`@/i18n` is allowed by the boundary checks — it's not `@/features/*`). For strings with inline markup use `<Trans i18nKey=... components={{ strong: <strong/> }} />`. Resources are deliberately untyped (`i18next.d.ts`) so `t()` accepts any key. Language selector lives in the editor Settings dialog (General); persisted to `localStorage` key `freecut-language` by the language detector. When adding new partials, translate all 8 languages and keep identical key structure; never put a bare ASCII `"` inside a JSON string value.
 - **Styling**: Tailwind CSS 4 + shadcn/ui (Radix primitives)
 - **Media processing**: Mediabunny for decode, WebCodecs for export, Web Workers for heavy ops
 - **Storage**: Workspace folder via File System Access API (see `infrastructure/storage/workspace-fs/`). Source of truth is a user-picked directory on disk — projects, media metadata, thumbnails, waveforms, gif frames, decoded audio, transcripts all live as plain files. `WorkspaceGate` (`src/features/workspace-gate/`) blocks app render until a workspace is granted. IndexedDB is only used for a tiny handle registry (`freecut-handles-db` v1, at `infrastructure/storage/handles-db.ts`) that stores non-serializable `FileSystem*Handle` references. Legacy `video-editor-db` is read only by the one-time migration path under `infrastructure/storage/legacy-idb/` (reader.ts + migrate.ts); consumers import from the barrel `@/infrastructure/storage` which routes everything to workspace-fs
@@ -113,10 +117,10 @@ src/
 - Inline edit cancel (Escape) triggers blur on unmount — use a ref guard to prevent `onBlur` from committing the cancelled value
 - `_splitItem()` returns `{ leftItem, rightItem } | null` — capture the return for correct IDs; the original item ID is stale after split
 - Timeline has its own `keydown` listener in `timeline.tsx` — new keyboard handlers on child panels must `stopPropagation()` and timeline checks `e.defaultPrevented`
-- **Effects are GPU-only** — all visual effects use WebGPU shaders (`type: 'gpu-effect'`). Legacy CSS filter, glitch, halftone, vignette, LUT types were removed in v6 migration. Effect definitions in `src/lib/gpu-effects/effects/`, pipeline in `effects-pipeline.ts`. Specialized UI panels exist for `gpu-curves` and `gpu-color-wheels`; all others use the generic `GpuEffectPanel`
-- **Transitions are GPU-only** — all 13 transitions (fade, wipe, slide, flip, clockWipe, iris, dissolve, sparkles, glitch, lightLeak, pixelate, chromatic, radialBlur) render via WebGPU shaders in `lib/gpu-transitions/`. Each renderer in `domain/timeline/transitions/renderers/` has `gpuTransitionId` linking to its shader, plus a `renderCanvas()` Canvas 2D fallback for non-WebGPU environments. `calculateStyles()` is dead code (CSS/DOM transition rendering was removed). Canvas `drawImage` offsets must use `Math.round()` to avoid sub-pixel interpolation artifacts
+- **Effects are GPU-only** — all visual effects use WebGPU shaders (`type: 'gpu-effect'`). Legacy CSS filter, glitch, halftone, vignette, LUT types were removed in v6 migration. Effect definitions in `src/infrastructure/gpu-effects/effects/`, pipeline in `effects-pipeline.ts`. Specialized UI panels exist for `gpu-curves` and `gpu-color-wheels`; all others use the generic `GpuEffectPanel`
+- **Transitions are GPU-only** — all 13 transitions (fade, wipe, slide, flip, clockWipe, iris, dissolve, sparkles, glitch, lightLeak, pixelate, chromatic, radialBlur) render via WebGPU shaders in `infrastructure/gpu-transitions/`. Each renderer in `domain/timeline/transitions/renderers/` has `gpuTransitionId` linking to its shader, plus a `renderCanvas()` Canvas 2D fallback for non-WebGPU environments. `calculateStyles()` is dead code (CSS/DOM transition rendering was removed). Canvas `drawImage` offsets must use `Math.round()` to avoid sub-pixel interpolation artifacts
 - After clip edits that change position/duration, call `applyTransitionRepairs(changedClipIds)` from `shared.ts` — transitions auto-heal or report breakages
-- `lib/logger.ts` uses only `function` declarations (no `class`/`const` at module scope) to avoid temporal dead zone errors in production chunk ordering — maintain this pattern
+- `shared/logging/logger.ts` uses only `function` declarations (no `class`/`const` at module scope) to avoid temporal dead zone errors in production chunk ordering — maintain this pattern
 - Fast scrub render loop: prewarm frames use WASM decode (40-80ms) and block the loop from processing priority frames. During playback, skip prewarm entirely (`isPlaying` check) — priority frames render fast via DOM video zero-copy (~1ms) and the loop must stay responsive. Background worker preseek (`backgroundPreseek` in `decoder-prewarm.ts`) also fires on large timeline jumps (>3s) for all visible clips — the worker decodes off-thread and the render engine picks up the cached bitmap
 - **Render loop concurrency** — `pumpRenderLoop` uses a single-mutex (`scrubRenderInFlightRef`) to prevent concurrent pump iterations during scrubbing. A `scrubRenderGenerationRef` counter is bumped ONLY on playback-start force-clear (not during scrub). The `finally` block releases the lock and triggers follow-up work only when the generation matches; stale pumps (from a superseded playback-start) leave the lock for the new owner. Never bump generation or force-clear the lock on sequential scrub frames — this causes unbounded concurrent pumps. The `data-transition-hold` attribute on DOM video elements coordinates with `video-content.tsx` premount logic and `clearTransitionPlaybackSession` cleanup
 - **Transition participant video hold** — during transitions, the incoming clip's DOM video element is paused by `video-content.tsx` premount logic. The transition provider marks it with `data-transition-hold="1"` and calls `.play()` so the canvas renderer gets advancing frames. The mark is removed in `clearTransitionPlaybackSession`. Without this, the incoming clip shows a frozen frame during the transition
@@ -127,4 +131,4 @@ src/
 - **GPU pipeline caching** — `EffectsPipeline.requestCachedDevice()` caches the WebGPU adapter + device globally. Subsequent `EffectsPipeline.create()` calls reuse the device (~50-100ms saved). The device-loss handler checks identity before clearing to avoid discarding a freshly acquired device. The preview component eagerly warms the GPU pipeline on mount (parallel with media resolution)
 - **`__DEBUG__` API** — `window.__DEBUG__` (DEV-only, tree-shaken in prod) provides console debugging: `stores()`, `getTransitions()`, `getTransitionWindows()`, `getPlaybackState()`, `getTracks()`, `getMediaLibrary()`, `jitter()` (frame timing), `previewPerf()`, `transitionTrace()`, `prewarmCache()`, `filmstripMetrics()`, plus playback control (`seekTo`, `play`, `pause`). All use lazy `await import()` to avoid pulling in stores eagerly
 - **Transition prearm covers all types** — the `forceFastScrubOverlay` subscription uses `getPlayingAnyTransitionPrewarmStartFrame` (not complex-only) so all transitions get their session pinned and DOM video elements playing before entry. Also checks `getTransitionWindowForFrame` for playback starting inside an active transition
-- **Feature boundary rules** — features must not import from `@/lib/*` directly (use `@/infrastructure/` facades). Cross-feature imports must go through `deps/` adapter modules. The pre-push hook enforces both via `check:boundaries` and `check:legacy-lib-imports`
+- **Feature boundary rules** — cross-feature imports must go through `deps/` adapter modules. The pre-push hook enforces this via `check:boundaries`. (A `check:legacy-lib-imports` tripwire also catches any reintroduction of `@/lib/*` imports — the `src/lib/` layer was removed and merged into `infrastructure/`.)

@@ -13,7 +13,7 @@ import type {
 import type { ActiveTransition } from './canvas-transitions'
 import type { GpuTextTextureCacheEntry, ItemRenderContext } from './canvas-item-renderer'
 import type { VideoFrameSource } from './shared-video-extractor'
-import { MAX_GPU_SHAPE_PATH_VERTICES } from '@/infrastructure/gpu/shapes'
+import { MAX_GPU_SHAPE_PATH_VERTICES } from '@/infrastructure/gpu-shapes'
 const testSpies = vi.hoisted(() => ({
   loggerDebugSpy: vi.fn(),
 }))
