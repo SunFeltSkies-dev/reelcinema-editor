@@ -16,6 +16,10 @@ export { OpfsAssetCache } from './opfs-cache'
 export type { OpfsCacheConfig, CacheEntryMeta } from './opfs-cache'
 export { useAsset } from './use-asset'
 export type { UseAssetOptions, UseAssetResult } from './use-asset'
+export { assetToImportedAsset } from './asset-bridge'
+export type { ImportedAsset } from './asset-bridge'
+export { useImportedAsset } from './use-imported-asset'
+export type { UseImportedAssetOptions, UseImportedAssetResult } from './use-imported-asset'
 export type {
   Asset,
   AssetApprovalState,
