@@ -54,11 +54,8 @@ import {
   getProjectMediaIds,
   getProjectsUsingMedia,
   getMediaForProject as getMediaForProjectDB,
-  deleteTranscript,
   readAiOutput,
   saveCaptions,
-  deleteCaptions,
-  deleteScenes,
   hasMediaSource,
   readMediaSource,
   writeMediaSource,
@@ -221,30 +218,6 @@ function parseMediaImportUrl(input: string): URL {
 class MediaLibraryService {
   /** In-memory cache for thumbnail blob URLs to prevent flicker on re-renders */
   private thumbnailUrlCache = new Map<string, string>()
-
-  private async deleteTranscriptSafely(mediaId: string): Promise<void> {
-    try {
-      await deleteTranscript(mediaId)
-    } catch (error) {
-      logger.warn('Failed to delete transcript:', error)
-    }
-  }
-
-  private async deleteCaptionsSafely(mediaId: string): Promise<void> {
-    try {
-      await deleteCaptions(mediaId)
-    } catch (error) {
-      logger.warn('Failed to delete captions:', error)
-    }
-  }
-
-  private async deleteScenesSafely(mediaId: string): Promise<void> {
-    try {
-      await deleteScenes(mediaId)
-    } catch (error) {
-      logger.warn('Failed to delete scenes:', error)
-    }
-  }
 
   private async deleteThumbnailsSafely(mediaId: string): Promise<void> {
     this.clearThumbnailCache(mediaId)
@@ -1046,9 +1019,6 @@ class MediaLibraryService {
       // Delete media metadata
       await deleteMediaDB(mediaId)
 
-      await this.deleteTranscriptSafely(mediaId)
-      await this.deleteCaptionsSafely(mediaId)
-      await this.deleteScenesSafely(mediaId)
       await this.deleteThumbnailsSafely(mediaId)
       await this.clearGifFrameCacheSafely(mediaId)
       await this.clearFilmstripCacheSafely(mediaId)
@@ -1144,10 +1114,6 @@ class MediaLibraryService {
     await this.deleteProxySafely(media)
 
     await deleteMediaDB(id)
-
-    await this.deleteTranscriptSafely(id)
-    await this.deleteCaptionsSafely(id)
-    await this.deleteScenesSafely(id)
   }
 
   /**
