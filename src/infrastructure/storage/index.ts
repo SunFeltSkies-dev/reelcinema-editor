@@ -2,8 +2,7 @@
  * Storage barrel — re-exports the workspace-fs layer.
  *
  * All storage now lives in the user-picked workspace folder via
- * `workspace-fs/*`. Legacy `video-editor-db` IndexedDB reads live under
- * `legacy-idb/` and are only touched by the one-time migration banner.
+ * `workspace-fs/*`.
  */
 
 // Projects
@@ -54,7 +53,7 @@ export {
   getMediaForProject,
 } from '@/infrastructure/storage/workspace-fs/project-media'
 
-// Waveforms
+// Waveforms — backed by OpfsDerivedCache (SC-3.f retire)
 export {
   getWaveform,
   getWaveformRecord,
@@ -64,7 +63,7 @@ export {
   saveWaveformMeta,
   saveWaveformBin,
   deleteWaveform,
-} from '@/infrastructure/storage/workspace-fs/waveforms'
+} from '@/infrastructure/storage/reelcinema/waveform-bridge-singleton'
 
 // GIF frames
 export {

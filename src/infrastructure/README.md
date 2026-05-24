@@ -37,11 +37,12 @@ WebGPU-backed rendering pipelines and shared shader code.
 ## Storage
 
 - `storage/workspace-fs/*` — File System Access API-backed persistence
-  (projects, media, thumbnails, waveforms, captions, transcripts, etc.).
+  (projects, media, thumbnails, captions, transcripts, etc.).
+- `storage/reelcinema/*` — Backbone API client + OPFS caches for
+  ReelCinema-hosted assets. Waveforms retired here via
+  `WaveformBridge` + `OpfsDerivedCache` (SC-3.f).
 - `storage/handles-db.ts` — Tiny IndexedDB registry for non-serializable
   `FileSystem*Handle` references.
-- `storage/legacy-idb/*` — One-time migration reader for the legacy
-  `video-editor-db` IndexedDB.
 - `storage/cache-version.ts` — Cache version constants/helpers.
 
 ## Thumbnails
