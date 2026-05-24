@@ -16,10 +16,6 @@ import { captureContextMenuEventInit, replayContextMenuEvent } from '../../utils
 import { useSelectionStore } from '@/shared/state/selection'
 import { PROPERTY_LABELS, type AnimatableProperty } from '@/types/keyframe'
 import type { PropertyKeyframes } from '@/types/keyframe'
-import {
-  getSceneVerificationModelOptions,
-  type VerificationModel,
-} from '@/features/timeline/deps/analysis'
 import { formatHotkeyBinding } from '@/config/hotkeys'
 import { useResolvedHotkeys } from '@/features/timeline/deps/settings'
 
@@ -67,13 +63,6 @@ interface ItemContextMenuProps {
   /** Whether multiple items are selected (enables pre-comp creation) */
   canCreatePreComp?: boolean
   onCreatePreComp?: () => void
-  /** Whether scene detection is available for this item */
-  canDetectScenes?: boolean
-  isDetectingScenes?: boolean
-  onDetectScenes?: (
-    method: 'histogram' | 'optical-flow',
-    verificationModel?: VerificationModel,
-  ) => void
   canRemoveSilence?: boolean
   isRemovingSilence?: boolean
   onRemoveSilence?: () => void
@@ -124,9 +113,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
   onDissolveComposition,
   canCreatePreComp,
   onCreatePreComp,
-  canDetectScenes,
-  isDetectingScenes,
-  onDetectScenes,
   canRemoveSilence,
   isRemovingSilence,
   onRemoveSilence,
@@ -188,9 +174,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
       onDissolveComposition={onDissolveComposition}
       canCreatePreComp={canCreatePreComp}
       onCreatePreComp={onCreatePreComp}
-      canDetectScenes={canDetectScenes}
-      isDetectingScenes={isDetectingScenes}
-      onDetectScenes={onDetectScenes}
       canRemoveSilence={canRemoveSilence}
       isRemovingSilence={isRemovingSilence}
       onRemoveSilence={onRemoveSilence}
@@ -270,9 +253,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
   onDissolveComposition,
   canCreatePreComp,
   onCreatePreComp,
-  canDetectScenes,
-  isDetectingScenes,
-  onDetectScenes,
   canRemoveSilence,
   isRemovingSilence,
   onRemoveSilence,
@@ -292,8 +272,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
     if (!keyframedProperties) return []
     return keyframedProperties.filter((p) => p.keyframes.length > 0)
   }, [keyframedProperties])
-  const sceneVerificationModelOptions = useMemo(() => getSceneVerificationModelOptions(), [])
-
   const hasKeyframes = propertiesWithKeyframes.length > 0
 
   useLayoutEffect(() => {
@@ -425,36 +403,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
               {t('timeline.contextMenu.insertFreezeFrame')}
               <ContextMenuShortcut>Shift+F</ContextMenuShortcut>
             </ContextMenuItem>
-            <ContextMenuSeparator />
-          </>
-        )}
-
-        {canDetectScenes && onDetectScenes && (
-          <>
-            {isDetectingScenes ? (
-              <ContextMenuItem disabled>
-                {t('timeline.contextMenu.detectingScenes')}
-              </ContextMenuItem>
-            ) : (
-              <ContextMenuSub>
-                <ContextMenuSubTrigger>
-                  {t('timeline.contextMenu.detectScenesAndSplit')}
-                </ContextMenuSubTrigger>
-                <ContextMenuSubContent className="w-48">
-                  <ContextMenuItem onClick={() => onDetectScenes('histogram')}>
-                    {t('timeline.contextMenu.detectScenesFast')}
-                  </ContextMenuItem>
-                  {sceneVerificationModelOptions.map((option) => (
-                    <ContextMenuItem
-                      key={option.value}
-                      onClick={() => onDetectScenes('optical-flow', option.value)}
-                    >
-                      {t('timeline.contextMenu.detectScenesAi', { model: option.label })}
-                    </ContextMenuItem>
-                  ))}
-                </ContextMenuSubContent>
-              </ContextMenuSub>
-            )}
             <ContextMenuSeparator />
           </>
         )}

@@ -7,7 +7,6 @@ const mediaLibraryServiceMocks = vi.hoisted(() => ({
   getThumbnailBlobUrl: vi.fn(),
   getMediaFile: vi.fn(),
   getMediaBlobUrl: vi.fn(),
-  updateMediaCaptions: vi.fn(),
 }))
 
 const proxyServiceMocks = vi.hoisted(() => ({
@@ -50,24 +49,11 @@ const mediaStoreState = vi.hoisted(() => ({
   importingIds: [] as string[],
   proxyStatus: new Map<string, 'generating' | 'ready' | 'error'>(),
   proxyProgress: new Map<string, number>(),
-  taggingMediaIds: new Set<string>(),
   setProxyStatus: vi.fn(),
   clearProxyStatus: vi.fn(),
-  setTaggingMedia: vi.fn(),
-  updateMediaCaptions: vi.fn(),
   showNotification: vi.fn(),
   markMediaBroken: vi.fn(),
   openMissingMediaDialog: vi.fn(),
-  analysisProgress: null as null | { total: number; completed: number; cancelRequested: boolean },
-  beginAnalysisRun: vi.fn(),
-  incrementAnalysisCompleted: vi.fn(),
-  requestAnalysisCancel: vi.fn(),
-  endAnalysisRun: vi.fn(),
-}))
-
-const analysisMocks = vi.hoisted(() => ({
-  captionVideo: vi.fn(),
-  captionImage: vi.fn(),
 }))
 
 const editorStoreState = vi.hoisted(() => ({
@@ -210,36 +196,6 @@ vi.mock('../utils/drag-data-cache', () => ({
   clearMediaDragData: vi.fn(),
 }))
 
-vi.mock('@/shared/state/local-inference', () => ({
-  isLocalInferenceCancellationError: vi.fn(() => false),
-}))
-
-vi.mock('../deps/analysis', () => analysisMocks)
-
-const settingsStoreState = vi.hoisted(() => ({
-  captioningIntervalUnit: 'seconds' as const,
-  captioningIntervalValue: 3,
-}))
-
-vi.mock('../deps/settings-contract', () => ({
-  useSettingsStore: {
-    getState: () => settingsStoreState,
-  },
-  resolveCaptioningIntervalSec: (unit: 'seconds' | 'frames', value: number, fps: number) =>
-    unit === 'seconds' ? value : value / (fps > 0 ? fps : 30),
-  DEFAULT_CAPTIONING_INTERVAL_SECONDS: 3,
-}))
-
-vi.mock('@/infrastructure/storage', () => ({
-  saveCaptionThumbnail: vi.fn(async () => undefined),
-  deleteCaptionThumbnails: vi.fn(async () => undefined),
-  deleteCaptionEmbeddings: vi.fn(async () => undefined),
-  saveCaptionEmbeddings: vi.fn(async () => undefined),
-  saveCaptionImageEmbeddings: vi.fn(async () => undefined),
-  getCaptionThumbnailBlob: vi.fn(async () => null),
-  getTranscript: vi.fn(async () => null),
-}))
-
 import { MediaCard } from './media-card'
 
 function makeMedia(overrides: Partial<MediaMetadata> = {}): MediaMetadata {
@@ -271,7 +227,6 @@ describe('MediaCard', () => {
     mediaStoreState.importingIds = []
     mediaStoreState.proxyStatus = new Map()
     mediaStoreState.proxyProgress = new Map()
-    mediaStoreState.taggingMediaIds = new Set()
     mediaStoreState.markMediaBroken.mockReset()
     mediaStoreState.openMissingMediaDialog.mockReset()
     embeddedSubtitlePickerStoreMocks.open.mockReset()
@@ -459,22 +414,6 @@ describe('MediaCard', () => {
     expect(onRelink).toHaveBeenCalledTimes(1)
   })
 
-  it('shows an active AI analysis badge in list view while analysis is running', () => {
-    mediaStoreState.taggingMediaIds = new Set(['media-1'])
-
-    const { container } = render(<MediaCard media={makeMedia()} viewMode="list" />)
-
-    expect(container.querySelector('[title="Analyzing with AI"]')).toBeTruthy()
-  })
-
-  it('shows an active AI analysis badge in grid view while analysis is running', () => {
-    mediaStoreState.taggingMediaIds = new Set(['media-1'])
-
-    const { container } = render(<MediaCard media={makeMedia()} viewMode="grid" />)
-
-    expect(container.querySelector('[title="Analyzing with AI"]')).toBeTruthy()
-  })
-
   it('opens a caption in the source monitor with a default three-second I/O range', () => {
     render(<MediaCard media={makeMedia()} viewMode="list" />)
 
@@ -550,74 +489,5 @@ describe('MediaCard', () => {
         element.getAttribute('style')?.includes('right: 0px'),
       ),
     ).toBe(true)
-  })
-
-  it('stores AI analysis on the media item without inserting timeline captions', async () => {
-    const media = makeMedia({
-      fileName: 'frame.png',
-      mimeType: 'image/png',
-      duration: 0,
-      fps: 0,
-      codec: '',
-    })
-    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-      blob: async () => new Blob(['image-data']),
-    } as Response)
-    analysisMocks.captionImage.mockResolvedValue([
-      {
-        timeSec: 1.25,
-        text: 'First line',
-        sceneData: {
-          caption: 'First line',
-          shotType: 'medium close-up',
-          timeOfDay: 'dusk',
-          weather: 'rainy',
-        },
-      },
-      { timeSec: 2.5, text: 'Second line' },
-    ])
-
-    render(<MediaCard media={media} viewMode="list" />)
-
-    fireEvent.click(screen.getByText('Analyze with AI'))
-
-    await waitFor(() => {
-      expect(mediaLibraryServiceMocks.updateMediaCaptions).toHaveBeenCalledWith(
-        'media-1',
-        [
-          {
-            timeSec: 1.25,
-            text: 'First line',
-            sceneData: {
-              caption: 'First line',
-              shotType: 'medium close-up',
-              timeOfDay: 'dusk',
-              weather: 'rainy',
-            },
-          },
-          { timeSec: 2.5, text: 'Second line' },
-        ],
-        expect.objectContaining({ sampleIntervalSec: expect.any(Number) }),
-      )
-    })
-
-    expect(mediaStoreState.updateMediaCaptions).toHaveBeenCalledWith('media-1', [
-      {
-        timeSec: 1.25,
-        text: 'First line',
-        sceneData: {
-          caption: 'First line',
-          shotType: 'medium close-up',
-          timeOfDay: 'dusk',
-          weather: 'rainy',
-        },
-      },
-      { timeSec: 2.5, text: 'Second line' },
-    ])
-    expect(mediaStoreState.showNotification).toHaveBeenCalledWith({
-      type: 'success',
-      message: 'Generated 2 scene captions for "frame.png"',
-    })
-    fetchMock.mockRestore()
   })
 })

@@ -1794,7 +1794,6 @@ export const TimelineItem = memo(
       getCanJoinSelected,
       getCanLinkSelected,
       getCanUnlinkSelected,
-      isSceneDetectionActive,
       isCompositionItem,
       handleJoinSelected,
       handleJoinLeft,
@@ -1811,15 +1810,12 @@ export const TimelineItem = memo(
       handleCreatePreComp,
       handleEnterComposition,
       handleDissolveComposition,
-      handleDetectScenes,
       handleRemoveSilence,
       isRemovingSilence,
     } = useTimelineItemActions({
       item,
-      isBroken,
       leftNeighbor,
       rightNeighbor,
-      segmentOverlays,
     })
 
     const {
@@ -3165,9 +3161,6 @@ export const TimelineItem = memo(
           onDissolveComposition={handleDissolveComposition}
           canCreatePreComp={isSelected}
           onCreatePreComp={handleCreatePreComp}
-          canDetectScenes={item.type === 'video' && !!item.mediaId && !isBroken}
-          isDetectingScenes={isSceneDetectionActive}
-          onDetectScenes={handleDetectScenes}
           canRemoveSilence={
             (item.type === 'video' || item.type === 'audio') && !!item.mediaId && !isBroken
           }
