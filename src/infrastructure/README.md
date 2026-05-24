@@ -40,8 +40,6 @@ WebGPU-backed rendering pipelines and shared shader code.
   (projects, media, thumbnails, waveforms, captions, transcripts, etc.).
 - `storage/handles-db.ts` — Tiny IndexedDB registry for non-serializable
   `FileSystem*Handle` references.
-- `storage/legacy-idb/*` — One-time migration reader for the legacy
-  `video-editor-db` IndexedDB.
 - `storage/cache-version.ts` — Cache version constants/helpers.
 
 ## Thumbnails
