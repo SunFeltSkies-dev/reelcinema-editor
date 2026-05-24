@@ -240,10 +240,6 @@ vi.mock('@/infrastructure/storage', () => ({
   getTranscript: vi.fn(async () => null),
 }))
 
-vi.mock('../deps/scene-browser', () => ({
-  invalidateMediaCaptionThumbnails: vi.fn(),
-}))
-
 import { MediaCard } from './media-card'
 
 function makeMedia(overrides: Partial<MediaMetadata> = {}): MediaMetadata {

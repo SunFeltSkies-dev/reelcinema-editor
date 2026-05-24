@@ -26,9 +26,9 @@ export interface SourcePlayerState {
   /**
    * When true, the source monitor starts playback after consuming the
    * next `pendingSeekFrame`. The monitor always pauses before seeking,
-   * so scene-browser single-click just queues a seek (leaves paused)
-   * while double-click queues `pendingPlay: true` to play from the new
-   * scene.
+   * so a single-click can queue a seek (leaves paused) while
+   * double-click queues `pendingPlay: true` to play from the new
+   * position.
    */
   pendingPlay: boolean
   setHoveredPanel: (panel: 'source' | null) => void

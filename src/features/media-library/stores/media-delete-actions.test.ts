@@ -30,12 +30,6 @@ vi.mock('@/infrastructure/browser/blob-url-manager', () => ({
   blobUrlManager: blobUrlManagerMocks,
 }))
 
-const sceneBrowserMocks = vi.hoisted(() => ({
-  invalidateMediaCaptionThumbnails: vi.fn(),
-}))
-
-vi.mock('../deps/scene-browser', () => sceneBrowserMocks)
-
 type DeleteState = Partial<MediaLibraryState> & Partial<MediaLibraryActions>
 type DeleteUpdater =
   | Partial<MediaLibraryState>

@@ -2,7 +2,6 @@ import type { MediaLibraryState, MediaLibraryActions } from '../types'
 import { mediaLibraryService } from '../services/media-library-service'
 import { proxyService } from '../services/proxy-service'
 import { blobUrlManager } from '@/infrastructure/browser/blob-url-manager'
-import { invalidateMediaCaptionThumbnails } from '../deps/scene-browser'
 
 type Set = (
   partial:
@@ -22,11 +21,6 @@ function releaseDeletedMediaResources(ids: string[]): void {
   for (const id of ids) {
     blobUrlManager.release(id)
     proxyService.clearProxyKey(id)
-    // Drop every Scene Browser cache tied to this media — thumbnail blob
-    // URLs (which otherwise pin the JPEG in memory forever), lazy-thumb
-    // result memos, and both text + image embedding maps. Disk-side
-    // cleanup is already handled by the recursive `media/{id}/` removal.
-    invalidateMediaCaptionThumbnails(id)
   }
 }
 

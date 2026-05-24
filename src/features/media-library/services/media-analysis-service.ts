@@ -36,7 +36,6 @@ import {
 } from '@/infrastructure/storage'
 import { computeContentHashFromBuffer } from '../utils/content-hash'
 import { updateMedia as updateMediaDB } from '@/infrastructure/storage'
-import { invalidateMediaCaptionThumbnails } from '../deps/scene-browser'
 import { useMediaLibraryStore } from '../stores/media-library-store'
 import { mediaLibraryService } from './media-library-service'
 import { getMediaType } from '../utils/validation'
@@ -114,12 +113,6 @@ class MediaAnalysisService {
       // through every save* call so the shared bins/thumbs land in the
       // content tree (or so the adoptCaptionsFromCache fast-path can run).
       const contentHash = await this.resolveContentHash(media)
-
-      // Drop every in-memory thumbnail URL and semantic cache entry tied to
-      // this media before either adopting cached captions or writing fresh
-      // outputs. Otherwise a re-analyze can keep serving stale per-media
-      // blobs/embeddings until the next reload.
-      invalidateMediaCaptionThumbnails(media.id)
 
       if (contentHash) {
         const cached = await getCaptionsByContentHash(contentHash, sampleIntervalSec).catch(

@@ -2,7 +2,7 @@
  * Project-library bridge — translates the backbone
  * `GET /api/projects/:id/library` response into the lean
  * `ImportedProjectLibrary` shape FreeCut consumes on the library /
- * scene-browser / project-media surface.
+ * project-media surface.
  *
  * Mirrors the SC-3.b bridge pattern: a pure converter that exposes the
  * honest intersection between backbone reality and FreeCut consumer
@@ -35,8 +35,8 @@
  *   addition; it's out of scope for this chunk.
  *
  * What this chunk DOES deliver: the library read surface that
- * library-panel / scene-browser / project-media-list consumers will
- * adopt during SC-3.d-f rewires.
+ * library-panel / project-media-list consumers will adopt during
+ * SC-3.d-f rewires.
  */
 
 import type { Asset, ProjectLibraryResponse } from './types'

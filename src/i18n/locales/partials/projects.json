@@ -467,8 +467,7 @@
             "insertEdit": "Insert edit",
             "overwriteEdit": "Overwrite edit",
             "saveProject": "Save project",
-            "exportVideo": "Export video",
-            "openSceneBrowser": "Open Scene Browser (search AI captions)"
+            "exportVideo": "Export video"
           }
         }
       }
@@ -952,8 +951,7 @@
             "insertEdit": "Edición de inserción",
             "overwriteEdit": "Edición de sobrescritura",
             "saveProject": "Guardar proyecto",
-            "exportVideo": "Exportar video",
-            "openSceneBrowser": "Abrir el explorador de escenas (buscar subtítulos de IA)"
+            "exportVideo": "Exportar video"
           }
         }
       }
@@ -1437,8 +1435,7 @@
             "insertEdit": "Modification d'insertion",
             "overwriteEdit": "Modification d'écrasement",
             "saveProject": "Enregistrer le projet",
-            "exportVideo": "Exporter la vidéo",
-            "openSceneBrowser": "Ouvrir l'explorateur de scènes (rechercher les sous-titres IA)"
+            "exportVideo": "Exporter la vidéo"
           }
         }
       }
@@ -1922,8 +1919,7 @@
             "insertEdit": "Einfügebearbeitung",
             "overwriteEdit": "Überschreibbearbeitung",
             "saveProject": "Projekt speichern",
-            "exportVideo": "Video exportieren",
-            "openSceneBrowser": "Szenenbrowser öffnen (KI-Untertitel durchsuchen)"
+            "exportVideo": "Video exportieren"
           }
         }
       }
@@ -2407,8 +2403,7 @@
             "insertEdit": "Edição de inserção",
             "overwriteEdit": "Edição de sobrescrita",
             "saveProject": "Salvar projeto",
-            "exportVideo": "Exportar vídeo",
-            "openSceneBrowser": "Abrir o navegador de cenas (pesquisar legendas de IA)"
+            "exportVideo": "Exportar vídeo"
           }
         }
       }
@@ -2892,8 +2887,7 @@
             "insertEdit": "インサート編集",
             "overwriteEdit": "上書き編集",
             "saveProject": "プロジェクトを保存",
-            "exportVideo": "動画をエクスポート",
-            "openSceneBrowser": "シーンブラウザを開く（AIキャプションを検索）"
+            "exportVideo": "動画をエクスポート"
           }
         }
       }
@@ -3377,8 +3371,7 @@
             "insertEdit": "삽입 편집",
             "overwriteEdit": "덮어쓰기 편집",
             "saveProject": "프로젝트 저장",
-            "exportVideo": "동영상 내보내기",
-            "openSceneBrowser": "장면 브라우저 열기 (AI 자막 검색)"
+            "exportVideo": "동영상 내보내기"
           }
         }
       }
@@ -3862,8 +3855,7 @@
             "insertEdit": "插入编辑",
             "overwriteEdit": "覆盖编辑",
             "saveProject": "保存项目",
-            "exportVideo": "导出视频",
-            "openSceneBrowser": "打开场景浏览器（搜索 AI 字幕）"
+            "exportVideo": "导出视频"
           }
         }
       }
@@ -4347,8 +4339,7 @@
             "insertEdit": "Ekleme düzenlemesi",
             "overwriteEdit": "Üzerine yazma düzenlemesi",
             "saveProject": "Projeyi kaydet",
-            "exportVideo": "Videoyu dışa aktar",
-            "openSceneBrowser": "Sahne Tarayıcısını aç (YZ altyazılarında ara)"
+            "exportVideo": "Videoyu dışa aktar"
           }
         }
       }
