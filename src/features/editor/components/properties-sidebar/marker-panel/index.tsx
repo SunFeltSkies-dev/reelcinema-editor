@@ -100,8 +100,8 @@ export function MarkerPanel() {
   if (!selectedMarker) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <MapPin className="w-8 h-8 text-muted-foreground/50 mb-2" />
-        <p className="text-xs text-muted-foreground">{t('editor.markerPanel.notFound')}</p>
+        <MapPin className="w-8 h-8 text-t3/50 mb-2" />
+        <p className="text-xs text-t3">{t('editor.markerPanel.notFound')}</p>
       </div>
     )
   }
@@ -123,7 +123,7 @@ export function MarkerPanel() {
 
         {/* Timecode (read-only) */}
         <PropertyRow label={t('editor.markerPanel.time')}>
-          <span className="text-xs font-mono tabular-nums text-muted-foreground">
+          <span className="text-xs font-mono tabular-nums text-t3">
             {formatTimecode(selectedMarker.frame)}
           </span>
         </PropertyRow>

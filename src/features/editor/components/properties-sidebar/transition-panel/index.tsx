@@ -99,14 +99,14 @@ function TransitionColorPicker({
         className="flex w-full items-center gap-2"
       >
         <div
-          className="h-6 w-6 flex-shrink-0 rounded border border-border"
+          className="h-6 w-6 flex-shrink-0 rounded border border-b1"
           style={{ backgroundColor: color }}
         />
-        <span className="text-xs font-mono uppercase text-muted-foreground">{color}</span>
+        <span className="text-xs font-mono uppercase text-t3">{color}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-8 z-50 rounded-lg border border-border bg-popover p-2 shadow-lg">
+        <div className="absolute left-0 top-8 z-50 rounded-lg border border-b1 bg-s2 p-2 shadow-lg">
           <HexColorPicker color={color} onChange={handleColorChange} />
         </div>
       )}
@@ -573,8 +573,8 @@ export function TransitionPanel() {
   if (!selectedTransition || !transitionConfig) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <Zap className="w-8 h-8 text-muted-foreground/50 mb-2" />
-        <p className="text-xs text-muted-foreground">{t('editor.transitionPanel.notFound')}</p>
+        <Zap className="w-8 h-8 text-t3/50 mb-2" />
+        <p className="text-xs text-t3">{t('editor.transitionPanel.notFound')}</p>
       </div>
     )
   }
@@ -614,24 +614,24 @@ export function TransitionPanel() {
                 <div
                   ref={presetPanelRef}
                   style={presetPanelStyle}
-                  className="z-50 rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2"
+                  className="z-50 rounded-md border bg-s2 text-t1 shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2"
                 >
-                  <div className="border-b border-border p-1.5">
+                  <div className="border-b border-b1 p-1.5">
                     <input
                       type="search"
                       aria-label={t('editor.transitionPanel.searchTransitions')}
                       value={presetSearchQuery}
                       onChange={(event) => setPresetSearchQuery(event.currentTarget.value)}
                       placeholder={t('editor.transitionPanel.searchTransitions')}
-                      className="h-7 w-full rounded-md border border-input bg-background px-2 text-xs text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                      className="h-7 w-full rounded-md border border-input bg-bg px-2 text-xs text-t1 outline-none placeholder:text-t3 focus-visible:ring-1 focus-visible:ring-ice"
                       autoFocus
                     />
                   </div>
                   <div className="max-h-[460px] overflow-y-auto overflow-x-hidden p-1">
                     {filteredPresentationConfigGroups.map(([category, configs], index) => (
                       <div key={category}>
-                        {index > 0 && <div className="-mx-1 my-1 h-px bg-muted" />}
-                        <div className="px-2 py-1 text-xs font-medium text-muted-foreground">
+                        {index > 0 && <div className="-mx-1 my-1 h-px bg-s2" />}
+                        <div className="px-2 py-1 text-xs font-medium text-t3">
                           {TRANSITION_CATEGORY_INFO[category]
                             ? t(TRANSITION_CATEGORY_INFO[category].titleKey)
                             : category}
@@ -648,8 +648,8 @@ export function TransitionPanel() {
                               type="button"
                               aria-selected={selected}
                               className={cn(
-                                'relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-xs outline-none hover:bg-accent hover:text-accent-foreground',
-                                selected && 'bg-accent text-accent-foreground',
+                                'relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-xs outline-none hover:bg-s3 hover:text-t1',
+                                selected && 'bg-s3 text-t1',
                               )}
                               onClick={() => selectPresentationPreset(value)}
                             >
@@ -660,7 +660,7 @@ export function TransitionPanel() {
                       </div>
                     ))}
                     {filteredPresentationConfigGroups.length === 0 && (
-                      <div className="px-2 py-6 text-center text-xs text-muted-foreground">
+                      <div className="px-2 py-6 text-center text-xs text-t3">
                         {t('editor.transitionPanel.noTransitionsFound')}
                       </div>
                     )}
@@ -704,7 +704,7 @@ export function TransitionPanel() {
           label={t('editor.transitionPanel.placement')}
           tooltip={t('editor.transitionPanel.placementTooltip')}
         >
-          <div className="flex items-center gap-0.5 p-0.5 bg-secondary rounded-md">
+          <div className="flex items-center gap-0.5 p-0.5 bg-s2 rounded-md">
             {PLACEMENT_OPTIONS.map(({ value, labelKey, titleKey }) => {
               const maxForPlacement =
                 leftClip && rightClip
@@ -727,10 +727,8 @@ export function TransitionPanel() {
                   onClick={() => handlePlacementChange(value)}
                   className={cn(
                     'inline-flex h-7 min-w-[3.75rem] flex-1 items-center justify-center rounded px-2 text-xs transition-colors',
-                    selected
-                      ? 'bg-background text-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground',
-                    disabled && 'cursor-not-allowed opacity-40 hover:text-muted-foreground',
+                    selected ? 'bg-bg text-t1 shadow-sm' : 'text-t3 hover:text-t1',
+                    disabled && 'cursor-not-allowed opacity-40 hover:text-t3',
                   )}
                 >
                   <span>{label}</span>
@@ -745,7 +743,7 @@ export function TransitionPanel() {
             label={t('editor.transitionPanel.ease')}
             tooltip={t('editor.transitionPanel.easeTooltip')}
           >
-            <div className="flex items-center gap-0.5 p-0.5 bg-secondary rounded-md">
+            <div className="flex items-center gap-0.5 p-0.5 bg-s2 rounded-md">
               {easeOptions.map((option) => (
                 <button
                   key={option.value}
@@ -754,8 +752,8 @@ export function TransitionPanel() {
                   className={cn(
                     'px-3 py-1 text-xs rounded transition-colors',
                     selectedTransition.timing === option.value
-                      ? 'bg-background text-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground',
+                      ? 'bg-bg text-t1 shadow-sm'
+                      : 'text-t3 hover:text-t1',
                   )}
                 >
                   {t(option.labelKey)}
@@ -770,7 +768,7 @@ export function TransitionPanel() {
             label={t('editor.transitionPanel.direction')}
             tooltip={t('editor.transitionPanel.directionTooltip')}
           >
-            <div className="flex items-center gap-0.5 p-0.5 bg-secondary rounded-md">
+            <div className="flex items-center gap-0.5 p-0.5 bg-s2 rounded-md">
               {directionOptions.map((option) => (
                 <button
                   key={option.value}
@@ -780,8 +778,8 @@ export function TransitionPanel() {
                   className={cn(
                     'px-3 py-1 text-xs rounded transition-colors',
                     selectedDirection === option.value
-                      ? 'bg-background text-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground',
+                      ? 'bg-bg text-t1 shadow-sm'
+                      : 'text-t3 hover:text-t1',
                   )}
                 >
                   {t(option.labelKey)}

@@ -53,17 +53,17 @@ function PreviewSplitHandle({
   return (
     <div
       onMouseDown={onMouseDown}
-      className="w-1.5 cursor-col-resize hover:bg-primary/50 active:bg-primary/70 bg-border transition-colors flex-shrink-0 relative group"
+      className="w-1.5 cursor-col-resize hover:bg-ice/50 active:bg-ice/70 bg-b1 transition-colors flex-shrink-0 relative group"
     >
       {showReset && (
         <button
           onMouseDown={(event) => event.stopPropagation()}
           onClick={onReset}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-muted border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-primary hover:border-primary hover:[&>svg]:text-primary-foreground"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-s2 border border-b1 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-ice hover:border-ice hover:[&>svg]:text-bg"
           aria-label={resetLabel}
           data-tooltip={resetTooltip}
         >
-          <Columns2 className="w-3.5 h-3.5 text-muted-foreground" />
+          <Columns2 className="w-3.5 h-3.5 text-t3" />
         </button>
       )}
     </div>
@@ -511,10 +511,10 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
       >
         {hasSidePanels && (
           <div
-            className="border-b border-border flex items-center px-3 flex-shrink-0"
+            className="border-b border-b1 flex items-center px-3 flex-shrink-0"
             style={{ height: EDITOR_LAYOUT_CSS_VALUES.previewSplitHeaderHeight }}
           >
-            <span className="text-xs text-muted-foreground">Program</span>
+            <span className="text-xs text-t3">Program</span>
           </div>
         )}
 
@@ -533,7 +533,7 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
 
           {isPenModeActive ? (
             <div
-              className="border-t border-border panel-header flex items-center px-3 flex-shrink-0 gap-3 overflow-hidden"
+              className="border-t border-b1 panel-header flex items-center px-3 flex-shrink-0 gap-3 overflow-hidden"
               style={{ height: EDITOR_LAYOUT_CSS_VALUES.previewControlsHeight }}
               role="toolbar"
               aria-label="Path pen controls"
@@ -547,12 +547,10 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
                     {penVertexCount} {penVertexCount === 1 ? 'point' : 'points'}
                   </span>
                 </div>
-                <span className="min-w-0 truncate text-xs text-muted-foreground">
-                  {penModeHint}
-                </span>
+                <span className="min-w-0 truncate text-xs text-t3">{penModeHint}</span>
               </div>
               <div className="flex flex-shrink-0 items-center gap-2">
-                <span className="hidden text-[11px] text-muted-foreground lg:inline">
+                <span className="hidden text-[11px] text-t3 lg:inline">
                   Backspace removes the last point.
                 </span>
                 <Button
@@ -577,7 +575,7 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
             </div>
           ) : isPathEditModeActive ? (
             <div
-              className="border-t border-border panel-header flex items-center px-3 flex-shrink-0 gap-3 overflow-hidden"
+              className="border-t border-b1 panel-header flex items-center px-3 flex-shrink-0 gap-3 overflow-hidden"
               style={{ height: EDITOR_LAYOUT_CSS_VALUES.previewControlsHeight }}
               role="toolbar"
               aria-label="Path edit controls"
@@ -591,17 +589,13 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
                     {displayedEditVertexCount} {displayedEditVertexCount === 1 ? 'point' : 'points'}
                   </span>
                 </div>
-                <span className="min-w-0 truncate text-xs text-muted-foreground">
-                  {editModeHint}
-                </span>
+                <span className="min-w-0 truncate text-xs text-t3">{editModeHint}</span>
               </div>
               <div className="flex flex-shrink-0 items-center gap-2">
-                <span className="hidden text-[11px] text-muted-foreground xl:inline">
+                <span className="hidden text-[11px] text-t3 xl:inline">
                   Double-click an edge to add a point. Drag empty space to box-select points.
                 </span>
-                <span className="hidden text-[11px] text-muted-foreground 2xl:inline">
-                  {selectedVertexHint}
-                </span>
+                <span className="hidden text-[11px] text-t3 2xl:inline">{selectedVertexHint}</span>
                 <Button
                   type="button"
                   size="sm"
@@ -636,7 +630,7 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
             <InteractionLockRegion locked={false} overlayClassName="rounded-none">
               <div className="flex flex-col flex-shrink-0">
                 {/* Alignment row */}
-                <div className="border-t border-border panel-header flex items-center justify-center px-3 h-7 overflow-hidden">
+                <div className="border-t border-b1 panel-header flex items-center justify-center px-3 h-7 overflow-hidden">
                   <div className="flex items-center gap-0">
                     <AlignmentToolbar projectSize={{ width, height }} />
                   </div>
@@ -644,7 +638,7 @@ export const PreviewArea = memo(function PreviewArea({ project }: PreviewAreaPro
 
                 {/* Playback controls row */}
                 <div
-                  className="@container border-t border-border panel-header relative flex items-center px-3 overflow-hidden"
+                  className="@container border-t border-b1 panel-header relative flex items-center px-3 overflow-hidden"
                   style={{ height: EDITOR_LAYOUT_CSS_VALUES.previewControlsHeight }}
                 >
                   <div className="flex-shrink-0">

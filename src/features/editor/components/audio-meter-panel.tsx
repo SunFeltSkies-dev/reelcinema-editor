@@ -147,7 +147,7 @@ const AudioEqPanelSurface = memo(function AudioEqPanelSurface({
   }, [])
 
   return (
-    <div ref={handleRootRef} className="bg-background text-foreground">
+    <div ref={handleRootRef} className="bg-bg text-t1">
       <AudioEqPanelContent
         targetLabel={targetLabel}
         trackEq={trackEq}
@@ -872,7 +872,7 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          className="h-5 w-5 shrink-0 flex items-center justify-center rounded text-muted-foreground/60 hover:text-muted-foreground hover:bg-muted/50 transition-colors"
+          className="h-5 w-5 shrink-0 flex items-center justify-center rounded text-t3/60 hover:text-t3 hover:bg-s2/50 transition-colors"
           aria-label={t('editor.audioMeters.panelMode')}
         >
           <MoreHorizontal size={14} />
@@ -1042,23 +1042,23 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
       {detachedEqPanel}
       {floatingMixer}
       <aside
-        className="panel-bg border-l border-border flex h-full flex-col overflow-hidden"
+        className="panel-bg border-l border-b1 flex h-full flex-col overflow-hidden"
         style={{ width: EDITOR_LAYOUT_CSS_VALUES.timelineMeterWidth }}
         aria-label={t('editor.audioMeters.audioMeter')}
       >
         <div
-          className="flex min-w-0 items-center justify-between gap-1 border-b border-border bg-secondary/20 px-1.5"
+          className="flex min-w-0 items-center justify-between gap-1 border-b border-b1 bg-s2/20 px-1.5"
           style={{ height: EDITOR_LAYOUT_CSS_VALUES.timelineTracksHeaderHeight }}
         >
-          <span className="min-w-0 text-xs text-muted-foreground font-mono uppercase tracking-[0.12em]">
+          <span className="min-w-0 text-xs text-t3 font-mono uppercase tracking-[0.12em]">
             {t('editor.audioMeters.meters')}
           </span>
           {modeDropdown}
         </div>
 
         <div className="flex-1 px-2 py-3 min-h-0">
-          <div className="h-full rounded-md border border-border/50 bg-black/30 px-2 py-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.4)]">
-            <div className="mb-3 text-center text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70 font-mono">
+          <div className="h-full rounded-md border border-b1/50 bg-black/30 px-2 py-3 shadow-[inset_0_1px_4px_rgba(0,0,0,0.4)]">
+            <div className="mb-3 text-center text-[10px] uppercase tracking-[0.22em] text-t3/70 font-mono">
               Master
             </div>
 
@@ -1069,8 +1069,8 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
                   const bottom = `${dbMarkToPercent(mark)}%`
                   return (
                     <div key={mark} className="absolute inset-x-0" style={{ bottom }}>
-                      <div className="absolute left-0 right-5 h-px bg-border/30" />
-                      <span className="absolute right-0 -translate-y-1/2 text-[10px] font-mono text-muted-foreground/50">
+                      <div className="absolute left-0 right-5 h-px bg-b1/30" />
+                      <span className="absolute right-0 -translate-y-1/2 text-[10px] font-mono text-t3/50">
                         {mark}
                       </span>
                     </div>
@@ -1082,7 +1082,7 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
               <div className="flex flex-col items-center">
                 <div ref={meterVisualRootRef} className="flex flex-1 gap-[3px]">
                   {/* Left channel */}
-                  <div className="relative w-[14px] rounded-[2px] border border-border/50 bg-[#08090b] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)] overflow-hidden">
+                  <div className="relative w-[14px] rounded-[2px] border border-b1/50 bg-[#08090b] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)] overflow-hidden">
                     {/* Unlit LED backdrop */}
                     <div
                       className="absolute inset-0 pointer-events-none"
@@ -1108,7 +1108,7 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
                     />
                   </div>
                   {/* Right channel */}
-                  <div className="relative w-[14px] rounded-[2px] border border-border/50 bg-[#08090b] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)] overflow-hidden">
+                  <div className="relative w-[14px] rounded-[2px] border border-b1/50 bg-[#08090b] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)] overflow-hidden">
                     {/* Unlit LED backdrop */}
                     <div
                       className="absolute inset-0 pointer-events-none"
@@ -1134,7 +1134,7 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
                     />
                   </div>
                 </div>
-                <div className="mt-1 flex gap-[3px] text-[8px] font-mono text-muted-foreground/40 justify-center">
+                <div className="mt-1 flex gap-[3px] text-[8px] font-mono text-t3/40 justify-center">
                   <span className="w-[14px] text-center">L</span>
                   <span className="w-[14px] text-center">R</span>
                 </div>
@@ -1142,9 +1142,7 @@ export const AudioMeterPanel = memo(function AudioMeterPanel() {
             </div>
 
             {/* Peak dB readout */}
-            <div className="mt-3 text-center text-[10px] font-mono text-muted-foreground/70">
-              {statusLabel}
-            </div>
+            <div className="mt-3 text-center text-[10px] font-mono text-t3/70">{statusLabel}</div>
           </div>
         </div>
       </aside>

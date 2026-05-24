@@ -126,7 +126,7 @@ export const Toolbar = memo(function Toolbar({
 
   return (
     <div
-      className="panel-header flex flex-shrink-0 items-center gap-2.5 border-b border-border px-3"
+      className="panel-header flex flex-shrink-0 items-center gap-2.5 border-b border-b1 px-3"
       style={{ height: EDITOR_LAYOUT_CSS_VALUES.toolbarHeight }}
       role="toolbar"
       aria-label={t('toolbar.ariaLabel')}
@@ -157,7 +157,7 @@ export const Toolbar = memo(function Toolbar({
           <h1 className="text-sm font-medium leading-none">
             {project?.name || t('common.untitledProject')}
           </h1>
-          <span className="font-mono text-[11px] text-muted-foreground">
+          <span className="font-mono text-[11px] text-t3">
             {t('toolbar.specs', {
               width: project?.width,
               height: project?.height,
@@ -191,7 +191,7 @@ export const Toolbar = memo(function Toolbar({
           <Sparkles className="h-4 w-4" />
           {hasUnseenWhatsNew && (
             <span
-              className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-primary"
+              className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-ice"
               aria-hidden="true"
             />
           )}
@@ -245,7 +245,7 @@ export const Toolbar = memo(function Toolbar({
               <Save className="h-4 w-4" />
             )}
             {isDirty && (
-              <span className="absolute -right-1 -top-1 h-2 w-2 animate-pulse rounded-full bg-orange-500" />
+              <span className="absolute -right-1 -top-1 h-2 w-2 animate-pulse rounded-full bg-nudge" />
             )}
           </div>
           {t('toolbar.save')}

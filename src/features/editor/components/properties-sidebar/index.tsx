@@ -177,7 +177,7 @@ export const PropertiesSidebar = memo(function PropertiesSidebar() {
     <>
       {/* Right Sidebar */}
       <div
-        className={`panel-bg border-l border-border shrink-0 relative h-full ${
+        className={`panel-bg border-l border-b1 shrink-0 relative h-full ${
           rightSidebarOpen ? '' : 'w-0'
         }`}
         style={
@@ -194,7 +194,7 @@ export const PropertiesSidebar = memo(function PropertiesSidebar() {
           <div className="h-full flex flex-col" style={{ width: rightSidebarWidth }}>
             {/* Sidebar Header */}
             <div
-              className="flex items-center justify-between px-3 border-b border-border flex-shrink-0"
+              className="flex items-center justify-between px-3 border-b border-b1 flex-shrink-0"
               style={{ height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderHeight }}
             >
               <div className="min-w-0 flex items-center gap-1">
@@ -220,8 +220,8 @@ export const PropertiesSidebar = memo(function PropertiesSidebar() {
                     <ChevronDown className="w-3 h-3" />
                   )}
                 </Button>
-                <Settings2 className="w-3 h-3 shrink-0 text-muted-foreground" />
-                <h2 className="min-w-0 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                <Settings2 className="w-3 h-3 shrink-0 text-t3" />
+                <h2 className="min-w-0 flex items-center gap-1.5 text-xs font-semibold text-t3">
                   <span className="shrink-0 uppercase tracking-wide">
                     {t('editor.propertiesSidebar.title')}
                   </span>
@@ -269,7 +269,7 @@ export const PropertiesSidebar = memo(function PropertiesSidebar() {
         {rightSidebarOpen && (
           <div
             onMouseDown={handleResizeStart}
-            className="absolute top-0 left-0 w-1 h-full cursor-col-resize hover:bg-primary/50 active:bg-primary/50 transition-colors z-10"
+            className="absolute top-0 left-0 w-1 h-full cursor-col-resize hover:bg-ice/50 active:bg-ice/50 transition-colors z-10"
           />
         )}
       </div>
@@ -278,12 +278,12 @@ export const PropertiesSidebar = memo(function PropertiesSidebar() {
       {!rightSidebarOpen && (
         <button
           onClick={toggleRightSidebar}
-          className="absolute right-0 top-3 z-10 w-6 bg-secondary/50 hover:bg-secondary border border-border rounded-l-md flex items-center justify-center transition-all hover:w-7"
+          className="absolute right-0 top-3 z-10 w-6 bg-s2/50 hover:bg-s2 border border-b1 rounded-l-md flex items-center justify-center transition-all hover:w-7"
           style={{ height: EDITOR_LAYOUT_CSS_VALUES.sidebarRevealToggleHeight }}
           data-tooltip={t('editor.propertiesSidebar.showPanel')}
           data-tooltip-side="left"
         >
-          <ChevronLeft className="w-3 h-3 text-muted-foreground" />
+          <ChevronLeft className="w-3 h-3 text-t3" />
         </button>
       )}
     </>

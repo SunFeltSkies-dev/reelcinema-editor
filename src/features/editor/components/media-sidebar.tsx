@@ -65,8 +65,7 @@ import {
 } from '@/config/editor-layout'
 
 const logger = createLogger('MediaSidebar')
-const TEXT_TEMPLATE_PREVIEW_SHELL =
-  'w-full aspect-video rounded-sm border border-border bg-slate-950'
+const TEXT_TEMPLATE_PREVIEW_SHELL = 'w-full aspect-video rounded-sm border border-b1 bg-slate-950'
 
 function renderTextTemplatePreview(preset?: TextStylePreset) {
   if (!preset) {
@@ -74,10 +73,8 @@ function renderTextTemplatePreview(preset?: TextStylePreset) {
       <div
         className={`${TEXT_TEMPLATE_PREVIEW_SHELL} flex flex-col items-center justify-center gap-1`}
       >
-        <Type className="w-3.5 h-3.5 text-muted-foreground/80" />
-        <div className="text-[9px] leading-none tracking-wide text-muted-foreground/80 uppercase">
-          Text
-        </div>
+        <Type className="w-3.5 h-3.5 text-t3/80" />
+        <div className="text-[9px] leading-none tracking-wide text-t3/80 uppercase">Text</div>
       </div>
     )
   }
@@ -619,17 +616,17 @@ export const MediaSidebar = memo(function MediaSidebar() {
     <div className="flex h-full flex-shrink-0">
       {/* Vertical Category Bar */}
       <div
-        className="panel-header border-r border-border flex flex-col items-center flex-shrink-0"
+        className="panel-header border-r border-b1 flex flex-col items-center flex-shrink-0"
         style={{ width: EDITOR_LAYOUT_CSS_VALUES.sidebarRailWidth }}
       >
         {/* Header row - aligned with content panel header */}
         <div
-          className="flex items-center justify-center border-b border-border w-full"
+          className="flex items-center justify-center border-b border-b1 w-full"
           style={{ height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderHeight }}
         >
           <button
             onClick={toggleLeftSidebar}
-            className="rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+            className="rounded-lg flex items-center justify-center text-t3 hover:text-t1 hover:bg-s2/50 transition-colors"
             style={{
               width: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderButtonSize,
               height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderButtonSize,
@@ -667,8 +664,8 @@ export const MediaSidebar = memo(function MediaSidebar() {
                 w-9 h-9 rounded-lg flex items-center justify-center transition-all
                 ${
                   activeTab === id && leftSidebarOpen
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    ? 'bg-ice text-bg hover:bg-ice/90'
+                    : 'text-t3 hover:text-t1 hover:bg-s2/50'
                 }
               `}
               data-tooltip={label}
@@ -678,7 +675,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
             </button>
           ))}
 
-          <div className="w-6 border-t border-border mx-auto my-0.5" />
+          <div className="w-6 border-t border-b1 mx-auto my-0.5" />
 
           <button
             onClick={toggleKeyframeEditorOpen}
@@ -686,8 +683,8 @@ export const MediaSidebar = memo(function MediaSidebar() {
               w-9 h-9 rounded-lg flex items-center justify-center transition-all
               ${
                 keyframeEditorOpen
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                  ? 'bg-ice text-bg hover:bg-ice/90'
+                  : 'text-t3 hover:text-t1 hover:bg-s2/50'
               }
             `}
             data-tooltip={
@@ -709,7 +706,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
 
       {/* Content Panel */}
       <div
-        className={`panel-bg border-r border-border overflow-hidden relative ${
+        className={`panel-bg border-r border-b1 overflow-hidden relative ${
           leftSidebarOpen ? '' : 'w-0'
         }`}
         style={
@@ -730,10 +727,10 @@ export const MediaSidebar = memo(function MediaSidebar() {
 
             {/* Panel Header ââ‚¬” sits with the tab content, below the keyframe editor */}
             <div
-              className="flex items-center justify-between px-3 border-b border-border flex-shrink-0"
+              className="flex items-center justify-between px-3 border-b border-b1 flex-shrink-0"
               style={{ height: EDITOR_LAYOUT_CSS_VALUES.sidebarHeaderHeight }}
             >
-              <span className="text-sm font-medium text-foreground">
+              <span className="text-sm font-medium text-t1">
                 {categories.find((c) => c.id === activeTab)?.label}
               </span>
               <Button
@@ -773,7 +770,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
             >
               <div className="space-y-3">
                 <div className="space-y-3">
-                  <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+                  <div className="text-[10px] font-medium text-t3 uppercase tracking-wider">
                     {t('editor.mediaSidebar.templates')}
                   </div>
                   {TEXT_TEMPLATE_GROUPS.map((group) => {
@@ -786,7 +783,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
 
                     return (
                       <div key={group.key} className="space-y-1.5">
-                        <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+                        <div className="text-[10px] font-medium text-t3 uppercase tracking-wider">
                           {t(group.labelKey)}
                         </div>
                         <div className="grid grid-cols-3 gap-1.5">
@@ -802,10 +799,10 @@ export const MediaSidebar = memo(function MediaSidebar() {
                                 if (shouldSuppressGeneratedItemClick()) return
                                 handleAddText()
                               }}
-                              className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                              className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                             >
                               {renderTextTemplatePreview()}
-                              <span className="text-[9px] text-muted-foreground group-hover:text-foreground text-center leading-tight w-full">
+                              <span className="text-[9px] text-t3 group-hover:text-t1 text-center leading-tight w-full">
                                 {ADD_TEXT_TEMPLATE_LABEL}
                               </span>
                             </button>
@@ -825,13 +822,13 @@ export const MediaSidebar = memo(function MediaSidebar() {
                                 handleAddText(preset.id)
                               }}
                               className={cn(
-                                'flex flex-col items-center gap-1 p-1.5 rounded-md border border-border',
-                                'bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50',
+                                'flex flex-col items-center gap-1 p-1.5 rounded-md border border-b1',
+                                'bg-s2/30 hover:bg-s2/50 hover:border-primary/50',
                                 'transition-colors group',
                               )}
                             >
                               {renderTextTemplatePreview(preset)}
-                              <span className="text-[9px] text-muted-foreground group-hover:text-foreground text-center leading-tight w-full">
+                              <span className="text-[9px] text-t3 group-hover:text-t1 text-center leading-tight w-full">
                                 {preset.label}
                               </span>
                             </button>
@@ -861,12 +858,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('rectangle')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Square className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Square className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeRectangle')}
                   </span>
                 </button>
@@ -883,12 +880,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('circle')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Circle className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Circle className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeCircle')}
                   </span>
                 </button>
@@ -905,12 +902,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('triangle')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Triangle className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Triangle className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeTriangle')}
                   </span>
                 </button>
@@ -927,12 +924,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('ellipse')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Circle className="w-3.5 h-2.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Circle className="w-3.5 h-2.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeEllipse')}
                   </span>
                 </button>
@@ -949,12 +946,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('star')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Star className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Star className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeStar')}
                   </span>
                 </button>
@@ -971,12 +968,12 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('polygon')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Hexagon className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Hexagon className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typePolygon')}
                   </span>
                 </button>
@@ -993,25 +990,25 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddShape('heart')
                   }}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Heart className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Heart className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.shapeSection.typeHeart')}
                   </span>
                 </button>
 
                 <button
                   onClick={() => useMaskEditorStore.getState().startShapePenMode()}
-                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                   title={t('editor.mediaSidebar.penToolHint')}
                 >
-                  <div className="w-7 h-7 rounded border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70">
-                    <Pen className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-7 h-7 rounded border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70">
+                    <Pen className="w-3.5 h-3.5 text-t3 group-hover:text-t1" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground group-hover:text-foreground">
+                  <span className="text-[9px] text-t3 group-hover:text-t1">
                     {t('editor.mediaSidebar.pen')}
                   </span>
                 </button>
@@ -1035,13 +1032,13 @@ export const MediaSidebar = memo(function MediaSidebar() {
                     if (shouldSuppressGeneratedItemClick()) return
                     handleAddAdjustmentLayer()
                   }}
-                  className="w-full flex items-center gap-3 p-2.5 rounded-lg border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                  className="w-full flex items-center gap-3 p-2.5 rounded-lg border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                 >
-                  <div className="w-8 h-8 rounded-md border border-border bg-secondary/50 flex items-center justify-center group-hover:bg-secondary/70 flex-shrink-0">
-                    <Layers className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                  <div className="w-8 h-8 rounded-md border border-b1 bg-s2/50 flex items-center justify-center group-hover:bg-s2/70 flex-shrink-0">
+                    <Layers className="w-4 h-4 text-t3 group-hover:text-t1" />
                   </div>
                   <div className="text-left">
-                    <div className="text-xs text-muted-foreground group-hover:text-foreground">
+                    <div className="text-xs text-t3 group-hover:text-t1">
                       {t('editor.mediaSidebar.blankAdjustmentLayer')}
                     </div>
                   </div>
@@ -1049,7 +1046,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
 
                 {/* Presets */}
                 <div>
-                  <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">
+                  <div className="text-[10px] font-medium text-t3 uppercase tracking-wider mb-1.5">
                     {t('editor.mediaSidebar.presets')}
                   </div>
                   <div className="grid grid-cols-3 gap-1.5">
@@ -1067,7 +1064,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                           if (shouldSuppressGeneratedItemClick()) return
                           handleAddPreset(preset.id)
                         }}
-                        className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                        className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                       >
                         {effectPreviews.has(`preset:${preset.id}`) ? (
                           <img
@@ -1077,11 +1074,11 @@ export const MediaSidebar = memo(function MediaSidebar() {
                             className="w-full aspect-video rounded-sm object-cover"
                           />
                         ) : (
-                          <div className="w-full aspect-video rounded-sm bg-muted flex items-center justify-center">
-                            <Sparkles className="w-3 h-3 text-muted-foreground/50" />
+                          <div className="w-full aspect-video rounded-sm bg-s2 flex items-center justify-center">
+                            <Sparkles className="w-3 h-3 text-t3/50" />
                           </div>
                         )}
-                        <span className="text-[9px] text-muted-foreground group-hover:text-foreground text-center leading-tight">
+                        <span className="text-[9px] text-t3 group-hover:text-t1 text-center leading-tight">
                           {preset.name}
                         </span>
                       </button>
@@ -1092,7 +1089,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                 {/* GPU Effects by Category */}
                 {gpuCategories.map(({ category, effects: catEffects }) => (
                   <div key={category}>
-                    <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">
+                    <div className="text-[10px] font-medium text-t3 uppercase tracking-wider mb-1.5">
                       {category}
                     </div>
                     <div className="grid grid-cols-3 gap-1.5">
@@ -1116,7 +1113,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
                             if (shouldSuppressGeneratedItemClick()) return
                             handleAddGpuEffect(def.id)
                           }}
-                          className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-border bg-secondary/30 hover:bg-secondary/50 hover:border-primary/50 transition-colors group"
+                          className="flex flex-col items-center gap-1 p-1.5 rounded-md border border-b1 bg-s2/30 hover:bg-s2/50 hover:border-primary/50 transition-colors group"
                         >
                           {effectPreviews.has(def.id) ? (
                             <img
@@ -1126,9 +1123,9 @@ export const MediaSidebar = memo(function MediaSidebar() {
                               className="w-full aspect-video rounded-sm object-cover"
                             />
                           ) : (
-                            <div className="w-full aspect-video rounded-sm bg-muted" />
+                            <div className="w-full aspect-video rounded-sm bg-s2" />
                           )}
-                          <span className="text-[9px] text-muted-foreground group-hover:text-foreground text-center leading-tight truncate w-full">
+                          <span className="text-[9px] text-t3 group-hover:text-t1 text-center leading-tight truncate w-full">
                             {def.name}
                           </span>
                         </button>
@@ -1152,7 +1149,7 @@ export const MediaSidebar = memo(function MediaSidebar() {
           <div
             data-resize-handle
             onMouseDown={handleResizeStart}
-            className="absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-primary/50 active:bg-primary/50 transition-colors z-10"
+            className="absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-ice/50 active:bg-ice/50 transition-colors z-10"
           />
         )}
       </div>
