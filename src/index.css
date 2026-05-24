@@ -9,59 +9,118 @@
 
 @layer base {
   :root {
-    /* Professional Video Editor Dark Theme - OKLCH Colors */
-    /* Inspired by Premiere Pro & DaVinci Resolve */
+    /* ===== ReelCinema Design Tokens (V1.8 Chrome) =====
+       Lifted verbatim from main-repo frontend/app/globals.css.
+       Single source of truth — edit here, nowhere else.
+       Tailwind 4 references these via @theme inline below.
+       Values are canonical HEX from the V1.8 prototype.
+       ================================================== */
 
-    /* Base - Very dark, reduced eye strain */
-    --background: oklch(0.15 0 0); /* #262626 - Main canvas */
-    --foreground: oklch(0.95 0 0); /* #f2f2f2 - Primary text */
+    /* Background ramp */
+    --bg: #0a0a0a;
+    --s1: #181818;
+    --s2: #222222;
+    --s3: #2c2c2c;
 
-    /* Panels - Layered depth */
-    --card: oklch(0.18 0 0); /* #2e2e2e - Panel backgrounds */
-    --card-foreground: oklch(0.92 0 0); /* #ebebeb - Panel text */
+    /* Border ramp */
+    --b1: #303030;
+    --b2: #404040;
+    --b3: #505050;
+    --b-sel: #9a988f;
 
-    --popover: oklch(0.16 0 0); /* #292929 - Dropdowns */
-    --popover-foreground: oklch(0.92 0 0);
+    /* Text ramp */
+    --t1: #f2f2ee; /* primary */
+    --t2: #c2c0ba; /* secondary */
+    --t3: #97958d; /* tertiary */
+    --t4: #78766f; /* metadata */
+    --t5: #54524c; /* labels / deepest */
 
-    /* Primary - Orange accent (playback, active states) */
-    --primary: oklch(0.68 0.19 45); /* #FF8C3A - Vibrant orange */
-    --primary-foreground: oklch(0.12 0 0); /* Dark text on primary */
+    /* Accents */
+    --ice: #e8e6e0;
+    --ice-hover: #d4d2cc;
+    --nudge: #8b7a3a;
 
-    /* Secondary - Subtle panel variation */
-    --secondary: oklch(0.22 0 0); /* #383838 - Secondary surfaces */
-    --secondary-foreground: oklch(0.88 0 0);
+    /* Semantic accents — status/feedback */
+    --success: #6faa7c;
+    --success-bg: #1a2620;
+    --warning: #c7a04a;
+    --warning-bg: #2a2418;
+    --danger: #c77070;
+    --danger-bg: #2a1a1a;
+    --info: var(--ice);
+    --info-bg: var(--s2);
 
-    /* Muted - Backgrounds and disabled states */
-    --muted: oklch(0.2 0 0); /* #333333 - Muted backgrounds */
-    --muted-foreground: oklch(0.6 0 0); /* #999999 - Muted text */
+    /* Elevation shadows — raised surfaces (Toast, Modal, popovers) */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.6);
 
-    /* Accent - Hover states and highlights */
-    --accent: oklch(0.24 0 0); /* #3d3d3d - Hover backgrounds */
-    --accent-foreground: oklch(0.95 0 0);
+    /* Typography scale */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-md: 18px;
+    --text-lg: 22px;
+    --text-xl: 28px;
+    --text-2xl: 36px;
 
-    /* Destructive - Red for delete/errors */
-    --destructive: oklch(0.58 0.22 25); /* #E53E3E - Error red */
-    --destructive-foreground: oklch(0.98 0 0);
+    /* Motion tokens */
+    --motion-duration-subtle: 150ms;
+    --motion-duration-standard: 300ms;
+    --motion-duration-expressive: 500ms;
+    --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Borders - Subtle separators */
-    --border: oklch(0.25 0 0); /* #404040 - Borders */
-    --input: oklch(0.24 0 0); /* #3d3d3d - Input borders */
-    --ring: oklch(0.68 0.19 45); /* Orange focus ring */
+    /* ===== Legacy compatibility layer =====
+       Pre-existing fork token names (FreeCut shadcn shape) are kept
+       and re-pointed to ReelCinema tokens so existing component
+       classNames continue working through SC-5.a → SC-5.b transition.
+       SC-5.b rewrites component classNames to use new ReelCinema
+       semantic names directly; this compat layer can shrink then.
+       ====================================== */
 
-    /* Panel system - Layered depth */
-    --panel-bg: oklch(0.18 0 0); /* #2e2e2e - Panels */
-    --panel-header: oklch(0.14 0 0); /* #242424 - Panel headers */
-    --timeline-bg: oklch(0.12 0 0); /* #1f1f1f - Timeline darker */
+    --background: var(--bg);
+    --foreground: var(--t1);
+
+    --card: var(--s1);
+    --card-foreground: var(--t1);
+
+    --popover: var(--s2);
+    --popover-foreground: var(--t1);
+
+    --primary: var(--ice);
+    --primary-foreground: var(--bg);
+
+    --secondary: var(--s2);
+    --secondary-foreground: var(--t2);
+
+    --muted: var(--s2);
+    --muted-foreground: var(--t3);
+
+    --accent: var(--s3);
+    --accent-foreground: var(--t1);
+
+    --destructive: var(--danger);
+    --destructive-foreground: var(--t1);
+
+    --border: var(--b1);
+    --input: var(--b2);
+    --ring: var(--ice);
+
+    /* Panel system */
+    --panel-bg: var(--s1);
+    --panel-header: var(--bg);
+    --timeline-bg: var(--bg);
 
     /* Sidebar */
-    --sidebar: oklch(0.18 0 0);
-    --sidebar-foreground: oklch(0.92 0 0);
-    --sidebar-primary: oklch(0.68 0.19 45);
-    --sidebar-primary-foreground: oklch(0.12 0 0);
-    --sidebar-accent: oklch(0.22 0 0);
-    --sidebar-accent-foreground: oklch(0.92 0 0);
-    --sidebar-border: oklch(0.25 0 0);
-    --sidebar-ring: oklch(0.68 0.19 45);
+    --sidebar: var(--s1);
+    --sidebar-foreground: var(--t1);
+    --sidebar-primary: var(--ice);
+    --sidebar-primary-foreground: var(--bg);
+    --sidebar-accent: var(--s2);
+    --sidebar-accent-foreground: var(--t1);
+    --sidebar-border: var(--b1);
+    --sidebar-ring: var(--ice);
 
     --radius: 0.5rem;
   }
@@ -112,28 +171,28 @@
     scroll-behavior: auto;
   }
 
-  /* Professional scrollbar styling */
+  /* Professional scrollbar styling — ReelCinema palette */
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
 
   ::-webkit-scrollbar-track {
-    background: oklch(0.15 0 0);
+    background: var(--bg);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.3 0 0);
+    background: var(--b1);
     border-radius: 6px;
-    border: 2px solid oklch(0.15 0 0);
+    border: 2px solid var(--bg);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.35 0 0);
+    background: var(--b2);
   }
 
   ::-webkit-scrollbar-corner {
-    background: oklch(0.15 0 0);
+    background: var(--bg);
   }
 }
 
@@ -143,7 +202,44 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Map CSS variables to Tailwind */
+  /* ===== ReelCinema semantic tokens (SC-5.b adopts) ===== */
+
+  /* Background ramp */
+  --color-bg: var(--bg);
+  --color-s1: var(--s1);
+  --color-s2: var(--s2);
+  --color-s3: var(--s3);
+
+  /* Border ramp */
+  --color-b1: var(--b1);
+  --color-b2: var(--b2);
+  --color-b3: var(--b3);
+  --color-b-sel: var(--b-sel);
+
+  /* Text ramp */
+  --color-t1: var(--t1);
+  --color-t2: var(--t2);
+  --color-t3: var(--t3);
+  --color-t4: var(--t4);
+  --color-t5: var(--t5);
+
+  /* Accents */
+  --color-ice: var(--ice);
+  --color-ice-hover: var(--ice-hover);
+  --color-nudge: var(--nudge);
+
+  /* Semantic status */
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+
+  /* ===== Legacy compatibility (kept through SC-5.a; SC-5.b removes) ===== */
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -182,15 +278,15 @@
 /* Professional video editor utility classes */
 @layer utilities {
   .panel-bg {
-    background-color: oklch(var(--panel-bg));
+    background-color: var(--panel-bg);
   }
 
   .panel-header {
-    background-color: oklch(var(--panel-header));
+    background-color: var(--panel-header);
   }
 
   .timeline-bg {
-    background-color: oklch(var(--timeline-bg));
+    background-color: var(--timeline-bg);
   }
 
   /* Smooth panel transitions */
@@ -198,18 +294,19 @@
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Subtle glow for active elements */
+  /* Subtle glow for active elements — uses color-mix for alpha
+     (variables now hold canonical HEX, not OKLCH lightness components) */
   .glow-primary {
-    box-shadow: 0 0 12px oklch(var(--primary) / 0.3);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 30%, transparent);
   }
 
   .glow-primary-sm {
-    box-shadow: 0 0 6px oklch(var(--primary) / 0.25);
+    box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 25%, transparent);
   }
 
   /* Text shadows for better readability on dark */
   .text-shadow {
-    text-shadow: 0 1px 2px oklch(0 0 0 / 0.8);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -266,12 +363,12 @@
 }
 
 .timeline-marquee-preview {
-  box-shadow: inset 0 0 0 1px oklch(var(--primary));
+  box-shadow: inset 0 0 0 1px var(--primary);
 }
 
 [data-media-id].media-marquee-preview > * {
-  border-color: oklch(var(--primary));
-  box-shadow: 0 0 0 1px oklch(var(--primary) / 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 [data-composition-id].composition-marquee-preview {
