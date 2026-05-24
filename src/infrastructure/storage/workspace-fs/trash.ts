@@ -2,7 +2,7 @@
  * Soft-delete ("trash") for projects.
  *
  * A soft-deleted project keeps its directory intact under `projects/{id}/`
- * with an added marker file `.freecut-trashed.json`. The marker is the
+ * with an added marker file `.reelcinema-trashed.json`. The marker is the
  * source of truth: its presence hides the project from the projects list
  * and from the workspace index. Its absence restores visibility.
  *
@@ -12,7 +12,7 @@
  *     that can leave half-moved trees on crash.
  *   - Atomic state change (marker exists or doesn't) via `writeJsonAtomic`.
  *   - Browsing the workspace externally makes the trashed state visible
- *     as a file named `.freecut-trashed.json` — self-explanatory to any
+ *     as a file named `.reelcinema-trashed.json` — self-explanatory to any
  *     agent or human poking around.
  *
  * Permanent deletion is not done here. Callers (typically

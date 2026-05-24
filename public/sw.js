@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'freecut-app-shell-v1'
+const CACHE_VERSION = 'reelcinema-app-shell-v1'
 const APP_SHELL_URLS = [
   '/',
   '/index.html',

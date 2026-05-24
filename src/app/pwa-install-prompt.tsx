@@ -3,7 +3,7 @@ import { Download, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 
-const INSTALL_DISMISSED_UNTIL_KEY = 'freecut-pwa-install-dismissed-until'
+const INSTALL_DISMISSED_UNTIL_KEY = 'reelcinema-pwa-install-dismissed-until'
 const INSTALL_DISMISS_MS = 7 * 24 * 60 * 60 * 1000
 
 interface BeforeInstallPromptEvent extends Event {

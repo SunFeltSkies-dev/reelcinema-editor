@@ -124,7 +124,7 @@ export function WorkspaceGate({ children }: { children: React.ReactNode }) {
   const handlePick = useCallback(async () => {
     try {
       const handle = await window.showDirectoryPicker({
-        id: 'freecut-workspace',
+        id: 'reelcinema-workspace',
         mode: 'readwrite',
         startIn: 'documents',
       })

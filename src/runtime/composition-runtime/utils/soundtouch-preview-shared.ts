@@ -1,4 +1,4 @@
-export const SOUND_TOUCH_PREVIEW_PROCESSOR_NAME = 'freecut-soundtouch-preview'
+export const SOUND_TOUCH_PREVIEW_PROCESSOR_NAME = 'reelcinema-soundtouch-preview'
 
 export interface SoundTouchAppendSourceMessage {
   type: 'append-source'

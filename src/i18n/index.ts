@@ -15,7 +15,7 @@ import zh from './locales/zh.json'
 
 const log = createLogger('i18n')
 
-export const I18N_STORAGE_KEY = 'freecut-language'
+export const I18N_STORAGE_KEY = 'reelcinema-language'
 
 type LocaleTree = Record<string, unknown>
 

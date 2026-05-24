@@ -29,7 +29,7 @@
       "projectUpgradeDialog": {
         "title": "Upgrade Project Before Opening",
         "versionMismatch": "<strong>{{projectName}}</strong> was saved with project schema v{{storedSchemaVersion}}, but this build expects v{{currentSchemaVersion}}.",
-        "explanation": "FreeCut can upgrade it for you before loading the editor. A backup of the pre-upgrade project will be created first so you can restore the old data if anything looks off.",
+        "explanation": "ReelCinema can upgrade it for you before loading the editor. A backup of the pre-upgrade project will be created first so you can restore the old data if anything looks off.",
         "backupCopy": "Backup copy: <strong>{{backupName}}</strong>",
         "creatingBackup": "Creating Backup...",
         "confirm": "Create Backup & Upgrade"
@@ -298,7 +298,7 @@
         "clip": "Clip",
         "size": "Size",
         "frameRate": "Frame rate",
-        "fpsRoundedHint": "FreeCut matches imported video to the closest supported project frame rate. This clip would use {{fps}} fps.",
+        "fpsRoundedHint": "ReelCinema matches imported video to the closest supported project frame rate. This clip would use {{fps}} fps.",
         "keepCurrent": "Keep Current",
         "fpsOnly": "FPS Only",
         "sizeOnly": "Size Only",
@@ -307,13 +307,13 @@
         "matchSize": "Match Size"
       },
       "editor": {
-        "appLabel": "FreeCut Video Editor",
+        "appLabel": "ReelCinema Video Editor",
         "backupCreated": "Backup created before upgrade",
         "backupFailed": "Failed to create backup before upgrade",
         "tryAgain": "Please try again.",
         "projectSaved": "Project saved",
         "projectSaveFailed": "Failed to save project",
-        "projectBundle": "FreeCut Project Bundle"
+        "projectBundle": "ReelCinema Project Bundle"
       },
       "audioMeters": {
         "meters": "Meters",
@@ -355,7 +355,7 @@
       "projectUpgradeDialog": {
         "title": "Actualizar el proyecto antes de abrirlo",
         "versionMismatch": "<strong>{{projectName}}</strong> se guardó con el esquema de proyecto v{{storedSchemaVersion}}, pero esta versión espera v{{currentSchemaVersion}}.",
-        "explanation": "FreeCut puede actualizarlo antes de cargar el editor. Primero se creará una copia de seguridad previa a la actualización para que puedas restaurar los datos antiguos si algo no va bien.",
+        "explanation": "ReelCinema puede actualizarlo antes de cargar el editor. Primero se creará una copia de seguridad previa a la actualización para que puedas restaurar los datos antiguos si algo no va bien.",
         "backupCopy": "Copia de seguridad: <strong>{{backupName}}</strong>",
         "creatingBackup": "Creando copia de seguridad...",
         "confirm": "Crear copia y actualizar"
@@ -624,7 +624,7 @@
         "clip": "Clip",
         "size": "Tamaño",
         "frameRate": "Velocidad de fotogramas",
-        "fpsRoundedHint": "FreeCut ajusta el vídeo importado a la velocidad de fotogramas de proyecto compatible más cercana. Este clip usaría {{fps}} fps.",
+        "fpsRoundedHint": "ReelCinema ajusta el vídeo importado a la velocidad de fotogramas de proyecto compatible más cercana. Este clip usaría {{fps}} fps.",
         "keepCurrent": "Mantener actual",
         "fpsOnly": "Solo FPS",
         "sizeOnly": "Solo tamaño",
@@ -633,13 +633,13 @@
         "matchSize": "Ajustar tamaño"
       },
       "editor": {
-        "appLabel": "Editor de vídeo FreeCut",
+        "appLabel": "Editor de vídeo ReelCinema",
         "backupCreated": "Copia de seguridad creada antes de actualizar",
         "backupFailed": "Error al crear la copia de seguridad antes de actualizar",
         "tryAgain": "Inténtalo de nuevo.",
         "projectSaved": "Proyecto guardado",
         "projectSaveFailed": "Error al guardar el proyecto",
-        "projectBundle": "Paquete de proyecto FreeCut"
+        "projectBundle": "Paquete de proyecto ReelCinema"
       },
       "audioMeters": {
         "meters": "Medidores",
@@ -681,7 +681,7 @@
       "projectUpgradeDialog": {
         "title": "Mettre à jour le projet avant de l'ouvrir",
         "versionMismatch": "<strong>{{projectName}}</strong> a été enregistré avec le schéma de projet v{{storedSchemaVersion}}, mais cette version attend v{{currentSchemaVersion}}.",
-        "explanation": "FreeCut peut le mettre à jour avant de charger l'éditeur. Une sauvegarde de l'état précédent sera créée d'abord afin que vous puissiez restaurer les anciennes données si nécessaire.",
+        "explanation": "ReelCinema peut le mettre à jour avant de charger l'éditeur. Une sauvegarde de l'état précédent sera créée d'abord afin que vous puissiez restaurer les anciennes données si nécessaire.",
         "backupCopy": "Copie de sauvegarde : <strong>{{backupName}}</strong>",
         "creatingBackup": "Création de la sauvegarde...",
         "confirm": "Sauvegarder et mettre à jour"
@@ -950,7 +950,7 @@
         "clip": "Clip",
         "size": "Taille",
         "frameRate": "Fréquence d'images",
-        "fpsRoundedHint": "FreeCut adapte la vidéo importée à la fréquence d'images de projet prise en charge la plus proche. Ce clip utiliserait {{fps}} fps.",
+        "fpsRoundedHint": "ReelCinema adapte la vidéo importée à la fréquence d'images de projet prise en charge la plus proche. Ce clip utiliserait {{fps}} fps.",
         "keepCurrent": "Conserver l'actuel",
         "fpsOnly": "FPS uniquement",
         "sizeOnly": "Taille uniquement",
@@ -959,13 +959,13 @@
         "matchSize": "Adapter la taille"
       },
       "editor": {
-        "appLabel": "Éditeur vidéo FreeCut",
+        "appLabel": "Éditeur vidéo ReelCinema",
         "backupCreated": "Sauvegarde créée avant la mise à jour",
         "backupFailed": "Échec de la création de la sauvegarde avant la mise à jour",
         "tryAgain": "Veuillez réessayer.",
         "projectSaved": "Projet enregistré",
         "projectSaveFailed": "Échec de l'enregistrement du projet",
-        "projectBundle": "Paquet de projet FreeCut"
+        "projectBundle": "Paquet de projet ReelCinema"
       },
       "audioMeters": {
         "meters": "Vu-mètres",
@@ -1007,7 +1007,7 @@
       "projectUpgradeDialog": {
         "title": "Projekt vor dem Öffnen aktualisieren",
         "versionMismatch": "<strong>{{projectName}}</strong> wurde mit dem Projektschema v{{storedSchemaVersion}} gespeichert, aber dieser Build erwartet v{{currentSchemaVersion}}.",
-        "explanation": "FreeCut kann es vor dem Laden des Editors aktualisieren. Zuerst wird eine Sicherung des Zustands vor der Aktualisierung erstellt, damit du die alten Daten wiederherstellen kannst, falls etwas nicht stimmt.",
+        "explanation": "ReelCinema kann es vor dem Laden des Editors aktualisieren. Zuerst wird eine Sicherung des Zustands vor der Aktualisierung erstellt, damit du die alten Daten wiederherstellen kannst, falls etwas nicht stimmt.",
         "backupCopy": "Sicherungskopie: <strong>{{backupName}}</strong>",
         "creatingBackup": "Sicherung wird erstellt...",
         "confirm": "Sicherung erstellen & aktualisieren"
@@ -1276,7 +1276,7 @@
         "clip": "Clip",
         "size": "Größe",
         "frameRate": "Bildrate",
-        "fpsRoundedHint": "FreeCut passt importiertes Video an die nächstgelegene unterstützte Projekt-Bildrate an. Dieser Clip würde {{fps}} fps verwenden.",
+        "fpsRoundedHint": "ReelCinema passt importiertes Video an die nächstgelegene unterstützte Projekt-Bildrate an. Dieser Clip würde {{fps}} fps verwenden.",
         "keepCurrent": "Aktuelle behalten",
         "fpsOnly": "Nur FPS",
         "sizeOnly": "Nur Größe",
@@ -1285,13 +1285,13 @@
         "matchSize": "Größe anpassen"
       },
       "editor": {
-        "appLabel": "FreeCut Videoeditor",
+        "appLabel": "ReelCinema Videoeditor",
         "backupCreated": "Sicherung vor der Aktualisierung erstellt",
         "backupFailed": "Sicherung vor der Aktualisierung konnte nicht erstellt werden",
         "tryAgain": "Bitte erneut versuchen.",
         "projectSaved": "Projekt gespeichert",
         "projectSaveFailed": "Projekt konnte nicht gespeichert werden",
-        "projectBundle": "FreeCut-Projektpaket"
+        "projectBundle": "ReelCinema-Projektpaket"
       },
       "audioMeters": {
         "meters": "Pegelanzeigen",
@@ -1333,7 +1333,7 @@
       "projectUpgradeDialog": {
         "title": "Atualizar o projeto antes de abrir",
         "versionMismatch": "<strong>{{projectName}}</strong> foi salvo com o esquema de projeto v{{storedSchemaVersion}}, mas esta versão espera v{{currentSchemaVersion}}.",
-        "explanation": "O FreeCut pode atualizá-lo antes de carregar o editor. Primeiro será criado um backup do estado anterior à atualização para que você possa restaurar os dados antigos se algo parecer errado.",
+        "explanation": "O ReelCinema pode atualizá-lo antes de carregar o editor. Primeiro será criado um backup do estado anterior à atualização para que você possa restaurar os dados antigos se algo parecer errado.",
         "backupCopy": "Cópia de backup: <strong>{{backupName}}</strong>",
         "creatingBackup": "Criando backup...",
         "confirm": "Criar backup e atualizar"
@@ -1602,7 +1602,7 @@
         "clip": "Clipe",
         "size": "Tamanho",
         "frameRate": "Taxa de quadros",
-        "fpsRoundedHint": "O FreeCut ajusta o vídeo importado para a taxa de quadros de projeto compatível mais próxima. Este clipe usaria {{fps}} fps.",
+        "fpsRoundedHint": "O ReelCinema ajusta o vídeo importado para a taxa de quadros de projeto compatível mais próxima. Este clipe usaria {{fps}} fps.",
         "keepCurrent": "Manter atual",
         "fpsOnly": "Apenas FPS",
         "sizeOnly": "Apenas tamanho",
@@ -1611,13 +1611,13 @@
         "matchSize": "Ajustar tamanho"
       },
       "editor": {
-        "appLabel": "Editor de vídeo FreeCut",
+        "appLabel": "Editor de vídeo ReelCinema",
         "backupCreated": "Backup criado antes da atualização",
         "backupFailed": "Falha ao criar backup antes da atualização",
         "tryAgain": "Tente novamente.",
         "projectSaved": "Projeto salvo",
         "projectSaveFailed": "Falha ao salvar o projeto",
-        "projectBundle": "Pacote de projeto FreeCut"
+        "projectBundle": "Pacote de projeto ReelCinema"
       },
       "audioMeters": {
         "meters": "Medidores",
@@ -1659,7 +1659,7 @@
       "projectUpgradeDialog": {
         "title": "開く前にプロジェクトをアップグレード",
         "versionMismatch": "<strong>{{projectName}}</strong>はプロジェクトスキーマ v{{storedSchemaVersion}} で保存されていますが、このビルドは v{{currentSchemaVersion}} を必要とします。",
-        "explanation": "FreeCutはエディターを読み込む前にアップグレードできます。問題があった場合に元のデータを復元できるよう、まずアップグレード前のバックアップを作成します。",
+        "explanation": "ReelCinemaはエディターを読み込む前にアップグレードできます。問題があった場合に元のデータを復元できるよう、まずアップグレード前のバックアップを作成します。",
         "backupCopy": "バックアップコピー：<strong>{{backupName}}</strong>",
         "creatingBackup": "バックアップを作成中...",
         "confirm": "バックアップを作成してアップグレード"
@@ -1928,7 +1928,7 @@
         "clip": "クリップ",
         "size": "サイズ",
         "frameRate": "フレームレート",
-        "fpsRoundedHint": "FreeCutはインポートしたビデオを最も近い対応プロジェクトフレームレートに合わせます。このクリップは {{fps}} fps を使用します。",
+        "fpsRoundedHint": "ReelCinemaはインポートしたビデオを最も近い対応プロジェクトフレームレートに合わせます。このクリップは {{fps}} fps を使用します。",
         "keepCurrent": "現在のままにする",
         "fpsOnly": "FPSのみ",
         "sizeOnly": "サイズのみ",
@@ -1937,13 +1937,13 @@
         "matchSize": "サイズを合わせる"
       },
       "editor": {
-        "appLabel": "FreeCut ビデオエディター",
+        "appLabel": "ReelCinema ビデオエディター",
         "backupCreated": "アップグレード前にバックアップを作成しました",
         "backupFailed": "アップグレード前のバックアップ作成に失敗しました",
         "tryAgain": "もう一度お試しください。",
         "projectSaved": "プロジェクトを保存しました",
         "projectSaveFailed": "プロジェクトの保存に失敗しました",
-        "projectBundle": "FreeCut プロジェクトバンドル"
+        "projectBundle": "ReelCinema プロジェクトバンドル"
       },
       "audioMeters": {
         "meters": "メーター",
@@ -1985,7 +1985,7 @@
       "projectUpgradeDialog": {
         "title": "열기 전에 프로젝트 업그레이드",
         "versionMismatch": "<strong>{{projectName}}</strong>은(는) 프로젝트 스키마 v{{storedSchemaVersion}}으로 저장되었지만 이 빌드는 v{{currentSchemaVersion}}을(를) 필요로 합니다.",
-        "explanation": "FreeCut은 편집기를 로드하기 전에 업그레이드할 수 있습니다. 문제가 있을 경우 이전 데이터를 복원할 수 있도록 먼저 업그레이드 전 백업이 생성됩니다.",
+        "explanation": "ReelCinema은 편집기를 로드하기 전에 업그레이드할 수 있습니다. 문제가 있을 경우 이전 데이터를 복원할 수 있도록 먼저 업그레이드 전 백업이 생성됩니다.",
         "backupCopy": "백업 사본: <strong>{{backupName}}</strong>",
         "creatingBackup": "백업 생성 중...",
         "confirm": "백업 생성 후 업그레이드"
@@ -2254,7 +2254,7 @@
         "clip": "클립",
         "size": "크기",
         "frameRate": "프레임 레이트",
-        "fpsRoundedHint": "FreeCut은 가져온 비디오를 가장 가까운 지원 프로젝트 프레임 레이트에 맞춥니다. 이 클립은 {{fps}} fps를 사용합니다.",
+        "fpsRoundedHint": "ReelCinema은 가져온 비디오를 가장 가까운 지원 프로젝트 프레임 레이트에 맞춥니다. 이 클립은 {{fps}} fps를 사용합니다.",
         "keepCurrent": "현재 유지",
         "fpsOnly": "FPS만",
         "sizeOnly": "크기만",
@@ -2263,13 +2263,13 @@
         "matchSize": "크기 맞추기"
       },
       "editor": {
-        "appLabel": "FreeCut 비디오 편집기",
+        "appLabel": "ReelCinema 비디오 편집기",
         "backupCreated": "업그레이드 전 백업이 생성되었습니다",
         "backupFailed": "업그레이드 전 백업 생성에 실패했습니다",
         "tryAgain": "다시 시도하세요.",
         "projectSaved": "프로젝트가 저장되었습니다",
         "projectSaveFailed": "프로젝트 저장에 실패했습니다",
-        "projectBundle": "FreeCut 프로젝트 번들"
+        "projectBundle": "ReelCinema 프로젝트 번들"
       },
       "audioMeters": {
         "meters": "미터",
@@ -2311,7 +2311,7 @@
       "projectUpgradeDialog": {
         "title": "打开前升级项目",
         "versionMismatch": "<strong>{{projectName}}</strong> 使用项目架构 v{{storedSchemaVersion}} 保存，但此版本需要 v{{currentSchemaVersion}}。",
-        "explanation": "FreeCut 可以在加载编辑器之前为你升级它。会先创建升级前的备份，以便在出现问题时恢复旧数据。",
+        "explanation": "ReelCinema 可以在加载编辑器之前为你升级它。会先创建升级前的备份，以便在出现问题时恢复旧数据。",
         "backupCopy": "备份副本：<strong>{{backupName}}</strong>",
         "creatingBackup": "正在创建备份...",
         "confirm": "创建备份并升级"
@@ -2580,7 +2580,7 @@
         "clip": "片段",
         "size": "尺寸",
         "frameRate": "帧率",
-        "fpsRoundedHint": "FreeCut 会将导入的视频匹配到最接近的受支持项目帧率。此片段将使用 {{fps}} fps。",
+        "fpsRoundedHint": "ReelCinema 会将导入的视频匹配到最接近的受支持项目帧率。此片段将使用 {{fps}} fps。",
         "keepCurrent": "保持当前",
         "fpsOnly": "仅帧率",
         "sizeOnly": "仅尺寸",
@@ -2589,13 +2589,13 @@
         "matchSize": "匹配尺寸"
       },
       "editor": {
-        "appLabel": "FreeCut 视频编辑器",
+        "appLabel": "ReelCinema 视频编辑器",
         "backupCreated": "升级前已创建备份",
         "backupFailed": "升级前创建备份失败",
         "tryAgain": "请重试。",
         "projectSaved": "项目已保存",
         "projectSaveFailed": "保存项目失败",
-        "projectBundle": "FreeCut 项目包"
+        "projectBundle": "ReelCinema 项目包"
       },
       "audioMeters": {
         "meters": "电平表",
@@ -2637,7 +2637,7 @@
       "projectUpgradeDialog": {
         "title": "Açmadan Önce Projeyi Yükselt",
         "versionMismatch": "<strong>{{projectName}}</strong> proje şeması v{{storedSchemaVersion}} ile kaydedilmiş, ancak bu sürüm v{{currentSchemaVersion}} bekliyor.",
-        "explanation": "FreeCut, editörü yüklemeden önce projeyi sizin için yükseltebilir. Bir şey ters görünürse eski veriye dönebilmeniz için önce yükseltme öncesi bir yedek oluşturulur.",
+        "explanation": "ReelCinema, editörü yüklemeden önce projeyi sizin için yükseltebilir. Bir şey ters görünürse eski veriye dönebilmeniz için önce yükseltme öncesi bir yedek oluşturulur.",
         "backupCopy": "Yedek kopya: <strong>{{backupName}}</strong>",
         "creatingBackup": "Yedek Oluşturuluyor...",
         "confirm": "Yedek Oluştur ve Yükselt"
@@ -2906,7 +2906,7 @@
         "clip": "Klip",
         "size": "Boyut",
         "frameRate": "Kare hızı",
-        "fpsRoundedHint": "FreeCut içe aktarılan videoyu en yakın desteklenen proje kare hızına eşler. Bu klip {{fps}} fps kullanır.",
+        "fpsRoundedHint": "ReelCinema içe aktarılan videoyu en yakın desteklenen proje kare hızına eşler. Bu klip {{fps}} fps kullanır.",
         "keepCurrent": "Geçerli Olanı Koru",
         "fpsOnly": "Yalnızca FPS",
         "sizeOnly": "Yalnızca Boyut",
@@ -2915,13 +2915,13 @@
         "matchSize": "Boyutu Eşle"
       },
       "editor": {
-        "appLabel": "FreeCut Video Editörü",
+        "appLabel": "ReelCinema Video Editörü",
         "backupCreated": "Yükseltmeden önce yedek oluşturuldu",
         "backupFailed": "Yükseltmeden önce yedek oluşturulamadı",
         "tryAgain": "Lütfen tekrar deneyin.",
         "projectSaved": "Proje kaydedildi",
         "projectSaveFailed": "Proje kaydedilemedi",
-        "projectBundle": "FreeCut Proje Paketi"
+        "projectBundle": "ReelCinema Proje Paketi"
       },
       "audioMeters": {
         "meters": "Sayaçlar",

@@ -66,7 +66,7 @@ describe('workspace-fs trash', () => {
     expect(marker.originalName).toBe('Live')
     expect(typeof marker.deletedAt).toBe('number')
 
-    const markerText = await readFileText(root, 'projects', 'p1', '.freecut-trashed.json')
+    const markerText = await readFileText(root, 'projects', 'p1', '.reelcinema-trashed.json')
     expect(markerText).not.toBeNull()
 
     // Trashed projects disappear from getAllProjects + getProject.
@@ -95,7 +95,7 @@ describe('workspace-fs trash', () => {
 
     await restoreProject('p1')
 
-    const markerText = await readFileText(root, 'projects', 'p1', '.freecut-trashed.json')
+    const markerText = await readFileText(root, 'projects', 'p1', '.reelcinema-trashed.json')
     expect(markerText).toBeNull()
     const all = await getAllProjects()
     expect(all.map((p) => p.id)).toEqual(['p1'])
@@ -154,12 +154,16 @@ describe('workspace-fs trash', () => {
     await softDeleteProject('new')
 
     const oldMarker = JSON.parse(
-      (await readFileText(root, 'projects', 'old', '.freecut-trashed.json'))!,
+      (await readFileText(root, 'projects', 'old', '.reelcinema-trashed.json'))!,
     )
     oldMarker.deletedAt = Date.now() - 1_000_000
     // Rewrite via the writeJsonAtomic path so behavior matches production.
     const { writeJsonAtomic } = await import('./fs-primitives')
-    await writeJsonAtomic(asHandle(root), ['projects', 'old', '.freecut-trashed.json'], oldMarker)
+    await writeJsonAtomic(
+      asHandle(root),
+      ['projects', 'old', '.reelcinema-trashed.json'],
+      oldMarker,
+    )
 
     const purged: string[] = []
     const result = await sweepTrashOlderThan(500_000, async (id) => {
@@ -181,7 +185,7 @@ describe('workspace-fs trash', () => {
     // Force both markers very old.
     const { writeJsonAtomic } = await import('./fs-primitives')
     for (const id of ['a', 'b']) {
-      await writeJsonAtomic(asHandle(root), ['projects', id, '.freecut-trashed.json'], {
+      await writeJsonAtomic(asHandle(root), ['projects', id, '.reelcinema-trashed.json'], {
         deletedAt: 0,
         originalName: id,
       })

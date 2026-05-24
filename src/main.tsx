@@ -9,7 +9,7 @@ import './index.css'
 
 const log = createLogger('App')
 const UPDATE_CHECK_INTERVAL_MS = 5 * 60 * 1000
-const ACCEPTED_APP_UPDATE_SIGNATURE_KEY = 'freecut-accepted-app-update-signature'
+const ACCEPTED_APP_UPDATE_SIGNATURE_KEY = 'reelcinema-accepted-app-update-signature'
 
 let updateToastVisible = false
 let currentBuildAssetSignature: string | null = null
@@ -97,7 +97,7 @@ async function checkForAppShellUpdate() {
   currentBuildAssetSignature ??= getBuildAssetSignature(document)
 
   try {
-    const response = await fetch(`/?__freecut_update_check=${Date.now()}`, {
+    const response = await fetch(`/?__reelcinema_update_check=${Date.now()}`, {
       cache: 'no-store',
       headers: {
         'Cache-Control': 'no-cache',
@@ -119,7 +119,7 @@ async function checkForAppShellUpdate() {
       nextBuildAssetSignature !== acceptedUpdateSignature
     ) {
       showUpdateAvailableToast(() => {
-        window.location.assign(`/?__freecut_updated=${Date.now()}`)
+        window.location.assign(`/?__reelcinema_updated=${Date.now()}`)
       }, nextBuildAssetSignature)
     }
   } catch (error) {

@@ -3,12 +3,12 @@
  * asset id to a playback-ready resource bundle.
  *
  * Wraps the lower-level `useAsset` URL hook together with the
- * `ImportedAsset` bridge so consumers at the FreeCut playback surface
+ * `ImportedAsset` bridge so consumers at the ReelCinema playback surface
  * get one object containing identity, metadata, and the live object URL.
  *
  * Two-stage resolution:
  *   1. `BackboneClient.getAsset(id)` → translate via
- *      `assetToImportedAsset` to the FreeCut-facing shape
+ *      `assetToImportedAsset` to the ReelCinema-facing shape
  *   2. `useAsset({...})` → OPFS cache → signed URL → B2 fetch → object URL
  *
  * Both stages share the cancellation lifecycle: an unmount or asset id

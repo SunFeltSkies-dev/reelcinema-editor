@@ -152,7 +152,7 @@ export const useSettingsStore = create<SettingsStore>()(
       resetToDefaults: () => set(DEFAULT_SETTINGS),
     }),
     {
-      name: 'freecut-settings',
+      name: 'reelcinema-settings',
       merge: (persistedState, currentState) => {
         const typedState = (persistedState as Partial<AppSettings> | undefined) ?? {}
 
