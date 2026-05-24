@@ -108,55 +108,6 @@
           "swing": "Swing"
         }
       },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} runs locally in the browser on {{backend}}.",
-        "history": "History ({{count}}) - {{size}}",
-        "clearAll": "Clear all",
-        "musicGeneration": "Music Generation",
-        "collapseMusicGeneration": "Collapse music generation",
-        "expandMusicGeneration": "Expand music generation",
-        "musicGenerationInfo": "Music generation info",
-        "musicgenDescription": "Uses Xenova's browser-ready MusicGen model through Transformers.js. The first download is large, then it stays cached locally.",
-        "musicgenPromptHint": "Prompt with genre, mood, tempo, and instrumentation. Shorter clips finish much faster.",
-        "musicgenUnsupported": "WebGPU is not available in this browser. MusicGen needs Chrome 113+, Edge 113+, or Safari 26+.",
-        "prompt": "Prompt",
-        "presets": "Presets",
-        "musicPromptPlaceholder": "Describe the kind of music you want to generate...",
-        "length": "Length",
-        "generateMusic": "Generate Music",
-        "musicHistory": "Music History ({{count}}) - {{size}}",
-        "remove": "Remove",
-        "saved": "Saved",
-        "saving": "Saving...",
-        "saveAndInsert": "Save & Insert",
-        "saveToLibrary": "Save to Library",
-        "progressPreparingMusic": "Preparing local music generation...",
-        "errors": {
-          "describeMusic": "Describe the music you want to generate.",
-          "musicgenUnsupported": "WebGPU is required for MusicGen. Try Chrome 113+, Edge 113+, or Safari 26+.",
-          "generateMusicFailed": "Failed to generate music.",
-          "saveAudioFailed": "Failed to save audio to the media library."
-        },
-        "notifications": {
-          "savedToLibrary": "Saved \"{{fileName}}\" to the media library.",
-          "savedAndAdded": "Saved \"{{fileName}}\" and added to timeline.",
-          "savedNoTrack": "Saved \"{{fileName}}\" but no audio track is available."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi Chill",
-          "lofiChillPrompt": "Warm lo-fi beat with dusty drums, mellow bass, and a dreamy synth lead",
-          "pop80sLabel": "80s Pop",
-          "pop80sPrompt": "80s pop track with bassy drums and synth",
-          "rock90sLabel": "90s Rock",
-          "rock90sPrompt": "90s rock song with loud guitars and heavy drums",
-          "upbeatEdmLabel": "Upbeat EDM",
-          "upbeatEdmPrompt": "A light and cheery EDM track, with syncopated drums, airy pads, and strong emotions bpm: 130",
-          "countryLabel": "Country",
-          "countryPrompt": "A cheerful country song with acoustic guitars",
-          "lofiElectroLabel": "Lo-fi Electro",
-          "lofiElectroPrompt": "Lofi slow bpm electro chill with organic samples"
-        }
-      },
       "clearKeyframesDialog": {
         "descriptionProperty": "Clear {{property}} keyframes from {{count}} selected item(s)?",
         "descriptionAll": "Clear all keyframes from {{count}} selected item(s)?"
@@ -458,55 +409,6 @@
           "tilt": "Inclinar",
           "pop": "Aparecer",
           "swing": "Balancear"
-        }
-      },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} se ejecuta localmente en el navegador con {{backend}}.",
-        "history": "Historial ({{count}}) - {{size}}",
-        "clearAll": "Borrar todo",
-        "musicGeneration": "Generación de música",
-        "collapseMusicGeneration": "Contraer generación de música",
-        "expandMusicGeneration": "Expandir generación de música",
-        "musicGenerationInfo": "Información de generación de música",
-        "musicgenDescription": "Usa el modelo MusicGen preparado para navegador de Xenova mediante Transformers.js. La primera descarga es grande; después queda en caché local.",
-        "musicgenPromptHint": "Describe género, ánimo, tempo e instrumentación. Los clips más cortos terminan mucho más rápido.",
-        "musicgenUnsupported": "WebGPU no está disponible en este navegador. MusicGen necesita Chrome 113+, Edge 113+ o Safari 26+.",
-        "prompt": "Prompt",
-        "presets": "Preajustes",
-        "musicPromptPlaceholder": "Describe el tipo de música que quieres generar...",
-        "length": "Duración",
-        "generateMusic": "Generar música",
-        "musicHistory": "Historial de música ({{count}}) - {{size}}",
-        "remove": "Quitar",
-        "saved": "Guardado",
-        "saving": "Guardando...",
-        "saveAndInsert": "Guardar e insertar",
-        "saveToLibrary": "Guardar en biblioteca",
-        "progressPreparingMusic": "Preparando generación local de música...",
-        "errors": {
-          "describeMusic": "Describe la música que quieres generar.",
-          "musicgenUnsupported": "WebGPU es necesario para MusicGen. Prueba Chrome 113+, Edge 113+ o Safari 26+.",
-          "generateMusicFailed": "No se pudo generar la música.",
-          "saveAudioFailed": "No se pudo guardar el audio en la biblioteca multimedia."
-        },
-        "notifications": {
-          "savedToLibrary": "Se guardó \"{{fileName}}\" en la biblioteca multimedia.",
-          "savedAndAdded": "Se guardó \"{{fileName}}\" y se añadió a la línea de tiempo.",
-          "savedNoTrack": "Se guardó \"{{fileName}}\", pero no hay una pista de audio disponible."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi Chill",
-          "lofiChillPrompt": "Warm lo-fi beat with dusty drums, mellow bass, and a dreamy synth lead",
-          "pop80sLabel": "80s Pop",
-          "pop80sPrompt": "80s pop track with bassy drums and synth",
-          "rock90sLabel": "90s Rock",
-          "rock90sPrompt": "90s rock song with loud guitars and heavy drums",
-          "upbeatEdmLabel": "Upbeat EDM",
-          "upbeatEdmPrompt": "A light and cheery EDM track, with syncopated drums, airy pads, and strong emotions bpm: 130",
-          "countryLabel": "Country",
-          "countryPrompt": "A cheerful country song with acoustic guitars",
-          "lofiElectroLabel": "Lo-fi Electro",
-          "lofiElectroPrompt": "Lofi slow bpm electro chill with organic samples"
         }
       },
       "clearKeyframesDialog": {
@@ -812,55 +714,6 @@
           "swing": "Balancer"
         }
       },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} s'exécute localement dans le navigateur avec {{backend}}.",
-        "history": "Historique ({{count}}) - {{size}}",
-        "clearAll": "Tout effacer",
-        "musicGeneration": "Génération musicale",
-        "collapseMusicGeneration": "Réduire la génération musicale",
-        "expandMusicGeneration": "Développer la génération musicale",
-        "musicGenerationInfo": "Infos de génération musicale",
-        "musicgenDescription": "Utilise le modèle MusicGen de Xenova prêt pour le navigateur via Transformers.js. Le premier téléchargement est volumineux, puis il reste en cache local.",
-        "musicgenPromptHint": "Décrivez le genre, l'ambiance, le tempo et les instruments. Les clips plus courts finissent beaucoup plus vite.",
-        "musicgenUnsupported": "WebGPU n'est pas disponible dans ce navigateur. MusicGen nécessite Chrome 113+, Edge 113+ ou Safari 26+.",
-        "prompt": "Prompt",
-        "presets": "Préréglages",
-        "musicPromptPlaceholder": "Décrivez le type de musique à générer...",
-        "length": "Durée",
-        "generateMusic": "Générer la musique",
-        "musicHistory": "Historique musical ({{count}}) - {{size}}",
-        "remove": "Supprimer",
-        "saved": "Enregistré",
-        "saving": "Enregistrement...",
-        "saveAndInsert": "Enregistrer et insérer",
-        "saveToLibrary": "Enregistrer dans la bibliothèque",
-        "progressPreparingMusic": "Préparation de la génération musicale locale...",
-        "errors": {
-          "describeMusic": "Décrivez la musique à générer.",
-          "musicgenUnsupported": "WebGPU est requis pour MusicGen. Essayez Chrome 113+, Edge 113+ ou Safari 26+.",
-          "generateMusicFailed": "Échec de la génération musicale.",
-          "saveAudioFailed": "Impossible d'enregistrer l'audio dans la bibliothèque multimédia."
-        },
-        "notifications": {
-          "savedToLibrary": "« {{fileName}} » a été enregistré dans la bibliothèque multimédia.",
-          "savedAndAdded": "« {{fileName}} » a été enregistré et ajouté à la timeline.",
-          "savedNoTrack": "« {{fileName}} » a été enregistré, mais aucune piste audio n'est disponible."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi Chill",
-          "lofiChillPrompt": "Warm lo-fi beat with dusty drums, mellow bass, and a dreamy synth lead",
-          "pop80sLabel": "80s Pop",
-          "pop80sPrompt": "80s pop track with bassy drums and synth",
-          "rock90sLabel": "90s Rock",
-          "rock90sPrompt": "90s rock song with loud guitars and heavy drums",
-          "upbeatEdmLabel": "Upbeat EDM",
-          "upbeatEdmPrompt": "A light and cheery EDM track, with syncopated drums, airy pads, and strong emotions bpm: 130",
-          "countryLabel": "Country",
-          "countryPrompt": "A cheerful country song with acoustic guitars",
-          "lofiElectroLabel": "Lo-fi Electro",
-          "lofiElectroPrompt": "Lofi slow bpm electro chill with organic samples"
-        }
-      },
       "clearKeyframesDialog": {
         "descriptionProperty": "Effacer les images clés {{property}} de {{count}} élément(s) sélectionné(s) ?",
         "descriptionAll": "Effacer toutes les images clés de {{count}} élément(s) sélectionné(s) ?"
@@ -1164,55 +1017,6 @@
           "swing": "Schwingen"
         }
       },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} läuft lokal im Browser mit {{backend}}.",
-        "history": "Verlauf ({{count}}) - {{size}}",
-        "clearAll": "Alle löschen",
-        "musicGeneration": "Musik generieren",
-        "collapseMusicGeneration": "Musikgenerierung einklappen",
-        "expandMusicGeneration": "Musikgenerierung ausklappen",
-        "musicGenerationInfo": "Infos zur Musikgenerierung",
-        "musicgenDescription": "Verwendet Xenovas browserfähiges MusicGen-Modell über Transformers.js. Der erste Download ist groß, danach bleibt es lokal im Cache.",
-        "musicgenPromptHint": "Beschreibe Genre, Stimmung, Tempo und Instrumentierung. Kürzere Clips sind deutlich schneller fertig.",
-        "musicgenUnsupported": "WebGPU ist in diesem Browser nicht verfügbar. MusicGen benötigt Chrome 113+, Edge 113+ oder Safari 26+.",
-        "prompt": "Prompt",
-        "presets": "Vorgaben",
-        "musicPromptPlaceholder": "Beschreibe, welche Musik du erzeugen möchtest...",
-        "length": "Länge",
-        "generateMusic": "Musik generieren",
-        "musicHistory": "Musikverlauf ({{count}}) - {{size}}",
-        "remove": "Entfernen",
-        "saved": "Gespeichert",
-        "saving": "Speichern...",
-        "saveAndInsert": "Speichern und einfügen",
-        "saveToLibrary": "In Bibliothek speichern",
-        "progressPreparingMusic": "Lokale Musikgenerierung wird vorbereitet...",
-        "errors": {
-          "describeMusic": "Beschreibe die Musik, die du erzeugen möchtest.",
-          "musicgenUnsupported": "WebGPU ist für MusicGen erforderlich. Versuche Chrome 113+, Edge 113+ oder Safari 26+.",
-          "generateMusicFailed": "Musik konnte nicht generiert werden.",
-          "saveAudioFailed": "Audio konnte nicht in der Medienbibliothek gespeichert werden."
-        },
-        "notifications": {
-          "savedToLibrary": "\"{{fileName}}\" wurde in der Medienbibliothek gespeichert.",
-          "savedAndAdded": "\"{{fileName}}\" wurde gespeichert und zur Timeline hinzugefügt.",
-          "savedNoTrack": "\"{{fileName}}\" wurde gespeichert, aber es ist keine Audiospur verfügbar."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi Chill",
-          "lofiChillPrompt": "Warm lo-fi beat with dusty drums, mellow bass, and a dreamy synth lead",
-          "pop80sLabel": "80s Pop",
-          "pop80sPrompt": "80s pop track with bassy drums and synth",
-          "rock90sLabel": "90s Rock",
-          "rock90sPrompt": "90s rock song with loud guitars and heavy drums",
-          "upbeatEdmLabel": "Upbeat EDM",
-          "upbeatEdmPrompt": "A light and cheery EDM track, with syncopated drums, airy pads, and strong emotions bpm: 130",
-          "countryLabel": "Country",
-          "countryPrompt": "A cheerful country song with acoustic guitars",
-          "lofiElectroLabel": "Lo-fi Electro",
-          "lofiElectroPrompt": "Lofi slow bpm electro chill with organic samples"
-        }
-      },
       "clearKeyframesDialog": {
         "descriptionProperty": "{{property}}-Keyframes von {{count}} ausgewählten Element(en) löschen?",
         "descriptionAll": "Alle Keyframes von {{count}} ausgewählten Element(en) löschen?"
@@ -1514,55 +1318,6 @@
           "tilt": "Inclinar",
           "pop": "Surgir",
           "swing": "Balançar"
-        }
-      },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} roda localmente no navegador em {{backend}}.",
-        "history": "Histórico ({{count}}) - {{size}}",
-        "clearAll": "Limpar tudo",
-        "musicGeneration": "Geração de música",
-        "collapseMusicGeneration": "Recolher geração de música",
-        "expandMusicGeneration": "Expandir geração de música",
-        "musicGenerationInfo": "Informações da geração de música",
-        "musicgenDescription": "Usa o modelo MusicGen da Xenova pronto para navegador via Transformers.js. O primeiro download é grande; depois ele fica em cache local.",
-        "musicgenPromptHint": "Descreva gênero, clima, tempo e instrumentos. Clipes mais curtos terminam muito mais rápido.",
-        "musicgenUnsupported": "WebGPU não está disponível neste navegador. MusicGen precisa do Chrome 113+, Edge 113+ ou Safari 26+.",
-        "prompt": "Comando",
-        "presets": "Predefinições",
-        "musicPromptPlaceholder": "Descreva o tipo de música que você quer gerar...",
-        "length": "Duração",
-        "generateMusic": "Gerar música",
-        "musicHistory": "Histórico de música ({{count}}) - {{size}}",
-        "remove": "Remover",
-        "saved": "Salvo",
-        "saving": "Salvando...",
-        "saveAndInsert": "Salvar e inserir",
-        "saveToLibrary": "Salvar na biblioteca",
-        "progressPreparingMusic": "Preparando geração local de música...",
-        "errors": {
-          "describeMusic": "Descreva a música que você quer gerar.",
-          "musicgenUnsupported": "WebGPU é necessário para MusicGen. Tente Chrome 113+, Edge 113+ ou Safari 26+.",
-          "generateMusicFailed": "Não foi possível gerar a música.",
-          "saveAudioFailed": "Não foi possível salvar o áudio na biblioteca de mídia."
-        },
-        "notifications": {
-          "savedToLibrary": "\"{{fileName}}\" foi salvo na biblioteca de mídia.",
-          "savedAndAdded": "\"{{fileName}}\" foi salvo e adicionado à linha do tempo.",
-          "savedNoTrack": "\"{{fileName}}\" foi salvo, mas nenhuma faixa de áudio está disponível."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi tranquilo",
-          "lofiChillPrompt": "Batida lo-fi quente com bateria vintage, baixo suave e lead de sintetizador sonhador",
-          "pop80sLabel": "Pop anos 80",
-          "pop80sPrompt": "Faixa pop dos anos 80 com bateria grave e sintetizador",
-          "rock90sLabel": "Rock anos 90",
-          "rock90sPrompt": "Música de rock dos anos 90 com guitarras altas e bateria pesada",
-          "upbeatEdmLabel": "EDM animado",
-          "upbeatEdmPrompt": "Faixa EDM leve e alegre, com bateria sincopada, pads aéreos e emoção forte bpm: 130",
-          "countryLabel": "Country / sertanejo",
-          "countryPrompt": "Música country alegre com violão acústico",
-          "lofiElectroLabel": "Lo-fi eletrônico",
-          "lofiElectroPrompt": "Lo-fi electro chill de BPM lento com samples orgânicos"
         }
       },
       "clearKeyframesDialog": {
@@ -1872,55 +1627,6 @@
           "swing": "スイング"
         }
       },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} はブラウザ内で {{backend}} を使ってローカル実行されます。",
-        "history": "履歴 ({{count}}) - {{size}}",
-        "clearAll": "すべてクリア",
-        "musicGeneration": "音楽生成",
-        "collapseMusicGeneration": "音楽生成を折りたたむ",
-        "expandMusicGeneration": "音楽生成を展開",
-        "musicGenerationInfo": "音楽生成情報",
-        "musicgenDescription": "Transformers.js 経由で、Xenova のブラウザ対応 MusicGen モデルを使用します。初回ダウンロードは大きめですが、その後はローカルにキャッシュされます。",
-        "musicgenPromptHint": "ジャンル、ムード、テンポ、楽器編成を指定してください。短いクリップほどかなり速く完了します。",
-        "musicgenUnsupported": "このブラウザでは WebGPU を利用できません。MusicGen には Chrome 113+、Edge 113+、または Safari 26+ が必要です。",
-        "prompt": "プロンプト",
-        "presets": "プリセット",
-        "musicPromptPlaceholder": "生成したい音楽の種類を説明してください...",
-        "length": "長さ",
-        "generateMusic": "音楽を生成",
-        "musicHistory": "音楽履歴 ({{count}}) - {{size}}",
-        "remove": "削除",
-        "saved": "保存済み",
-        "saving": "保存中...",
-        "saveAndInsert": "保存して挿入",
-        "saveToLibrary": "ライブラリに保存",
-        "progressPreparingMusic": "ローカル音楽生成を準備中...",
-        "errors": {
-          "describeMusic": "生成したい音楽を説明してください。",
-          "musicgenUnsupported": "MusicGen には WebGPU が必要です。Chrome 113+、Edge 113+、または Safari 26+ をお試しください。",
-          "generateMusicFailed": "音楽を生成できませんでした。",
-          "saveAudioFailed": "メディアライブラリに音声を保存できませんでした。"
-        },
-        "notifications": {
-          "savedToLibrary": "\"{{fileName}}\" をメディアライブラリに保存しました。",
-          "savedAndAdded": "\"{{fileName}}\" を保存してタイムラインに追加しました。",
-          "savedNoTrack": "\"{{fileName}}\" を保存しましたが、利用可能な音声トラックがありません。"
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi チル",
-          "lofiChillPrompt": "温かい lo-fi ビート、ダスティなドラム、メロウなベース、夢のようなシンセリード",
-          "pop80sLabel": "80年代ポップ",
-          "pop80sPrompt": "太いドラムとシンセが印象的な80年代ポップトラック",
-          "rock90sLabel": "90年代ロック",
-          "rock90sPrompt": "大きなギターと重いドラムの90年代ロックソング",
-          "upbeatEdmLabel": "アップビート EDM",
-          "upbeatEdmPrompt": "明るく爽やかな EDM トラック、シンコペーションのドラム、空気感のあるパッド、強い感情 bpm: 130",
-          "countryLabel": "カントリー",
-          "countryPrompt": "アコースティックギターの入った明るいカントリーソング",
-          "lofiElectroLabel": "Lo-fi エレクトロ",
-          "lofiElectroPrompt": "オーガニックなサンプルを使った低速 BPM の lo-fi エレクトロチル"
-        }
-      },
       "clearKeyframesDialog": {
         "descriptionProperty": "選択した {{count}} 項目から {{property}} のキーフレームをクリアしますか？",
         "descriptionAll": "選択した {{count}} 項目からすべてのキーフレームをクリアしますか？"
@@ -2222,55 +1928,6 @@
           "tilt": "기울임",
           "pop": "팝",
           "swing": "스윙"
-        }
-      },
-      "aiPanel": {
-        "runsLocally": "{{runtime}}은(는) 브라우저에서 {{backend}}로 로컬 실행됩니다.",
-        "history": "기록 ({{count}}) - {{size}}",
-        "clearAll": "모두 지우기",
-        "musicGeneration": "음악 생성",
-        "collapseMusicGeneration": "음악 생성 접기",
-        "expandMusicGeneration": "음악 생성 펼치기",
-        "musicGenerationInfo": "음악 생성 정보",
-        "musicgenDescription": "Transformers.js를 통해 Xenova의 브라우저용 MusicGen 모델을 사용합니다. 첫 다운로드는 크지만 이후에는 로컬에 캐시됩니다.",
-        "musicgenPromptHint": "장르, 분위기, 템포, 악기 구성을 입력하세요. 짧은 클립일수록 훨씬 빠르게 끝납니다.",
-        "musicgenUnsupported": "이 브라우저에서는 WebGPU를 사용할 수 없습니다. MusicGen에는 Chrome 113+, Edge 113+ 또는 Safari 26+가 필요합니다.",
-        "prompt": "프롬프트",
-        "presets": "프리셋",
-        "musicPromptPlaceholder": "생성할 음악의 종류를 설명하세요...",
-        "length": "길이",
-        "generateMusic": "음악 생성",
-        "musicHistory": "음악 기록 ({{count}}) - {{size}}",
-        "remove": "제거",
-        "saved": "저장됨",
-        "saving": "저장 중...",
-        "saveAndInsert": "저장 및 삽입",
-        "saveToLibrary": "라이브러리에 저장",
-        "progressPreparingMusic": "로컬 음악 생성을 준비 중...",
-        "errors": {
-          "describeMusic": "생성할 음악을 설명하세요.",
-          "musicgenUnsupported": "MusicGen에는 WebGPU가 필요합니다. Chrome 113+, Edge 113+ 또는 Safari 26+를 사용해 보세요.",
-          "generateMusicFailed": "음악을 생성하지 못했습니다.",
-          "saveAudioFailed": "오디오를 미디어 라이브러리에 저장하지 못했습니다."
-        },
-        "notifications": {
-          "savedToLibrary": "\"{{fileName}}\"이(가) 미디어 라이브러리에 저장되었습니다.",
-          "savedAndAdded": "\"{{fileName}}\"이(가) 저장되어 타임라인에 추가되었습니다.",
-          "savedNoTrack": "\"{{fileName}}\"을(를) 저장했지만 사용 가능한 오디오 트랙이 없습니다."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi 칠",
-          "lofiChillPrompt": "따뜻한 lo-fi 비트, 먼지 느낌의 드럼, 부드러운 베이스, 꿈같은 신스 리드",
-          "pop80sLabel": "80년대 팝",
-          "pop80sPrompt": "묵직한 드럼과 신스가 있는 80년대 팝 트랙",
-          "rock90sLabel": "90년대 록",
-          "rock90sPrompt": "큰 기타와 묵직한 드럼이 있는 90년대 록 노래",
-          "upbeatEdmLabel": "신나는 EDM",
-          "upbeatEdmPrompt": "밝고 경쾌한 EDM 트랙, 싱코페이트 드럼, 포근한 패드, 강한 감정 bpm: 130",
-          "countryLabel": "컨트리",
-          "countryPrompt": "어쿠스틱 기타가 있는 밝은 컨트리 노래",
-          "lofiElectroLabel": "Lo-fi 일렉트로",
-          "lofiElectroPrompt": "오가닉 샘플이 있는 느린 BPM의 lo-fi 일렉트로 칠"
         }
       },
       "clearKeyframesDialog": {
@@ -2576,55 +2233,6 @@
           "swing": "摇摆"
         }
       },
-      "aiPanel": {
-        "runsLocally": "{{runtime}} 会在浏览器中通过 {{backend}} 本地运行。",
-        "history": "历史记录 ({{count}}) - {{size}}",
-        "clearAll": "全部清除",
-        "musicGeneration": "音乐生成",
-        "collapseMusicGeneration": "折叠音乐生成",
-        "expandMusicGeneration": "展开音乐生成",
-        "musicGenerationInfo": "音乐生成信息",
-        "musicgenDescription": "通过 Transformers.js 使用 Xenova 的浏览器版 MusicGen 模型。首次下载较大，之后会缓存在本地。",
-        "musicgenPromptHint": "请描述流派、情绪、速度和乐器。较短的片段会完成得更快。",
-        "musicgenUnsupported": "此浏览器不支持 WebGPU. MusicGen 需要 Chrome 113+, Edge 113+ 或 Safari 26+.",
-        "prompt": "提示词",
-        "presets": "预设",
-        "musicPromptPlaceholder": "描述你想生成的音乐类型...",
-        "length": "长度",
-        "generateMusic": "生成音乐",
-        "musicHistory": "音乐历史记录 ({{count}}) - {{size}}",
-        "remove": "移除",
-        "saved": "已保存",
-        "saving": "正在保存...",
-        "saveAndInsert": "保存并插入",
-        "saveToLibrary": "保存到库",
-        "progressPreparingMusic": "正在准备本地音乐生成...",
-        "errors": {
-          "describeMusic": "请描述你想生成的音乐。",
-          "musicgenUnsupported": "MusicGen 需要 WebGPU. 请尝试 Chrome 113+, Edge 113+ 或 Safari 26+.",
-          "generateMusicFailed": "无法生成音乐。",
-          "saveAudioFailed": "无法将音频保存到媒体库。"
-        },
-        "notifications": {
-          "savedToLibrary": "已将\"{{fileName}}\"保存到媒体库。",
-          "savedAndAdded": "已保存\"{{fileName}}\"并添加到时间线。",
-          "savedNoTrack": "已保存\"{{fileName}}\"，但没有可用的音频轨道。"
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi 放松",
-          "lofiChillPrompt": "温暖的 lo-fi 节拍，配有复古鼓点、柔和低音和梦幻合成器主旋律",
-          "pop80sLabel": "80 年代流行",
-          "pop80sPrompt": "80 年代流行曲，配有厚重鼓点和合成器",
-          "rock90sLabel": "90 年代摇滚",
-          "rock90sPrompt": "90 年代摇滚歌曲，配有响亮的吉他和厚重鼓点",
-          "upbeatEdmLabel": "欢快 EDM",
-          "upbeatEdmPrompt": "轻快愉快的 EDM 曲目，配有切分鼓点、空灵铺底和强烈情绪 bpm: 130",
-          "countryLabel": "乡村",
-          "countryPrompt": "一首欢快的乡村歌，配有原声吉他",
-          "lofiElectroLabel": "Lo-fi 电子",
-          "lofiElectroPrompt": "低速 lo-fi 电子\f，配有有机采样"
-        }
-      },
       "clearKeyframesDialog": {
         "descriptionProperty": "从所选 {{count}} 个项目清除 {{property}} 关键帧吗？",
         "descriptionAll": "从所选 {{count}} 个项目清除所有关键帧吗？"
@@ -2926,55 +2534,6 @@
           "tilt": "Eğ",
           "pop": "Pop",
           "swing": "Salla"
-        }
-      },
-      "aiPanel": {
-        "runsLocally": "{{runtime}}, tarayıcıda {{backend}} üzerinde yerel çalışır.",
-        "history": "Geçmiş ({{count}}) - {{size}}",
-        "clearAll": "Tümünü temizle",
-        "musicGeneration": "Müzik Oluşturma",
-        "collapseMusicGeneration": "Müzik oluşturmayı daralt",
-        "expandMusicGeneration": "Müzik oluşturmayı genişlet",
-        "musicGenerationInfo": "Müzik oluşturma bilgisi",
-        "musicgenDescription": "Transformers.js üzerinden Xenova'nın tarayıcıya hazır MusicGen modelini kullanır. İlk indirme büyüktür, sonra yerelde önbellekte kalır.",
-        "musicgenPromptHint": "Tür, ruh hali, tempo ve enstrümantasyon içeren istem yazın. Daha kısa klipler çok daha hızlı biter.",
-        "musicgenUnsupported": "Bu tarayıcıda WebGPU kullanılamıyor. MusicGen için Chrome 113+, Edge 113+ veya Safari 26+ gerekir.",
-        "prompt": "İstem",
-        "presets": "Ön Ayarlar",
-        "musicPromptPlaceholder": "Oluşturmak istediğiniz müziği açıklayın...",
-        "length": "Uzunluk",
-        "generateMusic": "Müzik Oluştur",
-        "musicHistory": "Müzik Geçmişi ({{count}}) - {{size}}",
-        "remove": "Kaldır",
-        "saved": "Kaydedildi",
-        "saving": "Kaydediliyor...",
-        "saveAndInsert": "Kaydet ve Ekle",
-        "saveToLibrary": "Kitaplığa Kaydet",
-        "progressPreparingMusic": "Yerel müzik oluşturma hazırlanıyor...",
-        "errors": {
-          "describeMusic": "Oluşturmak istediğiniz müziği açıklayın.",
-          "musicgenUnsupported": "MusicGen için WebGPU gerekir. Chrome 113+, Edge 113+ veya Safari 26+ deneyin.",
-          "generateMusicFailed": "Müzik oluşturulamadı.",
-          "saveAudioFailed": "Ses medya kitaplığına kaydedilemedi."
-        },
-        "notifications": {
-          "savedToLibrary": "\"{{fileName}}\" medya kitaplığına kaydedildi.",
-          "savedAndAdded": "\"{{fileName}}\" kaydedildi ve zaman çizelgesine eklendi.",
-          "savedNoTrack": "\"{{fileName}}\" kaydedildi, ancak kullanılabilir ses kanalı yok."
-        },
-        "musicPresets": {
-          "lofiChillLabel": "Lo-fi Rahat",
-          "lofiChillPrompt": "Tozlu davullar, yumuşak bas ve rüya gibi synth melodisiyle sıcak lo-fi beat",
-          "pop80sLabel": "80'ler Pop",
-          "pop80sPrompt": "Baslı davullar ve synth içeren 80'ler pop parçası",
-          "rock90sLabel": "90'lar Rock",
-          "rock90sPrompt": "Gür gitarlar ve güçlü davullarla 90'lar rock şarkısı",
-          "upbeatEdmLabel": "Enerjik EDM",
-          "upbeatEdmPrompt": "Senkoplu davullar, havadar pad'ler ve güçlü duygular içeren hafif ve neşeli EDM parçası bpm: 130",
-          "countryLabel": "Country",
-          "countryPrompt": "Akustik gitarlarla neşeli bir country şarkısı",
-          "lofiElectroLabel": "Lo-fi Elektro",
-          "lofiElectroPrompt": "Organik örneklerle yavaş bpm lo-fi elektro chill"
         }
       },
       "clearKeyframesDialog": {

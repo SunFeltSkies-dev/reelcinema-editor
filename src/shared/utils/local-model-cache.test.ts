@@ -9,7 +9,6 @@ import {
   SCENE_VERIFICATION_MODEL_IDS,
   SCENE_VERIFICATION_MODEL_LABELS,
 } from './scene-verification-models'
-import { MUSICGEN_MODEL_IDS, MUSICGEN_MODEL_OPTIONS } from './musicgen-models'
 
 type CacheEntries = Record<string, Response>
 type CacheMap = Record<string, CacheEntries>
@@ -133,11 +132,10 @@ describe('local-model-cache', () => {
   it('inspects configured local model caches without creating missing caches', async () => {
     const summaries = await inspectAllLocalModelCaches()
 
-    expect(summaries).toHaveLength(4)
+    expect(summaries).toHaveLength(3)
     expect(summaries.map((summary) => summary.id)).toEqual([
       'whisper',
       ...SCENE_VERIFICATION_MODEL_IDS,
-      ...MUSICGEN_MODEL_IDS,
     ])
 
     expect(summaries).toContainEqual(
@@ -178,19 +176,6 @@ describe('local-model-cache', () => {
         inspectionState: 'ready',
       }),
     )
-    expect(summaries).toContainEqual(
-      expect.objectContaining({
-        id: 'musicgen-small',
-        label: MUSICGEN_MODEL_OPTIONS[0]!.label,
-        cacheName: TRANSFORMERS_CACHE_NAME,
-        exists: false,
-        downloaded: false,
-        entryCount: 0,
-        totalBytes: 0,
-        sizeStatus: 'unavailable',
-        inspectionState: 'ready',
-      }),
-    )
   })
 
   it('clears only the matching model entries inside a shared cache bucket', async () => {
@@ -205,7 +190,6 @@ describe('local-model-cache', () => {
     const whisperSummary = summaries.find((summary) => summary.id === 'whisper')
     const gemmaSummary = summaries.find((summary) => summary.id === 'gemma')
     const lfmSummary = summaries.find((summary) => summary.id === 'lfm')
-    const musicgenSummary = summaries.find((summary) => summary.id === 'musicgen-small')
 
     expect(whisperSummary).toEqual(
       expect.objectContaining({
@@ -230,14 +214,6 @@ describe('local-model-cache', () => {
     expect(lfmSummary).toEqual(
       expect.objectContaining({
         id: 'lfm',
-        downloaded: false,
-        entryCount: 0,
-        totalBytes: 0,
-      }),
-    )
-    expect(musicgenSummary).toEqual(
-      expect.objectContaining({
-        id: 'musicgen-small',
         downloaded: false,
         entryCount: 0,
         totalBytes: 0,
