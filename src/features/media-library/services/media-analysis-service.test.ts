@@ -9,7 +9,6 @@ const deleteCaptionThumbnailsMock = vi.fn()
 const deleteCaptionEmbeddingsMock = vi.fn()
 const updateMediaCaptionsMock = vi.fn()
 const getMediaBlobUrlMock = vi.fn()
-const invalidateMediaCaptionThumbnailsMock = vi.fn()
 const storeGetStateMock = vi.fn()
 
 let storeState: ReturnType<typeof createStoreState>
@@ -62,10 +61,6 @@ vi.mock('@/infrastructure/storage', () => ({
 
 vi.mock('../utils/content-hash', () => ({
   computeContentHashFromBuffer: vi.fn(async () => 'hash-abc'),
-}))
-
-vi.mock('../deps/scene-browser', () => ({
-  invalidateMediaCaptionThumbnails: invalidateMediaCaptionThumbnailsMock,
 }))
 
 vi.mock('../stores/media-library-store', () => ({
@@ -174,7 +169,6 @@ describe('mediaAnalysisService.analyzeMedia', () => {
     expect(deleteCaptionThumbnailsMock).not.toHaveBeenCalled()
     expect(deleteCaptionEmbeddingsMock).not.toHaveBeenCalled()
     expect(updateMediaCaptionsMock).not.toHaveBeenCalled()
-    expect(invalidateMediaCaptionThumbnailsMock).toHaveBeenCalledWith(media.id)
   })
 
   it('clears caption metadata and old assets when a rerun finds no scenes', async () => {
@@ -199,7 +193,6 @@ describe('mediaAnalysisService.analyzeMedia', () => {
     expect(storeState.updateMediaCaptions).toHaveBeenCalledWith(media.id, [])
     expect(deleteCaptionThumbnailsMock).toHaveBeenCalledWith(media.id)
     expect(deleteCaptionEmbeddingsMock).toHaveBeenCalledWith(media.id)
-    expect(invalidateMediaCaptionThumbnailsMock).toHaveBeenCalledWith(media.id)
   })
 
   it('short-circuits when the content-addressable cache already has captions for the same source', async () => {
@@ -242,7 +235,6 @@ describe('mediaAnalysisService.analyzeMedia', () => {
     expect(adoptCaptionsFromCacheMock).toHaveBeenCalledWith(media.id, 'hash-abc', 3)
     expect(storeState.updateMediaCaptions).toHaveBeenCalledWith(media.id, cachedCaptions)
     expect(updateMediaDBMock).toHaveBeenCalledWith(media.id, { aiCaptions: cachedCaptions })
-    expect(invalidateMediaCaptionThumbnailsMock).toHaveBeenCalledWith(media.id)
   })
 
   it('falls through to full analysis when the cached captions were generated at a different sample interval', async () => {
@@ -265,6 +257,5 @@ describe('mediaAnalysisService.analyzeMedia', () => {
 
     expect(adoptCaptionsFromCacheMock).not.toHaveBeenCalled()
     expect(captionImageMock).toHaveBeenCalled()
-    expect(invalidateMediaCaptionThumbnailsMock).toHaveBeenCalledWith(media.id)
   })
 })

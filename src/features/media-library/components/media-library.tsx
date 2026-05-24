@@ -24,10 +24,8 @@ import {
   Check,
   Upload,
   Sparkles,
-  ScanSearch,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { SceneBrowserPanel, useSceneBrowserStore } from '../deps/scene-browser'
 import { createLogger } from '@/shared/logging/logger'
 
 const logger = createLogger('MediaLibrary')
@@ -233,9 +231,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
   const setSortBy = useMediaLibraryStore((s) => s.setSortBy)
   const viewMode = useMediaLibraryStore((s) => s.viewMode)
   const setViewMode = useMediaLibraryStore((s) => s.setViewMode)
-  const sceneBrowserOpen = useSceneBrowserStore((s) => s.open)
-  const openSceneBrowser = useSceneBrowserStore((s) => s.openBrowser)
-  const closeSceneBrowser = useSceneBrowserStore((s) => s.closeBrowser)
   const mediaItemSize = useMediaLibraryStore((s) => s.mediaItemSize)
   const setMediaItemSize = useMediaLibraryStore((s) => s.setMediaItemSize)
   const selectedMediaIds = useMediaLibraryStore((s) => s.selectedMediaIds)
@@ -1109,210 +1104,158 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
         </div>
       )}
 
-      {/* Search + view toggle always render so the toggle stays reachable
-          in Scene mode. The search input and the filter row below only scope
-          the media-library grid, so they're hidden when the Scene browser is
-          mounted (it has its own search). */}
       <div className="px-4 pt-3 pb-2 space-y-2 flex-shrink-0">
-        {/* Search + Media/Scenes toggle group */}
         <div className="@container flex items-center gap-2">
-          {!sceneBrowserOpen && (
-            <div className="relative group flex-1 min-w-0">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-              <Input
-                placeholder={t('media.searchMedia')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 h-7 bg-secondary border border-border focus:border-primary text-foreground placeholder:text-muted-foreground text-xs"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              )}
-            </div>
-          )}
-          {sceneBrowserOpen && <div className="flex-1 min-w-0" aria-hidden />}
-          <div
-            role="group"
-            aria-label={t('media.library.libraryView')}
-            className="inline-flex items-center h-7 rounded-md border border-border bg-secondary p-0.5 shrink-0"
-          >
-            <HeaderActionTooltip label={t('media.library.showMediaLibrary')}>
+          <div className="relative group flex-1 min-w-0">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+            <Input
+              placeholder={t('media.searchMedia')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-8 h-7 bg-secondary border border-border focus:border-primary text-foreground placeholder:text-muted-foreground text-xs"
+            />
+            {searchQuery && (
               <button
-                onClick={() => {
-                  if (sceneBrowserOpen) closeSceneBrowser()
-                }}
-                aria-pressed={!sceneBrowserOpen}
-                className={cn(
-                  'flex items-center gap-1 h-6 px-1.5 @[280px]:px-2 rounded-[3px] text-[11px] transition-colors duration-150',
-                  !sceneBrowserOpen
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground',
-                )}
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
               >
-                <Film className="w-3 h-3" />
-                <span className="hidden @[280px]:inline">{t('media.library.mediaTab')}</span>
+                <X className="w-3 h-3" />
               </button>
-            </HeaderActionTooltip>
-            <HeaderActionTooltip label={t('media.library.searchScenes')}>
-              <button
-                onClick={() => {
-                  if (!sceneBrowserOpen) openSceneBrowser()
-                }}
-                aria-pressed={sceneBrowserOpen}
-                className={cn(
-                  'flex items-center gap-1 h-6 px-1.5 @[280px]:px-2 rounded-[3px] text-[11px] transition-colors duration-150',
-                  sceneBrowserOpen
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground',
-                )}
-              >
-                <ScanSearch className="w-3 h-3" />
-                <span className="hidden @[280px]:inline">{t('media.library.scenesTab')}</span>
-              </button>
-            </HeaderActionTooltip>
+            )}
           </div>
         </div>
 
-        {!sceneBrowserOpen && (
-          <>
-            {/* Filters and sort */}
-            <div className="@container flex items-center gap-1.5 min-w-0">
-              {/* Filter by type */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`h-6 bg-secondary border text-[10px] px-2 flex-shrink-0 ${
-                      filterByType
-                        ? 'border-primary text-primary hover:bg-primary/10'
-                        : 'border-border text-muted-foreground hover:border-primary/50 hover:text-primary'
-                    }`}
-                  >
-                    <Filter className="w-2.5 h-2.5" />
-                    <span className="hidden @[280px]:inline ml-1">
-                      {filterByType
-                        ? t(`media.library.typeShort.${filterByType}`)
-                        : t('media.library.allShort')}
-                    </span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="bg-popover border border-border">
-                  <DropdownMenuItem
-                    onClick={() => setFilterByType(null)}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    {t('media.library.allTypes')}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-border" />
-                  <DropdownMenuItem
-                    onClick={() => setFilterByType('video')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <Video className="w-3 h-3 mr-2" />
-                    {t('media.type.video')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setFilterByType('audio')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <FileAudio className="w-3 h-3 mr-2" />
-                    {t('media.type.audio')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setFilterByType('image')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <ImageIcon className="w-3 h-3 mr-2" />
-                    {t('media.type.image')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+        {/* Filters and sort */}
+        <div className="@container flex items-center gap-1.5 min-w-0">
+          {/* Filter by type */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className={`h-6 bg-secondary border text-[10px] px-2 flex-shrink-0 ${
+                  filterByType
+                    ? 'border-primary text-primary hover:bg-primary/10'
+                    : 'border-border text-muted-foreground hover:border-primary/50 hover:text-primary'
+                }`}
+              >
+                <Filter className="w-2.5 h-2.5" />
+                <span className="hidden @[280px]:inline ml-1">
+                  {filterByType
+                    ? t(`media.library.typeShort.${filterByType}`)
+                    : t('media.library.allShort')}
+                </span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="bg-popover border border-border">
+              <DropdownMenuItem
+                onClick={() => setFilterByType(null)}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                {t('media.library.allTypes')}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem
+                onClick={() => setFilterByType('video')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                <Video className="w-3 h-3 mr-2" />
+                {t('media.type.video')}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setFilterByType('audio')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                <FileAudio className="w-3 h-3 mr-2" />
+                {t('media.type.audio')}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setFilterByType('image')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                <ImageIcon className="w-3 h-3 mr-2" />
+                {t('media.type.image')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-              {/* Sort by */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-6 bg-secondary border border-border text-muted-foreground hover:border-primary/50 hover:text-primary text-[10px] px-2 flex-shrink-0"
-                  >
-                    <SortAsc className="w-2.5 h-2.5" />
-                    <span className="hidden @[280px]:inline ml-1">
-                      {t(`media.library.sortShort.${sortBy}`)}
-                    </span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="bg-popover border border-border">
-                  <DropdownMenuItem
-                    onClick={() => setSortBy('date')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    {t('media.library.sortDate')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setSortBy('name')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    {t('media.library.sortName')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setSortBy('size')}
-                    className="text-xs hover:bg-accent hover:text-accent-foreground"
-                  >
-                    {t('media.library.sortSize')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+          {/* Sort by */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-6 bg-secondary border border-border text-muted-foreground hover:border-primary/50 hover:text-primary text-[10px] px-2 flex-shrink-0"
+              >
+                <SortAsc className="w-2.5 h-2.5" />
+                <span className="hidden @[280px]:inline ml-1">
+                  {t(`media.library.sortShort.${sortBy}`)}
+                </span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="bg-popover border border-border">
+              <DropdownMenuItem
+                onClick={() => setSortBy('date')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                {t('media.library.sortDate')}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setSortBy('name')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                {t('media.library.sortName')}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setSortBy('size')}
+                className="text-xs hover:bg-accent hover:text-accent-foreground"
+              >
+                {t('media.library.sortSize')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-              {/* View mode toggle + item size */}
-              <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
-                {viewMode === 'grid' && (
-                  <Slider
-                    min={1}
-                    max={5}
-                    step={1}
-                    value={[mediaItemSize]}
-                    onValueChange={([v]) => setMediaItemSize(v ?? 3)}
-                    className="flex-1 min-w-6 max-w-24"
-                    aria-label={t('media.library.gridItemSize')}
-                  />
-                )}
-                <div className="flex items-center border border-border rounded bg-secondary flex-shrink-0">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setViewMode('grid')}
-                    className={`h-6 w-6 p-0 rounded-none rounded-l ${
-                      viewMode === 'grid'
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    <Grid3x3 className="w-3 h-3" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setViewMode('list')}
-                    className={`h-6 w-6 p-0 rounded-none rounded-r ${
-                      viewMode === 'list'
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    <List className="w-3 h-3" />
-                  </Button>
-                </div>
-              </div>
+          {/* View mode toggle + item size */}
+          <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
+            {viewMode === 'grid' && (
+              <Slider
+                min={1}
+                max={5}
+                step={1}
+                value={[mediaItemSize]}
+                onValueChange={([v]) => setMediaItemSize(v ?? 3)}
+                className="flex-1 min-w-6 max-w-24"
+                aria-label={t('media.library.gridItemSize')}
+              />
+            )}
+            <div className="flex items-center border border-border rounded bg-secondary flex-shrink-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setViewMode('grid')}
+                className={`h-6 w-6 p-0 rounded-none rounded-l ${
+                  viewMode === 'grid'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Grid3x3 className="w-3 h-3" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setViewMode('list')}
+                className={`h-6 w-6 p-0 rounded-none rounded-r ${
+                  viewMode === 'list'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <List className="w-3 h-3" />
+              </Button>
             </div>
-          </>
-        )}
+          </div>
+        </div>
       </div>
 
       {/* Composition navigation banner — shown when inside a sub-composition */}
@@ -1332,13 +1275,9 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
 
       {/* Scrollable content: wrapper provides relative context for the drag overlay */}
       <div className="flex-1 relative min-h-0">
-        {sceneBrowserOpen && <SceneBrowserPanel className="absolute inset-0 bg-background" />}
         <div
           ref={scrollContainerRef}
-          className={cn(
-            'relative h-full overflow-y-auto px-4 pb-4 [scrollbar-gutter:stable]',
-            sceneBrowserOpen && 'hidden',
-          )}
+          className="relative h-full overflow-y-auto px-4 pb-4 [scrollbar-gutter:stable]"
           onClick={handleScrollContentClick}
           onDragEnter={handleDragEnter}
           onDragOver={handleDragOver}

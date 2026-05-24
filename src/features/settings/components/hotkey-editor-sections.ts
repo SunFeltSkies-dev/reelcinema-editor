@@ -159,10 +159,6 @@ export const HOTKEY_EDITOR_SECTIONS: readonly HotkeyEditorSection[] = [
     items: [
       { labelKey: 'projects.settings.hotkeys.items.saveProject', keys: ['SAVE'] },
       { labelKey: 'projects.settings.hotkeys.items.exportVideo', keys: ['EXPORT'] },
-      {
-        labelKey: 'projects.settings.hotkeys.items.openSceneBrowser',
-        keys: ['OPEN_SCENE_BROWSER'],
-      },
     ],
   },
 ] as const
