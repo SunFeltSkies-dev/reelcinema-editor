@@ -86,9 +86,6 @@ interface ItemContextMenuProps {
   canRemoveSilence?: boolean
   isRemovingSilence?: boolean
   onRemoveSilence?: () => void
-  canRemoveFillers?: boolean
-  isRemovingFillers?: boolean
-  onRemoveFillers?: () => void
 }
 
 /**
@@ -150,9 +147,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
   canRemoveSilence,
   isRemovingSilence,
   onRemoveSilence,
-  canRemoveFillers,
-  isRemovingFillers,
-  onRemoveFillers,
 }: ItemContextMenuProps) {
   // Lazy mount: defer the full Radix ContextMenu tree until first right-click.
   // This eliminates ~10 Radix provider components per item from the render tree
@@ -225,9 +219,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
       canRemoveSilence={canRemoveSilence}
       isRemovingSilence={isRemovingSilence}
       onRemoveSilence={onRemoveSilence}
-      canRemoveFillers={canRemoveFillers}
-      isRemovingFillers={isRemovingFillers}
-      onRemoveFillers={onRemoveFillers}
       pendingActivation={pendingActivation}
       onPendingActivationHandled={() => setPendingActivation(null)}
     >
@@ -318,9 +309,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
   canRemoveSilence,
   isRemovingSilence,
   onRemoveSilence,
-  canRemoveFillers,
-  isRemovingFillers,
-  onRemoveFillers,
   pendingActivation,
   onPendingActivationHandled,
 }: Omit<ItemContextMenuProps, 'children'> & {
@@ -513,17 +501,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
               {isRemovingSilence
                 ? t('timeline.contextMenu.detectingSilence')
                 : t('timeline.contextMenu.removeSilence')}
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-          </>
-        )}
-
-        {canRemoveFillers && onRemoveFillers && (
-          <>
-            <ContextMenuItem onClick={onRemoveFillers} disabled={isRemovingFillers}>
-              {isRemovingFillers
-                ? t('timeline.contextMenu.detectingFillers')
-                : t('timeline.contextMenu.removeFillerWords')}
             </ContextMenuItem>
             <ContextMenuSeparator />
           </>

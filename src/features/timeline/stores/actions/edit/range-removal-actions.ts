@@ -181,15 +181,8 @@ export function removeSilenceFromItems(
   return removeTimelineRangesFromItems('REMOVE_SILENCE', itemIds, silenceRangesByMediaId)
 }
 
-export function removeFillerWordsFromItems(
-  itemIds: string[],
-  fillerRangesByMediaId: Record<string, RemoveSilenceRange[]>,
-): RemoveSilenceResult {
-  return removeTimelineRangesFromItems('REMOVE_FILLER_WORDS', itemIds, fillerRangesByMediaId)
-}
-
 function removeTimelineRangesFromItems(
-  commandType: 'REMOVE_SILENCE' | 'REMOVE_FILLER_WORDS',
+  commandType: 'REMOVE_SILENCE',
   itemIds: string[],
   rangesByMediaId: Record<string, RemoveSilenceRange[]>,
 ): RemoveSilenceResult {

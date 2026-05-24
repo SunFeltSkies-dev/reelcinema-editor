@@ -126,7 +126,6 @@ function getSnapshot(): TimelineState & TimelineActions {
       splitItem: timelineActions.splitItem,
       splitItemAtFrames: timelineActions.splitItemAtFrames,
       removeSilenceFromItems: timelineActions.removeSilenceFromItems,
-      removeFillerWordsFromItems: timelineActions.removeFillerWordsFromItems,
       joinItems: timelineActions.joinItems,
       rateStretchItem: timelineActions.rateStretchItem,
       resetSpeedWithRipple: timelineActions.resetSpeedWithRipple,
