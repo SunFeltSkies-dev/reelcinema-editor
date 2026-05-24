@@ -15,8 +15,6 @@ import { getSharedProxyKey } from '../utils/proxy-key'
 import { createImportActions } from './media-import-actions'
 import { createDeleteActions } from './media-delete-actions'
 import { createRelinkingActions } from './media-relinking-actions'
-import { getTranscriptMediaIds } from '@/infrastructure/storage'
-import { mergeTranscriptionProgress } from '@/shared/utils/transcription-progress'
 
 const logger = createLogger('MediaLibraryStore')
 
@@ -38,29 +36,6 @@ function buildMediaById(mediaItems: MediaMetadata[]): Record<string, MediaMetada
     mediaById[item.id] = item
   }
   return mediaById
-}
-
-function buildTranscriptStatusMap(
-  mediaItems: MediaMetadata[],
-  transcriptIds?: Set<string>,
-): Map<string, 'idle' | 'ready'> {
-  const nextTranscriptStatus = new Map<string, 'idle' | 'ready'>()
-  for (const item of mediaItems) {
-    nextTranscriptStatus.set(item.id, transcriptIds?.has(item.id) ? 'ready' : 'idle')
-  }
-  return nextTranscriptStatus
-}
-
-async function loadTranscriptStatusMap(
-  mediaItems: MediaMetadata[],
-): Promise<Map<string, 'idle' | 'ready'>> {
-  try {
-    const transcriptIds = await getTranscriptMediaIds(mediaItems.map((item) => item.id))
-    return buildTranscriptStatusMap(mediaItems, transcriptIds)
-  } catch (error) {
-    logger.warn('[MediaLibraryStore] Failed to load transcript availability:', error)
-    return buildTranscriptStatusMap(mediaItems)
-  }
 }
 
 function getProxyCapableVideoItems(mediaItems: MediaMetadata[]): MediaMetadata[] {
@@ -129,10 +104,6 @@ const newStore: MediaLibraryStoreApi =
         proxyStatus: new Map(),
         proxyProgress: new Map(),
 
-        // Transcript generation
-        transcriptStatus: new Map(),
-        transcriptProgress: new Map(),
-
         // AI tagging
         taggingMediaIds: new Set(),
         analysisProgress: null,
@@ -154,8 +125,6 @@ const newStore: MediaLibraryStoreApi =
             isLoading: !!projectId, // Set loading if switching to a project
             proxyStatus: new Map(),
             proxyProgress: new Map(),
-            transcriptStatus: new Map(),
-            transcriptProgress: new Map(),
             taggingMediaIds: new Set(),
             analysisProgress: null,
           })
@@ -190,17 +159,6 @@ const newStore: MediaLibraryStoreApi =
             })
 
             event.set('mediaCount', mediaItems.length)
-
-            const transcriptStatus = await loadTranscriptStatusMap(mediaItems)
-            set({
-              transcriptStatus,
-              transcriptProgress: new Map(),
-            })
-
-            event.set(
-              'transcriptsReady',
-              [...transcriptStatus.values()].filter((s) => s === 'ready').length,
-            )
 
             // Load existing proxies from OPFS and clean up interrupted/failed entries.
             try {
@@ -352,33 +310,6 @@ const newStore: MediaLibraryStoreApi =
             const newProgress = new Map(state.proxyProgress)
             newProgress.set(mediaId, progress)
             return { proxyProgress: newProgress }
-          })
-        },
-
-        setTranscriptStatus: (mediaId, status) => {
-          set((state) => {
-            const transcriptStatus = new Map(state.transcriptStatus)
-            transcriptStatus.set(mediaId, status)
-            return { transcriptStatus }
-          })
-        },
-
-        setTranscriptProgress: (mediaId, progress) => {
-          set((state) => {
-            const transcriptProgress = new Map(state.transcriptProgress)
-            transcriptProgress.set(
-              mediaId,
-              mergeTranscriptionProgress(transcriptProgress.get(mediaId), progress),
-            )
-            return { transcriptProgress }
-          })
-        },
-
-        clearTranscriptProgress: (mediaId) => {
-          set((state) => {
-            const transcriptProgress = new Map(state.transcriptProgress)
-            transcriptProgress.delete(mediaId)
-            return { transcriptProgress }
           })
         },
 

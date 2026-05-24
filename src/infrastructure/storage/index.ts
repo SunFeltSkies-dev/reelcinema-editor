@@ -80,14 +80,6 @@ export {
   deleteDecodedPreviewAudio,
 } from '@/infrastructure/storage/workspace-fs/decoded-preview-audio'
 
-// Transcripts
-export {
-  getTranscript,
-  getTranscriptMediaIds,
-  saveTranscript,
-  deleteTranscript,
-} from '@/infrastructure/storage/workspace-fs/transcripts'
-
 // AI captions (vision-language-model frame descriptions)
 export {
   getCaptions,

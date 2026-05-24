@@ -54,12 +54,6 @@ interface ItemContextMenuProps {
   /** Whether the playhead is within this item's bounds */
   playheadInBounds?: boolean
   onFreezeFrame?: () => void
-  canManageCaptions?: boolean
-  hasCaptions?: boolean
-  hasTranscript?: boolean
-  isGeneratingCaptions?: boolean
-  onOpenCaptionDialog?: () => void
-  onApplyCaptionsFromTranscript?: () => void
   /** Whether this clip's media has extractable embedded text subtitles (MKV/WebM). */
   canExtractEmbeddedSubtitles?: boolean
   onExtractEmbeddedSubtitles?: () => void
@@ -121,12 +115,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
   isVideoItem,
   playheadInBounds,
   onFreezeFrame,
-  canManageCaptions,
-  hasCaptions,
-  hasTranscript,
-  isGeneratingCaptions,
-  onOpenCaptionDialog,
-  onApplyCaptionsFromTranscript,
   canExtractEmbeddedSubtitles,
   onExtractEmbeddedSubtitles,
   canConsolidateCaptionsToSegment,
@@ -191,12 +179,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
       isVideoItem={isVideoItem}
       playheadInBounds={playheadInBounds}
       onFreezeFrame={onFreezeFrame}
-      canManageCaptions={canManageCaptions}
-      hasCaptions={hasCaptions}
-      hasTranscript={hasTranscript}
-      isGeneratingCaptions={isGeneratingCaptions}
-      onOpenCaptionDialog={onOpenCaptionDialog}
-      onApplyCaptionsFromTranscript={onApplyCaptionsFromTranscript}
       canExtractEmbeddedSubtitles={canExtractEmbeddedSubtitles}
       onExtractEmbeddedSubtitles={onExtractEmbeddedSubtitles}
       canConsolidateCaptionsToSegment={canConsolidateCaptionsToSegment}
@@ -279,12 +261,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
   isVideoItem,
   playheadInBounds,
   onFreezeFrame,
-  canManageCaptions,
-  hasCaptions,
-  hasTranscript,
-  isGeneratingCaptions,
-  onOpenCaptionDialog,
-  onApplyCaptionsFromTranscript,
   canExtractEmbeddedSubtitles,
   onExtractEmbeddedSubtitles,
   canConsolidateCaptionsToSegment,
@@ -317,9 +293,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
     return keyframedProperties.filter((p) => p.keyframes.length > 0)
   }, [keyframedProperties])
   const sceneVerificationModelOptions = useMemo(() => getSceneVerificationModelOptions(), [])
-  const captionActionLabel = hasCaptions
-    ? t('timeline.contextMenu.regenerateCaptions')
-    : t('timeline.contextMenu.generateCaptions')
 
   const hasKeyframes = propertiesWithKeyframes.length > 0
 
@@ -493,31 +466,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
                 ? t('timeline.contextMenu.detectingSilence')
                 : t('timeline.contextMenu.removeSilence')}
             </ContextMenuItem>
-            <ContextMenuSeparator />
-          </>
-        )}
-
-        {canManageCaptions && onOpenCaptionDialog && (
-          <>
-            {isGeneratingCaptions ? (
-              <ContextMenuItem disabled>
-                {t('timeline.contextMenu.updatingCaptions')}
-              </ContextMenuItem>
-            ) : hasTranscript && onApplyCaptionsFromTranscript ? (
-              <ContextMenuSub>
-                <ContextMenuSubTrigger>{t('timeline.contextMenu.captions')}</ContextMenuSubTrigger>
-                <ContextMenuSubContent className="w-56">
-                  <ContextMenuItem onClick={onApplyCaptionsFromTranscript}>
-                    {t('timeline.contextMenu.insertExistingCaptions')}
-                  </ContextMenuItem>
-                  <ContextMenuItem onClick={onOpenCaptionDialog}>
-                    {captionActionLabel}
-                  </ContextMenuItem>
-                </ContextMenuSubContent>
-              </ContextMenuSub>
-            ) : (
-              <ContextMenuItem onClick={onOpenCaptionDialog}>{captionActionLabel}</ContextMenuItem>
-            )}
             <ContextMenuSeparator />
           </>
         )}

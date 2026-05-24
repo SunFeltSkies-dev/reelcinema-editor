@@ -28,10 +28,6 @@ const proxyServiceMocks = vi.hoisted(() => ({
   }),
 }))
 
-const indexedDbMocks = vi.hoisted(() => ({
-  getTranscriptMediaIds: vi.fn(),
-}))
-
 const loggerEventMocks = vi.hoisted(() => ({
   set: vi.fn(),
   merge: vi.fn(),
@@ -72,10 +68,6 @@ vi.mock('../services/background-media-work', () => backgroundMediaWorkMocks)
 
 vi.mock('../utils/proxy-key', () => ({
   getSharedProxyKey: vi.fn((media: { id: string }) => `proxy-${media.id}`),
-}))
-
-vi.mock('@/infrastructure/storage', () => ({
-  getTranscriptMediaIds: indexedDbMocks.getTranscriptMediaIds,
 }))
 
 vi.mock('./media-import-actions', () => ({
@@ -144,8 +136,6 @@ function resetStore(): void {
     unsupportedCodecResolver: null,
     proxyStatus: new Map(),
     proxyProgress: new Map(),
-    transcriptStatus: new Map(),
-    transcriptProgress: new Map(),
   })
 }
 
@@ -164,7 +154,7 @@ describe('useMediaLibraryStore', () => {
     expect(mediaLibraryServiceMocks.getMediaForProject).not.toHaveBeenCalled()
   })
 
-  it('loads media, transcript availability, and stale proxies for the current project', async () => {
+  it('loads media and stale proxies for the current project', async () => {
     const video = makeMedia({ id: 'video-1', fileName: 'video.mp4' })
     const audio = makeMedia({
       id: 'audio-1',
@@ -175,7 +165,6 @@ describe('useMediaLibraryStore', () => {
     })
 
     mediaLibraryServiceMocks.getMediaForProject.mockResolvedValue([video, audio])
-    indexedDbMocks.getTranscriptMediaIds.mockResolvedValue(new Set(['video-1']))
     proxyServiceMocks.canGenerateProxy.mockImplementation((mimeType: string) =>
       mimeType.startsWith('video/'),
     )
@@ -191,27 +180,8 @@ describe('useMediaLibraryStore', () => {
     expect(state.mediaItems).toEqual([video, audio])
     expect(state.mediaById['video-1']).toEqual(video)
     expect(state.mediaById['audio-1']).toEqual(audio)
-    expect(state.transcriptStatus.get('video-1')).toBe('ready')
-    expect(state.transcriptStatus.get('audio-1')).toBe('idle')
     expect(proxyServiceMocks.setProxyKey).toHaveBeenCalledWith('video-1', 'proxy-video-1')
     expect(proxyServiceMocks.loadExistingProxies).toHaveBeenCalledWith(['video-1'])
-  })
-
-  it('falls back to idle transcript status when transcript lookup fails', async () => {
-    const video = makeMedia({ id: 'video-1' })
-    mediaLibraryServiceMocks.getMediaForProject.mockResolvedValue([video])
-    indexedDbMocks.getTranscriptMediaIds.mockRejectedValue(new Error('boom'))
-    proxyServiceMocks.canGenerateProxy.mockReturnValue(true)
-    proxyServiceMocks.loadExistingProxies.mockResolvedValue([])
-
-    useMediaLibraryStore.setState({ currentProjectId: 'project-1' })
-
-    await useMediaLibraryStore.getState().loadMediaItems()
-
-    const state = useMediaLibraryStore.getState()
-    expect(state.transcriptStatus.get('video-1')).toBe('idle')
-    expect(proxyServiceMocks.loadExistingProxies).toHaveBeenCalledWith(['video-1'])
-    expect(proxyServiceMocks.generateProxy).not.toHaveBeenCalled()
   })
 
   it('clears proxy status and progress when proxy generation is cancelled', () => {

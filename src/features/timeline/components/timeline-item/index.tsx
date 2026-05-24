@@ -25,7 +25,6 @@ import { usePlaybackStore } from '@/shared/state/playback'
 import { useTransitionDragStore } from '@/shared/state/transition-drag'
 import { TRANSITION_CONFIGS } from '@/types/transition'
 import { useMediaLibraryStore } from '@/features/timeline/deps/media-library-store'
-import { mediaTranscriptionService } from '@/features/timeline/deps/media-transcription-service'
 import {
   mediaLibraryService as mediaLibraryServiceForSubtitles,
   useEmbeddedSubtitlePickerStore,
@@ -41,18 +40,6 @@ function isEmbeddedSubtitleContainer(fileName: string, mimeType: string): boolea
     name.endsWith('.webm')
   )
 }
-import {
-  TranscribeDialog,
-  type TranscribeDialogValues,
-} from '@/features/timeline/deps/transcribe-dialog'
-import {
-  getTranscriptionOverallPercent,
-  getTranscriptionStageLabel,
-} from '@/shared/utils/transcription-progress'
-import {
-  isTranscriptionOutOfMemoryError,
-  TRANSCRIPTION_OOM_HINT,
-} from '@/shared/utils/transcription-cancellation'
 import type { PreviewItemUpdate } from '../../utils/item-edit-preview'
 import {
   useTimelineDrag,
@@ -302,47 +289,6 @@ export const TimelineItem = memo(
         [item.mediaId, item.id],
       ),
     )
-    const transcriptStatus = useMediaLibraryStore(
-      useCallback(
-        (s) => (item.mediaId ? (s.transcriptStatus.get(item.mediaId) ?? 'idle') : 'idle'),
-        [item.mediaId],
-      ),
-    )
-    const transcriptProgress = useMediaLibraryStore(
-      useCallback(
-        (s) => (item.mediaId ? (s.transcriptProgress.get(item.mediaId) ?? null) : null),
-        [item.mediaId],
-      ),
-    )
-    const mediaFileName = useMediaLibraryStore(
-      useCallback(
-        (s) =>
-          item.mediaId ? (s.mediaItems.find((m) => m.id === item.mediaId)?.fileName ?? '') : '',
-        [item.mediaId],
-      ),
-    )
-    const [captionDialogOpen, setCaptionDialogOpen] = useState(false)
-    const [captionDialogError, setCaptionDialogError] = useState<string | null>(null)
-    const mediaHasTranscript = transcriptStatus === 'ready'
-    const captionStartedRef = useRef(false)
-    const captionStopRequestedRef = useRef(false)
-
-    const captionIsActive = transcriptStatus === 'queued' || transcriptStatus === 'transcribing'
-    useEffect(() => {
-      if (captionStartedRef.current && !captionIsActive) {
-        captionStartedRef.current = false
-        const keepOpen = captionStopRequestedRef.current || captionDialogError !== null
-        captionStopRequestedRef.current = false
-        setCaptionDialogOpen((wasOpen) => {
-          return wasOpen && keepOpen
-        })
-      }
-    }, [captionIsActive, captionDialogError])
-    // O(1) index lookup that preserves both explicit captionSource links and
-    // legacy generated-caption detection.
-    const hasGeneratedCaptions = useItemsStore(
-      useCallback((s) => s.replaceableCaptionClipIds.has(item.id), [item.id]),
-    )
     // O(1) via index, including legacy linked audio/video pairs.
     const isLinked = useItemsStore(useCallback((s) => !!s.linkedItemsByItemId[item.id], [item.id]))
     const linkedItemsForCaptionOwnership = useItemsStore(
@@ -363,20 +309,6 @@ export const TimelineItem = memo(
       [itemKeyframes],
     )
     const hasKeyframes = keyframedProperties.length > 0
-    const linkedVideoCaptionOwner = useMemo(() => {
-      if (item.type !== 'audio' || !item.mediaId) {
-        return null
-      }
-
-      return (
-        linkedItemsForCaptionOwnership.find(
-          (linkedItem) =>
-            linkedItem.id !== item.id &&
-            linkedItem.type === 'video' &&
-            linkedItem.mediaId === item.mediaId,
-        ) ?? null
-      )
-    }, [item.id, item.mediaId, item.type, linkedItemsForCaptionOwnership])
     const reverseMenuShowsUnreverse = useMemo(() => {
       if (item.type !== 'video' && item.type !== 'audio') {
         return false
@@ -392,11 +324,6 @@ export const TimelineItem = memo(
         reversibleItems.every((candidate) => candidate.isReversed === true)
       )
     }, [item, linkedItemsForCaptionOwnership])
-    const canManageCaptions =
-      !!item.mediaId &&
-      !isBroken &&
-      (item.type === 'video' || (item.type === 'audio' && linkedVideoCaptionOwner === null))
-
     const mediaForItem = useMediaLibraryStore(
       useCallback(
         (s) => (item.mediaId ? (s.mediaItems.find((m) => m.id === item.mediaId) ?? null) : null),
@@ -1881,8 +1808,6 @@ export const TimelineItem = memo(
       handleClearPropertyKeyframes,
       handleBentoLayout,
       handleFreezeFrame,
-      handleCaptionsFromDialog,
-      handleApplyCaptionsFromTranscript,
       handleCreatePreComp,
       handleEnterComposition,
       handleDissolveComposition,
@@ -3227,18 +3152,6 @@ export const TimelineItem = memo(
             return frame > item.from && frame < item.from + item.durationInFrames
           })()}
           onFreezeFrame={handleFreezeFrame}
-          canManageCaptions={canManageCaptions}
-          hasCaptions={hasGeneratedCaptions}
-          hasTranscript={mediaHasTranscript}
-          isGeneratingCaptions={
-            transcriptStatus === 'queued' || transcriptStatus === 'transcribing'
-          }
-          onOpenCaptionDialog={() => {
-            captionStopRequestedRef.current = false
-            setCaptionDialogError(null)
-            setCaptionDialogOpen(true)
-          }}
-          onApplyCaptionsFromTranscript={handleApplyCaptionsFromTranscript}
           canExtractEmbeddedSubtitles={canExtractEmbeddedSubtitles}
           onExtractEmbeddedSubtitles={
             canExtractEmbeddedSubtitles ? handleExtractEmbeddedSubtitles : undefined
@@ -3714,50 +3627,6 @@ export const TimelineItem = memo(
         <FollowerDragGhost ref={ghostRef} left={left} width={width} />
 
         <DragBlockedTooltip hint={pointerHint} />
-        {canManageCaptions && item.mediaId && (
-          <TranscribeDialog
-            open={captionDialogOpen}
-            onOpenChange={(next) => {
-              if (!next) setCaptionDialogError(null)
-              setCaptionDialogOpen(next)
-            }}
-            fileName={mediaFileName}
-            hasTranscript={mediaHasTranscript}
-            isRunning={transcriptStatus === 'queued' || transcriptStatus === 'transcribing'}
-            progressPercent={
-              transcriptProgress
-                ? Math.round(getTranscriptionOverallPercent(transcriptProgress))
-                : null
-            }
-            progressLabel={
-              transcriptProgress
-                ? `${getTranscriptionStageLabel(transcriptProgress.stage)} (${Math.round(
-                    getTranscriptionOverallPercent(transcriptProgress),
-                  )}%)`
-                : 'Transcribing...'
-            }
-            errorMessage={captionDialogError}
-            onStart={(values: TranscribeDialogValues) => {
-              captionStartedRef.current = true
-              captionStopRequestedRef.current = false
-              setCaptionDialogError(null)
-              handleCaptionsFromDialog(values, hasGeneratedCaptions, (error) => {
-                captionStartedRef.current = false
-                const baseMessage =
-                  error instanceof Error ? error.message : 'Failed to generate captions'
-                setCaptionDialogError(
-                  isTranscriptionOutOfMemoryError(error) ? TRANSCRIPTION_OOM_HINT : baseMessage,
-                )
-              })
-            }}
-            onCancel={() => {
-              if (item.mediaId) {
-                captionStopRequestedRef.current = true
-                mediaTranscriptionService.cancelTranscription(item.mediaId)
-              }
-            }}
-          />
-        )}
       </>
     )
   },

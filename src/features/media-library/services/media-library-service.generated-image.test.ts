@@ -54,8 +54,6 @@ const waveformCacheMocks = vi.hoisted(() => ({
 vi.mock('@/infrastructure/storage', () => ({
   getAllMedia: vi.fn(),
   getMedia: vi.fn(),
-  getTranscript: vi.fn(),
-  getTranscriptMediaIds: vi.fn(),
   createMedia: indexedDbMocks.createMedia,
   updateMedia: vi.fn(),
   deleteMedia: indexedDbMocks.deleteMedia,

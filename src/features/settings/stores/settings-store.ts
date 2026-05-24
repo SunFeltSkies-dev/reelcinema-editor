@@ -1,12 +1,5 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { MediaTranscriptModel, MediaTranscriptQuantization } from '@/types/storage'
-import {
-  DEFAULT_WHISPER_LANGUAGE,
-  DEFAULT_WHISPER_MODEL,
-  DEFAULT_WHISPER_QUANTIZATION,
-  normalizeSelectableWhisperModel,
-} from '@/shared/utils/whisper-settings'
 import type { EditorDensityPresetName } from '@/config/editor-layout'
 import { DEFAULT_EDITOR_DENSITY_PRESET, normalizeEditorDensityPreset } from '@/config/editor-layout'
 import {
@@ -34,11 +27,6 @@ interface AppSettings {
   // Performance
   maxUndoHistory: number
   autoSaveInterval: number // minutes (0 = disabled)
-
-  // Whisper defaults
-  defaultWhisperModel: MediaTranscriptModel
-  defaultWhisperQuantization: MediaTranscriptQuantization
-  defaultWhisperLanguage: string
 
   // AI captioning — interval between sampled frames when running LFM captions.
   // Frames mode is converted to seconds at capture time using media.fps.
@@ -131,11 +119,6 @@ const DEFAULT_SETTINGS: AppSettings = {
   maxUndoHistory: 50,
   autoSaveInterval: 0, // Auto-save disabled by default
 
-  // Whisper defaults
-  defaultWhisperModel: DEFAULT_WHISPER_MODEL,
-  defaultWhisperQuantization: DEFAULT_WHISPER_QUANTIZATION,
-  defaultWhisperLanguage: DEFAULT_WHISPER_LANGUAGE,
-
   // AI captioning defaults
   captioningIntervalUnit: 'seconds',
   captioningIntervalValue: DEFAULT_CAPTIONING_INTERVAL_SECONDS,
@@ -162,9 +145,6 @@ export const useSettingsStore = create<SettingsStore>()(
 
       setSetting: (key, value) =>
         set((state) => {
-          if (key === 'defaultWhisperModel') {
-            return { [key]: normalizeSelectableWhisperModel(value as MediaTranscriptModel) }
-          }
           if (key === 'captioningIntervalUnit') {
             const unit = normalizeCaptioningIntervalUnit(value)
             return {
@@ -258,7 +238,6 @@ export const useSettingsStore = create<SettingsStore>()(
         return {
           ...currentState,
           ...typedState,
-          defaultWhisperModel: normalizeSelectableWhisperModel(typedState.defaultWhisperModel),
           hotkeyOverrides: sanitizeHotkeyOverrides(typedState.hotkeyOverrides),
           editorDensity: normalizeEditorDensityPreset(typedState.editorDensity),
           captioningIntervalUnit,

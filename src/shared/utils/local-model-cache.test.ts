@@ -1,10 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vite-plus/test'
-import {
-  LOCAL_MODEL_CACHE_DEFINITIONS,
-  clearLocalModelCache,
-  inspectAllLocalModelCaches,
-  TRANSFORMERS_CACHE_NAME,
-} from './local-model-cache'
+import { inspectAllLocalModelCaches, TRANSFORMERS_CACHE_NAME } from './local-model-cache'
 import {
   SCENE_VERIFICATION_MODEL_IDS,
   SCENE_VERIFICATION_MODEL_LABELS,
@@ -106,12 +101,6 @@ describe('local-model-cache', () => {
       'caches',
       createMockCacheStorage({
         [TRANSFORMERS_CACHE_NAME]: {
-          'https://huggingface.co/onnx-community/whisper-small/resolve/main/model.onnx':
-            new Response(new Uint8Array(12), {
-              headers: { 'content-length': '12' },
-            }),
-          'https://huggingface.co/onnx-community/whisper-small/resolve/main/tokenizer.json':
-            new Response(new Uint8Array(5)),
           'https://huggingface.co/onnx-community/gemma-4-E4B-it-ONNX/resolve/main/model.onnx':
             new Response(new Uint8Array(9), {
               headers: { 'content-length': '9' },
@@ -132,24 +121,9 @@ describe('local-model-cache', () => {
   it('inspects configured local model caches without creating missing caches', async () => {
     const summaries = await inspectAllLocalModelCaches()
 
-    expect(summaries).toHaveLength(3)
-    expect(summaries.map((summary) => summary.id)).toEqual([
-      'whisper',
-      ...SCENE_VERIFICATION_MODEL_IDS,
-    ])
+    expect(summaries).toHaveLength(SCENE_VERIFICATION_MODEL_IDS.length)
+    expect(summaries.map((summary) => summary.id)).toEqual([...SCENE_VERIFICATION_MODEL_IDS])
 
-    expect(summaries).toContainEqual(
-      expect.objectContaining({
-        id: 'whisper',
-        cacheName: TRANSFORMERS_CACHE_NAME,
-        exists: true,
-        downloaded: true,
-        entryCount: 2,
-        totalBytes: 12,
-        sizeStatus: 'partial',
-        inspectionState: 'ready',
-      }),
-    )
     expect(summaries).toContainEqual(
       expect.objectContaining({
         id: 'gemma',
@@ -174,49 +148,6 @@ describe('local-model-cache', () => {
         totalBytes: 0,
         sizeStatus: 'unavailable',
         inspectionState: 'ready',
-      }),
-    )
-  })
-
-  it('clears only the matching model entries inside a shared cache bucket', async () => {
-    const whisperDefinition = LOCAL_MODEL_CACHE_DEFINITIONS.find(
-      (definition) => definition.id === 'whisper',
-    )
-    expect(whisperDefinition).toBeTruthy()
-
-    await expect(clearLocalModelCache(whisperDefinition!)).resolves.toBe(true)
-
-    const summaries = await inspectAllLocalModelCaches()
-    const whisperSummary = summaries.find((summary) => summary.id === 'whisper')
-    const gemmaSummary = summaries.find((summary) => summary.id === 'gemma')
-    const lfmSummary = summaries.find((summary) => summary.id === 'lfm')
-
-    expect(whisperSummary).toEqual(
-      expect.objectContaining({
-        id: 'whisper',
-        cacheName: TRANSFORMERS_CACHE_NAME,
-        exists: false,
-        downloaded: false,
-        entryCount: 0,
-        totalBytes: 0,
-        sizeStatus: 'unavailable',
-        inspectionState: 'ready',
-      }),
-    )
-    expect(gemmaSummary).toEqual(
-      expect.objectContaining({
-        id: 'gemma',
-        downloaded: true,
-        entryCount: 1,
-        totalBytes: 9,
-      }),
-    )
-    expect(lfmSummary).toEqual(
-      expect.objectContaining({
-        id: 'lfm',
-        downloaded: false,
-        entryCount: 0,
-        totalBytes: 0,
       }),
     )
   })

@@ -138,8 +138,6 @@ function createMockState(overrides: ImportState = {}): MediaLibraryState & Media
     unsupportedCodecResolver: null,
     proxyStatus: new Map(),
     proxyProgress: new Map(),
-    transcriptStatus: new Map(),
-    transcriptProgress: new Map(),
     showNotification: vi.fn(),
     ...overrides,
   } as MediaLibraryState & MediaLibraryActions

@@ -333,19 +333,6 @@
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
       },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
-      },
       "type": {
         "audio": "Audio",
         "image": "Image",
@@ -981,19 +968,6 @@
         "failed": "Failed",
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
-      },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
       },
       "type": {
         "audio": "Audio",
@@ -1631,19 +1605,6 @@
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
       },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
-      },
       "type": {
         "audio": "Audio",
         "image": "Image",
@@ -2279,19 +2240,6 @@
         "failed": "Failed",
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
-      },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
       },
       "type": {
         "audio": "Audio",
@@ -2929,19 +2877,6 @@
         "titleComplete": "Concluido",
         "titleScanning": "Escaneando"
       },
-      "transcribe": {
-        "autoDetect": "Detectar automaticamente",
-        "generateTitle": "Gerar titulo",
-        "language": "Idioma",
-        "model": "Modelo",
-        "noLanguages": "Nenhum idioma",
-        "progressAria": "Progresso",
-        "quantization": "Quantizacao",
-        "refreshTitle": "Atualizar titulo",
-        "searchLanguages": "Pesquisar idiomas",
-        "start": "Iniciar",
-        "stop": "Parar"
-      },
       "type": {
         "audio": "Audio",
         "image": "Imagem",
@@ -3577,19 +3512,6 @@
         "failed": "Failed",
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
-      },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
       },
       "type": {
         "audio": "音声",
@@ -4227,19 +4149,6 @@
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
       },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
-      },
       "type": {
         "audio": "오디오",
         "image": "이미지",
@@ -4876,19 +4785,6 @@
         "titleComplete": "Title Complete",
         "titleScanning": "Title Scanning"
       },
-      "transcribe": {
-        "autoDetect": "Auto Detect",
-        "generateTitle": "Generate Title",
-        "language": "Language",
-        "model": "Model",
-        "noLanguages": "No Languages",
-        "progressAria": "Progress ARIA",
-        "quantization": "Quantization",
-        "refreshTitle": "Refresh Title",
-        "searchLanguages": "Search Languages",
-        "start": "Start",
-        "stop": "Stop"
-      },
       "type": {
         "audio": "音频",
         "image": "图像",
@@ -5524,19 +5420,6 @@
         "failed": "Başarısız",
         "titleComplete": "Tarama tamamlandı",
         "titleScanning": "Altyazılar taranıyor"
-      },
-      "transcribe": {
-        "autoDetect": "Otomatik algıla",
-        "generateTitle": "Transkript oluştur",
-        "language": "Dil",
-        "model": "Model",
-        "noLanguages": "Dil yok",
-        "progressAria": "İlerleme",
-        "quantization": "Niceleme",
-        "refreshTitle": "Transkripti yenile",
-        "searchLanguages": "Dillerde ara",
-        "start": "Başlat",
-        "stop": "Durdur"
       },
       "type": {
         "audio": "Ses",

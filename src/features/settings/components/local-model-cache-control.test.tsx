@@ -39,9 +39,9 @@ describe('LocalModelCacheControl', () => {
     mocks.clearLocalModelCache.mockResolvedValue(true)
     mocks.inspectAllLocalModelCaches.mockResolvedValue([
       {
-        id: 'whisper',
-        label: 'Whisper',
-        description: 'Whisper ONNX model files and tokenizers.',
+        id: 'gemma',
+        label: 'Gemma',
+        description: 'Gemma ONNX model files and tokenizers.',
         cacheName: 'transformers-cache',
         supported: true,
         exists: true,
@@ -65,7 +65,7 @@ describe('LocalModelCacheControl', () => {
       expect(screen.getByRole('button', { name: 'Refresh' })).toBeEnabled()
     })
 
-    expect(screen.getByText('Whisper')).toBeInTheDocument()
+    expect(screen.getByText('Gemma')).toBeInTheDocument()
     expect(screen.getByText('Approx. 12.0 MB')).toBeInTheDocument()
   })
 })

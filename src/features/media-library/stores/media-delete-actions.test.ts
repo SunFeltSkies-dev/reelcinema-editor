@@ -95,8 +95,6 @@ function createMockState(overrides: DeleteState = {}): MediaLibraryState & Media
     unsupportedCodecResolver: null,
     proxyStatus: new Map(),
     proxyProgress: new Map(),
-    transcriptStatus: new Map(),
-    transcriptProgress: new Map(),
     ...overrides,
   } as MediaLibraryState & MediaLibraryActions
 }
