@@ -1,11 +1,6 @@
 /**
  * Bridges AI captions (vision-language-model frame descriptions) into timeline
- * text items. Mirrors {@link MediaTranscriptionService.insertTranscriptAsCaptions}
- * but sources from `MediaCaption[]` (point-in-time descriptions) rather than
- * whisper speech-to-text segments.
- *
- * Keep both services aligned in behavior — if one gains new track-placement
- * or replacement logic, the other usually needs the same treatment.
+ * text items, sourcing from `MediaCaption[]` point-in-time descriptions.
  */
 
 import { useSelectionStore } from '@/shared/state/selection'

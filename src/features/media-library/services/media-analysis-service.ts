@@ -30,7 +30,6 @@ import {
   deleteCaptionEmbeddings,
   saveCaptionEmbeddings,
   saveCaptionImageEmbeddings,
-  getTranscript,
   getCaptionsByContentHash,
   adoptCaptionsFromCache,
 } from '@/infrastructure/storage'
@@ -228,13 +227,10 @@ class MediaAnalysisService {
         try {
           await embeddingsProvider.ensureReady()
 
-          const transcript = await getTranscript(media.id).catch(() => null)
-
           const texts = captions.map((caption, i) =>
             buildEmbeddingText({
               caption: { text: caption.text, timeSec: caption.timeSec },
               sceneData: caption.sceneData,
-              transcriptSegments: transcript?.segments,
               colorPhrase: colorResults[i]?.phrase ?? '',
             }),
           )

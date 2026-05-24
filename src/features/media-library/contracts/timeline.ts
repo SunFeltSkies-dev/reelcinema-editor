@@ -5,12 +5,6 @@
 export { useMediaLibraryStore } from '../stores/media-library-store'
 export { mediaLibraryService } from '../services/media-library-service'
 export { mediaProcessorService } from '../services/media-processor-service'
-export { mediaTranscriptionService } from '../services/media-transcription-service'
-export {
-  getMediaTranscriptionModelLabel,
-  getMediaTranscriptionModelOptions,
-} from '../transcription/registry'
-export { TranscribeDialog, type TranscribeDialogValues } from '../components/transcribe-dialog'
 export { useEmbeddedSubtitlePickerStore } from '../stores/embedded-subtitle-picker-store'
 export { subtitleSidecarService } from '../services/subtitle-sidecar-service'
 export { opfsService } from '../services/opfs-service'

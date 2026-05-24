@@ -8,9 +8,8 @@ import {
 
 export const TRANSFORMERS_CACHE_NAME = 'transformers-cache'
 export const LOCAL_MODEL_CACHE_STORAGE_LABEL = 'Browser cache storage'
-const WHISPER_CACHE_MATCH_FRAGMENTS = ['/onnx-community/whisper-']
 
-export type LocalModelCacheId = 'whisper' | SceneVerificationModelId
+export type LocalModelCacheId = SceneVerificationModelId
 
 export interface LocalModelCacheDefinition {
   id: LocalModelCacheId
@@ -40,13 +39,6 @@ const SCENE_VERIFICATION_MODEL_CACHE_DEFINITIONS: LocalModelCacheDefinition[] =
   }))
 
 export const LOCAL_MODEL_CACHE_DEFINITIONS: LocalModelCacheDefinition[] = [
-  {
-    id: 'whisper',
-    label: 'Whisper',
-    description: 'Whisper ONNX model files and tokenizers.',
-    cacheName: TRANSFORMERS_CACHE_NAME,
-    matchPathFragments: WHISPER_CACHE_MATCH_FRAGMENTS,
-  },
   ...SCENE_VERIFICATION_MODEL_CACHE_DEFINITIONS,
 ]
 

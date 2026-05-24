@@ -3,16 +3,10 @@
  * `media/{id}/cache/ai/{kind}.json`.
  *
  * One file per `AiOutputKind`. Envelope fields are identical across kinds so
- * invalidation logic ("is this transcript from the same model we use today?")
- * works uniformly. Service-specific data goes inside `data`.
+ * invalidation logic works uniformly. Service-specific data goes inside `data`.
  */
 
 import type { MediaCaption } from '@/infrastructure/analysis'
-import type {
-  MediaTranscript,
-  MediaTranscriptModel,
-  MediaTranscriptQuantization,
-} from '@/types/storage'
 
 /**
  * Registry of AI output kinds. Adding a new AI service means:
@@ -21,14 +15,13 @@ import type {
  * 3. (Optional) Add a thin wrapper in `workspace-fs/` that calls
  *    `readAiOutput/writeAiOutput` with that kind.
  */
-export type AiOutputKind = 'transcript' | 'captions' | 'scenes'
+export type AiOutputKind = 'captions' | 'scenes'
 
 /**
  * Typed payload per kind. Matches the `data` field on `AiOutput<T>`.
  * New kinds must be registered here so the storage API stays strongly typed.
  */
 export interface AiOutputPayloads {
-  transcript: TranscriptPayload
   captions: CaptionsPayload
   scenes: ScenesPayload
 }
@@ -55,14 +48,6 @@ export interface AiOutput<K extends AiOutputKind> {
 }
 
 /* ───────────────── Payload shapes ───────────────── */
-
-export interface TranscriptPayload {
-  language?: string
-  quantization: MediaTranscriptQuantization
-  modelVariant: MediaTranscriptModel
-  text: string
-  segments: Array<{ text: string; start: number; end: number }>
-}
 
 export type CaptionsPayload = {
   sampleIntervalSec?: number
@@ -107,46 +92,4 @@ export interface ScenesPayload {
   verificationModel?: string
   fps: number
   cuts: SceneCutPayload[]
-}
-
-/* ───────────────── Conversions ───────────────── */
-
-/**
- * Adapter: build a transcript envelope from the legacy {@link MediaTranscript}
- * record shape. Keeps callers that already construct `MediaTranscript` working
- * unchanged during the migration.
- */
-export function transcriptFromLegacy(record: MediaTranscript): AiOutput<'transcript'> {
-  return {
-    schemaVersion: AI_OUTPUT_SCHEMA_VERSION,
-    kind: 'transcript',
-    mediaId: record.mediaId,
-    service: 'whisper',
-    model: record.model,
-    params: { quantization: record.quantization, language: record.language },
-    createdAt: record.createdAt,
-    updatedAt: record.updatedAt ?? record.createdAt,
-    data: {
-      language: record.language,
-      quantization: record.quantization,
-      modelVariant: record.model,
-      text: record.text,
-      segments: record.segments,
-    },
-  }
-}
-
-/** Inverse of {@link transcriptFromLegacy}. */
-export function transcriptToLegacy(envelope: AiOutput<'transcript'>): MediaTranscript {
-  return {
-    id: envelope.mediaId,
-    mediaId: envelope.mediaId,
-    model: envelope.data.modelVariant,
-    language: envelope.data.language,
-    quantization: envelope.data.quantization,
-    text: envelope.data.text,
-    segments: envelope.data.segments,
-    createdAt: envelope.createdAt,
-    updatedAt: envelope.updatedAt,
-  }
 }
