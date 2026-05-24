@@ -112,7 +112,7 @@
         "selectedCount_other": "{{count}} selected",
         "deleteN_one": "Delete {{count}}",
         "deleteN_other": "Delete {{count}}",
-        "welcomeTitle": "Welcome to FreeCut",
+        "welcomeTitle": "Welcome to ReelCinema",
         "welcomeDescription": "Get started by creating your first video project. Choose your resolution, frame rate, and start editing!",
         "noResultsTitle": "No projects found",
         "noResultsDescription": "We couldn't find any projects matching your search criteria. Try adjusting your filters or search terms.",
@@ -177,9 +177,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Unsupported browser",
-        "unsupportedBrowserDescription": "FreeCut requires a Chromium-based browser (Chrome, Edge, Brave, Arc) for its workspace folder storage. Firefox and Safari don't yet support the File System Access API.",
+        "unsupportedBrowserDescription": "ReelCinema requires a Chromium-based browser (Chrome, Edge, Brave, Arc) for its workspace folder storage. Firefox and Safari don't yet support the File System Access API.",
         "pickTitle": "Pick your workspace folder",
-        "pickDescription": "FreeCut stores all your projects, media, and caches as plain files in a folder you control. Pick any folder on disk — your projects will live there.",
+        "pickDescription": "ReelCinema stores all your projects, media, and caches as plain files in a folder you control. Pick any folder on disk — your projects will live there.",
         "chooseFolder": "Choose folder",
         "pickTip": "Tip: pick a folder in Dropbox, iCloud, or Google Drive to sync projects across devices. You can move it later.",
         "reconnectTitle": "Reconnect your workspace",
@@ -257,15 +257,15 @@
         "showcaseSubheading": "A complete video editing suite, right in your browser.",
         "screenshot": "Screenshot",
         "seeItInAction": "See it in Action",
-        "seeItInActionSubheading": "Watch a quick demo of FreeCut's editing capabilities.",
-        "demoPreviewAlt": "FreeCut demo preview",
+        "seeItInActionSubheading": "Watch a quick demo of ReelCinema's editing capabilities.",
+        "demoPreviewAlt": "ReelCinema demo preview",
         "watchDemoOnYouTube": "Watch Demo on YouTube",
         "faqHeading": "Frequently Asked Questions",
-        "faqSubheading": "Everything you need to know about FreeCut.",
+        "faqSubheading": "Everything you need to know about ReelCinema.",
         "ctaHeading": "Ready to start editing?",
         "ctaSubheading": "Jump in and create your first project in seconds.",
         "startEditing": "Start Editing",
-        "footer": "MIT License © {{year}} FreeCut",
+        "footer": "MIT License © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Timeline Editing",
@@ -286,12 +286,12 @@
         },
         "faq": {
           "free": {
-            "question": "Is FreeCut really free?",
-            "answer": "Yes, FreeCut is completely free and open source under the MIT license. There are no hidden fees, subscriptions, or watermarks."
+            "question": "Is ReelCinema really free?",
+            "answer": "Yes, ReelCinema is completely free and open source under the MIT license. There are no hidden fees, subscriptions, or watermarks."
           },
           "install": {
             "question": "Do I need to install anything?",
-            "answer": "No installation required. FreeCut runs entirely in your browser. Just open the website and start editing."
+            "answer": "No installation required. ReelCinema runs entirely in your browser. Just open the website and start editing."
           },
           "storage": {
             "question": "Where are my videos stored?",
@@ -299,7 +299,7 @@
           },
           "browsers": {
             "question": "What browsers are supported?",
-            "answerP1": "FreeCut currently works best in Chrome or Edge 113+. It relies on modern browser APIs like WebGPU, WebCodecs, OPFS, and File System Access, so the full workflow is currently Chromium-first.",
+            "answerP1": "ReelCinema currently works best in Chrome or Edge 113+. It relies on modern browser APIs like WebGPU, WebCodecs, OPFS, and File System Access, so the full workflow is currently Chromium-first.",
             "answerP2": "<strong>Brave users:</strong> The File System Access API is disabled by default. To enable it, navigate to <code>brave://flags/#file-system-access-api</code>, set it to <strong>Enabled</strong>, and relaunch the browser."
           },
           "exportFormats": {
@@ -596,7 +596,7 @@
         "selectedCount_other": "{{count}} seleccionados",
         "deleteN_one": "Eliminar {{count}}",
         "deleteN_other": "Eliminar {{count}}",
-        "welcomeTitle": "Te damos la bienvenida a FreeCut",
+        "welcomeTitle": "Te damos la bienvenida a ReelCinema",
         "welcomeDescription": "Empieza creando tu primer proyecto de video. Elige la resolución, la frecuencia de fotogramas y empieza a editar.",
         "noResultsTitle": "No se encontraron proyectos",
         "noResultsDescription": "No encontramos ningún proyecto que coincida con tu búsqueda. Prueba a ajustar los filtros o los términos de búsqueda.",
@@ -661,9 +661,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Navegador no compatible",
-        "unsupportedBrowserDescription": "FreeCut requiere un navegador basado en Chromium (Chrome, Edge, Brave, Arc) para su almacenamiento en carpeta de espacio de trabajo. Firefox y Safari aún no admiten la File System Access API.",
+        "unsupportedBrowserDescription": "ReelCinema requiere un navegador basado en Chromium (Chrome, Edge, Brave, Arc) para su almacenamiento en carpeta de espacio de trabajo. Firefox y Safari aún no admiten la File System Access API.",
         "pickTitle": "Elige tu carpeta de espacio de trabajo",
-        "pickDescription": "FreeCut almacena todos tus proyectos, medios y cachés como archivos sencillos en una carpeta que tú controlas. Elige cualquier carpeta del disco: tus proyectos vivirán allí.",
+        "pickDescription": "ReelCinema almacena todos tus proyectos, medios y cachés como archivos sencillos en una carpeta que tú controlas. Elige cualquier carpeta del disco: tus proyectos vivirán allí.",
         "chooseFolder": "Elegir carpeta",
         "pickTip": "Consejo: elige una carpeta en Dropbox, iCloud o Google Drive para sincronizar proyectos entre dispositivos. Puedes moverla más tarde.",
         "reconnectTitle": "Vuelve a conectar tu espacio de trabajo",
@@ -741,15 +741,15 @@
         "showcaseSubheading": "Un conjunto completo de edición de video, directamente en tu navegador.",
         "screenshot": "Captura de pantalla",
         "seeItInAction": "Míralo en acción",
-        "seeItInActionSubheading": "Mira una breve demostración de las capacidades de edición de FreeCut.",
-        "demoPreviewAlt": "Vista previa de la demo de FreeCut",
+        "seeItInActionSubheading": "Mira una breve demostración de las capacidades de edición de ReelCinema.",
+        "demoPreviewAlt": "Vista previa de la demo de ReelCinema",
         "watchDemoOnYouTube": "Ver la demo en YouTube",
         "faqHeading": "Preguntas frecuentes",
-        "faqSubheading": "Todo lo que necesitas saber sobre FreeCut.",
+        "faqSubheading": "Todo lo que necesitas saber sobre ReelCinema.",
         "ctaHeading": "¿Listo para empezar a editar?",
         "ctaSubheading": "Lánzate y crea tu primer proyecto en segundos.",
         "startEditing": "Empezar a editar",
-        "footer": "Licencia MIT © {{year}} FreeCut",
+        "footer": "Licencia MIT © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Edición en la línea de tiempo",
@@ -770,12 +770,12 @@
         },
         "faq": {
           "free": {
-            "question": "¿FreeCut es realmente gratis?",
-            "answer": "Sí, FreeCut es completamente gratis y de código abierto bajo la licencia MIT. No hay tarifas ocultas, suscripciones ni marcas de agua."
+            "question": "¿ReelCinema es realmente gratis?",
+            "answer": "Sí, ReelCinema es completamente gratis y de código abierto bajo la licencia MIT. No hay tarifas ocultas, suscripciones ni marcas de agua."
           },
           "install": {
             "question": "¿Necesito instalar algo?",
-            "answer": "No se requiere instalación. FreeCut funciona enteramente en tu navegador. Solo abre el sitio web y empieza a editar."
+            "answer": "No se requiere instalación. ReelCinema funciona enteramente en tu navegador. Solo abre el sitio web y empieza a editar."
           },
           "storage": {
             "question": "¿Dónde se guardan mis videos?",
@@ -783,7 +783,7 @@
           },
           "browsers": {
             "question": "¿Qué navegadores son compatibles?",
-            "answerP1": "FreeCut funciona mejor en Chrome o Edge 113+. Depende de APIs modernas del navegador como WebGPU, WebCodecs, OPFS y File System Access, por lo que el flujo completo es actualmente Chromium-first.",
+            "answerP1": "ReelCinema funciona mejor en Chrome o Edge 113+. Depende de APIs modernas del navegador como WebGPU, WebCodecs, OPFS y File System Access, por lo que el flujo completo es actualmente Chromium-first.",
             "answerP2": "<strong>Usuarios de Brave:</strong> la File System Access API está desactivada por defecto. Para activarla, ve a <code>brave://flags/#file-system-access-api</code>, ponla en <strong>Enabled</strong> y reinicia el navegador."
           },
           "exportFormats": {
@@ -1080,7 +1080,7 @@
         "selectedCount_other": "{{count}} sélectionnés",
         "deleteN_one": "Supprimer {{count}}",
         "deleteN_other": "Supprimer {{count}}",
-        "welcomeTitle": "Bienvenue sur FreeCut",
+        "welcomeTitle": "Bienvenue sur ReelCinema",
         "welcomeDescription": "Commencez par créer votre premier projet vidéo. Choisissez votre résolution, votre fréquence d'images, et commencez à monter !",
         "noResultsTitle": "Aucun projet trouvé",
         "noResultsDescription": "Nous n'avons trouvé aucun projet correspondant à vos critères de recherche. Essayez d'ajuster vos filtres ou vos termes de recherche.",
@@ -1145,9 +1145,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Navigateur non pris en charge",
-        "unsupportedBrowserDescription": "FreeCut nécessite un navigateur basé sur Chromium (Chrome, Edge, Brave, Arc) pour son stockage en dossier d'espace de travail. Firefox et Safari ne prennent pas encore en charge la File System Access API.",
+        "unsupportedBrowserDescription": "ReelCinema nécessite un navigateur basé sur Chromium (Chrome, Edge, Brave, Arc) pour son stockage en dossier d'espace de travail. Firefox et Safari ne prennent pas encore en charge la File System Access API.",
         "pickTitle": "Choisissez votre dossier d'espace de travail",
-        "pickDescription": "FreeCut stocke tous vos projets, médias et caches sous forme de fichiers simples dans un dossier que vous contrôlez. Choisissez n'importe quel dossier sur le disque — vos projets y résideront.",
+        "pickDescription": "ReelCinema stocke tous vos projets, médias et caches sous forme de fichiers simples dans un dossier que vous contrôlez. Choisissez n'importe quel dossier sur le disque — vos projets y résideront.",
         "chooseFolder": "Choisir un dossier",
         "pickTip": "Astuce : choisissez un dossier dans Dropbox, iCloud ou Google Drive pour synchroniser les projets entre appareils. Vous pourrez le déplacer plus tard.",
         "reconnectTitle": "Reconnectez votre espace de travail",
@@ -1225,15 +1225,15 @@
         "showcaseSubheading": "Une suite de montage vidéo complète, directement dans votre navigateur.",
         "screenshot": "Capture d'écran",
         "seeItInAction": "Voir en action",
-        "seeItInActionSubheading": "Regardez une démonstration rapide des capacités de montage de FreeCut.",
-        "demoPreviewAlt": "Aperçu de la démo de FreeCut",
+        "seeItInActionSubheading": "Regardez une démonstration rapide des capacités de montage de ReelCinema.",
+        "demoPreviewAlt": "Aperçu de la démo de ReelCinema",
         "watchDemoOnYouTube": "Regarder la démo sur YouTube",
         "faqHeading": "Questions fréquentes",
-        "faqSubheading": "Tout ce que vous devez savoir sur FreeCut.",
+        "faqSubheading": "Tout ce que vous devez savoir sur ReelCinema.",
         "ctaHeading": "Prêt à commencer le montage ?",
         "ctaSubheading": "Lancez-vous et créez votre premier projet en quelques secondes.",
         "startEditing": "Commencer le montage",
-        "footer": "Licence MIT © {{year}} FreeCut",
+        "footer": "Licence MIT © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Montage sur la timeline",
@@ -1254,12 +1254,12 @@
         },
         "faq": {
           "free": {
-            "question": "FreeCut est-il vraiment gratuit ?",
-            "answer": "Oui, FreeCut est entièrement gratuit et open source sous licence MIT. Il n'y a aucun frais caché, abonnement ou filigrane."
+            "question": "ReelCinema est-il vraiment gratuit ?",
+            "answer": "Oui, ReelCinema est entièrement gratuit et open source sous licence MIT. Il n'y a aucun frais caché, abonnement ou filigrane."
           },
           "install": {
             "question": "Dois-je installer quelque chose ?",
-            "answer": "Aucune installation requise. FreeCut fonctionne entièrement dans votre navigateur. Ouvrez simplement le site web et commencez le montage."
+            "answer": "Aucune installation requise. ReelCinema fonctionne entièrement dans votre navigateur. Ouvrez simplement le site web et commencez le montage."
           },
           "storage": {
             "question": "Où mes vidéos sont-elles stockées ?",
@@ -1267,7 +1267,7 @@
           },
           "browsers": {
             "question": "Quels navigateurs sont pris en charge ?",
-            "answerP1": "FreeCut fonctionne actuellement le mieux dans Chrome ou Edge 113+. Il s'appuie sur des API de navigateur modernes comme WebGPU, WebCodecs, OPFS et File System Access, donc le flux complet est actuellement axé sur Chromium.",
+            "answerP1": "ReelCinema fonctionne actuellement le mieux dans Chrome ou Edge 113+. Il s'appuie sur des API de navigateur modernes comme WebGPU, WebCodecs, OPFS et File System Access, donc le flux complet est actuellement axé sur Chromium.",
             "answerP2": "<strong>Utilisateurs de Brave :</strong> la File System Access API est désactivée par défaut. Pour l'activer, allez à <code>brave://flags/#file-system-access-api</code>, réglez-la sur <strong>Enabled</strong>, puis relancez le navigateur."
           },
           "exportFormats": {
@@ -1564,7 +1564,7 @@
         "selectedCount_other": "{{count}} ausgewählt",
         "deleteN_one": "{{count}} löschen",
         "deleteN_other": "{{count}} löschen",
-        "welcomeTitle": "Willkommen bei FreeCut",
+        "welcomeTitle": "Willkommen bei ReelCinema",
         "welcomeDescription": "Beginne, indem du dein erstes Videoprojekt erstellst. Wähle deine Auflösung, Bildrate und leg los mit dem Bearbeiten!",
         "noResultsTitle": "Keine Projekte gefunden",
         "noResultsDescription": "Wir konnten keine Projekte finden, die deinen Suchkriterien entsprechen. Versuche, deine Filter oder Suchbegriffe anzupassen.",
@@ -1629,9 +1629,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Nicht unterstützter Browser",
-        "unsupportedBrowserDescription": "FreeCut benötigt einen Chromium-basierten Browser (Chrome, Edge, Brave, Arc) für seinen Arbeitsbereich-Ordnerspeicher. Firefox und Safari unterstützen die File System Access API noch nicht.",
+        "unsupportedBrowserDescription": "ReelCinema benötigt einen Chromium-basierten Browser (Chrome, Edge, Brave, Arc) für seinen Arbeitsbereich-Ordnerspeicher. Firefox und Safari unterstützen die File System Access API noch nicht.",
         "pickTitle": "Wähle deinen Arbeitsbereich-Ordner",
-        "pickDescription": "FreeCut speichert alle deine Projekte, Medien und Caches als einfache Dateien in einem Ordner, den du kontrollierst. Wähle einen beliebigen Ordner auf der Festplatte – deine Projekte werden dort gespeichert.",
+        "pickDescription": "ReelCinema speichert alle deine Projekte, Medien und Caches als einfache Dateien in einem Ordner, den du kontrollierst. Wähle einen beliebigen Ordner auf der Festplatte – deine Projekte werden dort gespeichert.",
         "chooseFolder": "Ordner auswählen",
         "pickTip": "Tipp: Wähle einen Ordner in Dropbox, iCloud oder Google Drive, um Projekte über Geräte hinweg zu synchronisieren. Du kannst ihn später verschieben.",
         "reconnectTitle": "Verbinde deinen Arbeitsbereich erneut",
@@ -1709,15 +1709,15 @@
         "showcaseSubheading": "Eine komplette Videobearbeitungssuite, direkt in deinem Browser.",
         "screenshot": "Screenshot",
         "seeItInAction": "In Aktion sehen",
-        "seeItInActionSubheading": "Sieh dir eine kurze Demo der Bearbeitungsfunktionen von FreeCut an.",
-        "demoPreviewAlt": "FreeCut-Demovorschau",
+        "seeItInActionSubheading": "Sieh dir eine kurze Demo der Bearbeitungsfunktionen von ReelCinema an.",
+        "demoPreviewAlt": "ReelCinema-Demovorschau",
         "watchDemoOnYouTube": "Demo auf YouTube ansehen",
         "faqHeading": "Häufig gestellte Fragen",
-        "faqSubheading": "Alles, was du über FreeCut wissen musst.",
+        "faqSubheading": "Alles, was du über ReelCinema wissen musst.",
         "ctaHeading": "Bereit, mit dem Bearbeiten zu beginnen?",
         "ctaSubheading": "Leg los und erstelle dein erstes Projekt in Sekunden.",
         "startEditing": "Mit dem Bearbeiten beginnen",
-        "footer": "MIT-Lizenz © {{year}} FreeCut",
+        "footer": "MIT-Lizenz © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Timeline-Bearbeitung",
@@ -1738,12 +1738,12 @@
         },
         "faq": {
           "free": {
-            "question": "Ist FreeCut wirklich kostenlos?",
-            "answer": "Ja, FreeCut ist vollständig kostenlos und Open Source unter der MIT-Lizenz. Es gibt keine versteckten Gebühren, Abonnements oder Wasserzeichen."
+            "question": "Ist ReelCinema wirklich kostenlos?",
+            "answer": "Ja, ReelCinema ist vollständig kostenlos und Open Source unter der MIT-Lizenz. Es gibt keine versteckten Gebühren, Abonnements oder Wasserzeichen."
           },
           "install": {
             "question": "Muss ich etwas installieren?",
-            "answer": "Keine Installation erforderlich. FreeCut läuft vollständig in deinem Browser. Öffne einfach die Website und beginne mit dem Bearbeiten."
+            "answer": "Keine Installation erforderlich. ReelCinema läuft vollständig in deinem Browser. Öffne einfach die Website und beginne mit dem Bearbeiten."
           },
           "storage": {
             "question": "Wo werden meine Videos gespeichert?",
@@ -1751,7 +1751,7 @@
           },
           "browsers": {
             "question": "Welche Browser werden unterstützt?",
-            "answerP1": "FreeCut funktioniert derzeit am besten in Chrome oder Edge 113+. Es stützt sich auf moderne Browser-APIs wie WebGPU, WebCodecs, OPFS und File System Access, daher ist der vollständige Workflow derzeit Chromium-orientiert.",
+            "answerP1": "ReelCinema funktioniert derzeit am besten in Chrome oder Edge 113+. Es stützt sich auf moderne Browser-APIs wie WebGPU, WebCodecs, OPFS und File System Access, daher ist der vollständige Workflow derzeit Chromium-orientiert.",
             "answerP2": "<strong>Brave-Nutzer:</strong> Die File System Access API ist standardmäßig deaktiviert. Um sie zu aktivieren, gehe zu <code>brave://flags/#file-system-access-api</code>, stelle sie auf <strong>Enabled</strong> und starte den Browser neu."
           },
           "exportFormats": {
@@ -2048,7 +2048,7 @@
         "selectedCount_other": "{{count}} selecionados",
         "deleteN_one": "Excluir {{count}}",
         "deleteN_other": "Excluir {{count}}",
-        "welcomeTitle": "Bem-vindo ao FreeCut",
+        "welcomeTitle": "Bem-vindo ao ReelCinema",
         "welcomeDescription": "Comece criando seu primeiro projeto de vídeo. Escolha sua resolução, taxa de quadros e comece a editar!",
         "noResultsTitle": "Nenhum projeto encontrado",
         "noResultsDescription": "Não encontramos nenhum projeto que corresponda aos seus critérios de pesquisa. Tente ajustar seus filtros ou termos de pesquisa.",
@@ -2113,9 +2113,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Navegador não compatível",
-        "unsupportedBrowserDescription": "O FreeCut requer um navegador baseado em Chromium (Chrome, Edge, Brave, Arc) para seu armazenamento em pasta de área de trabalho. Firefox e Safari ainda não oferecem suporte à File System Access API.",
+        "unsupportedBrowserDescription": "O ReelCinema requer um navegador baseado em Chromium (Chrome, Edge, Brave, Arc) para seu armazenamento em pasta de área de trabalho. Firefox e Safari ainda não oferecem suporte à File System Access API.",
         "pickTitle": "Escolha sua pasta de área de trabalho",
-        "pickDescription": "O FreeCut armazena todos os seus projetos, mídias e caches como arquivos simples em uma pasta que você controla. Escolha qualquer pasta no disco — seus projetos viverão lá.",
+        "pickDescription": "O ReelCinema armazena todos os seus projetos, mídias e caches como arquivos simples em uma pasta que você controla. Escolha qualquer pasta no disco — seus projetos viverão lá.",
         "chooseFolder": "Escolher pasta",
         "pickTip": "Dica: escolha uma pasta no Dropbox, iCloud ou Google Drive para sincronizar projetos entre dispositivos. Você pode movê-la depois.",
         "reconnectTitle": "Reconecte sua área de trabalho",
@@ -2193,15 +2193,15 @@
         "showcaseSubheading": "Um conjunto completo de edição de vídeo, diretamente no seu navegador.",
         "screenshot": "Captura de tela",
         "seeItInAction": "Veja em ação",
-        "seeItInActionSubheading": "Assista a uma demonstração rápida dos recursos de edição do FreeCut.",
-        "demoPreviewAlt": "Prévia da demonstração do FreeCut",
+        "seeItInActionSubheading": "Assista a uma demonstração rápida dos recursos de edição do ReelCinema.",
+        "demoPreviewAlt": "Prévia da demonstração do ReelCinema",
         "watchDemoOnYouTube": "Assistir à demonstração no YouTube",
         "faqHeading": "Perguntas frequentes",
-        "faqSubheading": "Tudo o que você precisa saber sobre o FreeCut.",
+        "faqSubheading": "Tudo o que você precisa saber sobre o ReelCinema.",
         "ctaHeading": "Pronto para começar a editar?",
         "ctaSubheading": "Mergulhe e crie seu primeiro projeto em segundos.",
         "startEditing": "Começar a editar",
-        "footer": "Licença MIT © {{year}} FreeCut",
+        "footer": "Licença MIT © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Edição na linha do tempo",
@@ -2222,12 +2222,12 @@
         },
         "faq": {
           "free": {
-            "question": "O FreeCut é realmente gratuito?",
-            "answer": "Sim, o FreeCut é totalmente gratuito e de código aberto sob a licença MIT. Não há taxas ocultas, assinaturas ou marcas d'água."
+            "question": "O ReelCinema é realmente gratuito?",
+            "answer": "Sim, o ReelCinema é totalmente gratuito e de código aberto sob a licença MIT. Não há taxas ocultas, assinaturas ou marcas d'água."
           },
           "install": {
             "question": "Preciso instalar alguma coisa?",
-            "answer": "Nenhuma instalação necessária. O FreeCut funciona inteiramente no seu navegador. Basta abrir o site e começar a editar."
+            "answer": "Nenhuma instalação necessária. O ReelCinema funciona inteiramente no seu navegador. Basta abrir o site e começar a editar."
           },
           "storage": {
             "question": "Onde meus vídeos são armazenados?",
@@ -2235,7 +2235,7 @@
           },
           "browsers": {
             "question": "Quais navegadores são compatíveis?",
-            "answerP1": "O FreeCut funciona melhor no Chrome ou Edge 113+. Ele depende de APIs modernas do navegador como WebGPU, WebCodecs, OPFS e File System Access, então o fluxo completo é atualmente voltado para o Chromium.",
+            "answerP1": "O ReelCinema funciona melhor no Chrome ou Edge 113+. Ele depende de APIs modernas do navegador como WebGPU, WebCodecs, OPFS e File System Access, então o fluxo completo é atualmente voltado para o Chromium.",
             "answerP2": "<strong>Usuários do Brave:</strong> a File System Access API está desativada por padrão. Para ativá-la, vá para <code>brave://flags/#file-system-access-api</code>, defina como <strong>Enabled</strong> e reinicie o navegador."
           },
           "exportFormats": {
@@ -2532,7 +2532,7 @@
         "selectedCount_other": "{{count}}件選択中",
         "deleteN_one": "{{count}}件削除",
         "deleteN_other": "{{count}}件削除",
-        "welcomeTitle": "FreeCutへようこそ",
+        "welcomeTitle": "ReelCinemaへようこそ",
         "welcomeDescription": "最初の動画プロジェクトを作成して始めましょう。解像度とフレームレートを選んで、編集を開始してください！",
         "noResultsTitle": "プロジェクトが見つかりません",
         "noResultsDescription": "検索条件に一致するプロジェクトが見つかりませんでした。フィルターや検索語句を調整してみてください。",
@@ -2597,9 +2597,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "サポートされていないブラウザ",
-        "unsupportedBrowserDescription": "FreeCutのワークスペースフォルダストレージには、Chromiumベースのブラウザ（Chrome、Edge、Brave、Arc）が必要です。FirefoxとSafariはまだFile System Access APIをサポートしていません。",
+        "unsupportedBrowserDescription": "ReelCinemaのワークスペースフォルダストレージには、Chromiumベースのブラウザ（Chrome、Edge、Brave、Arc）が必要です。FirefoxとSafariはまだFile System Access APIをサポートしていません。",
         "pickTitle": "ワークスペースフォルダを選択",
-        "pickDescription": "FreeCutは、すべてのプロジェクト、メディア、キャッシュを、あなたが管理するフォルダ内のプレーンファイルとして保存します。ディスク上の任意のフォルダを選んでください。プロジェクトはそこに保存されます。",
+        "pickDescription": "ReelCinemaは、すべてのプロジェクト、メディア、キャッシュを、あなたが管理するフォルダ内のプレーンファイルとして保存します。ディスク上の任意のフォルダを選んでください。プロジェクトはそこに保存されます。",
         "chooseFolder": "フォルダを選択",
         "pickTip": "ヒント: Dropbox、iCloud、Google Drive 内のフォルダを選ぶと、デバイス間でプロジェクトを同期できます。後で移動することもできます。",
         "reconnectTitle": "ワークスペースを再接続",
@@ -2677,15 +2677,15 @@
         "showcaseSubheading": "完全な動画編集スイートを、ブラウザの中で。",
         "screenshot": "スクリーンショット",
         "seeItInAction": "動作を見る",
-        "seeItInActionSubheading": "FreeCutの編集機能のクイックデモをご覧ください。",
-        "demoPreviewAlt": "FreeCutデモのプレビュー",
+        "seeItInActionSubheading": "ReelCinemaの編集機能のクイックデモをご覧ください。",
+        "demoPreviewAlt": "ReelCinemaデモのプレビュー",
         "watchDemoOnYouTube": "YouTubeでデモを見る",
         "faqHeading": "よくある質問",
-        "faqSubheading": "FreeCutについて知っておくべきすべて。",
+        "faqSubheading": "ReelCinemaについて知っておくべきすべて。",
         "ctaHeading": "編集を始める準備はできましたか？",
         "ctaSubheading": "さっそく数秒で最初のプロジェクトを作成しましょう。",
         "startEditing": "編集を始める",
-        "footer": "MITライセンス © {{year}} FreeCut",
+        "footer": "MITライセンス © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "タイムライン編集",
@@ -2706,12 +2706,12 @@
         },
         "faq": {
           "free": {
-            "question": "FreeCutは本当に無料ですか？",
-            "answer": "はい、FreeCutはMITライセンスの下で完全に無料かつオープンソースです。隠れた料金、サブスクリプション、ウォーターマークはありません。"
+            "question": "ReelCinemaは本当に無料ですか？",
+            "answer": "はい、ReelCinemaはMITライセンスの下で完全に無料かつオープンソースです。隠れた料金、サブスクリプション、ウォーターマークはありません。"
           },
           "install": {
             "question": "何かインストールする必要がありますか？",
-            "answer": "インストールは不要です。FreeCutは完全にブラウザ内で動作します。ウェブサイトを開いて編集を始めるだけです。"
+            "answer": "インストールは不要です。ReelCinemaは完全にブラウザ内で動作します。ウェブサイトを開いて編集を始めるだけです。"
           },
           "storage": {
             "question": "動画はどこに保存されますか？",
@@ -2719,7 +2719,7 @@
           },
           "browsers": {
             "question": "対応しているブラウザは？",
-            "answerP1": "FreeCutは現在、ChromeまたはEdge 113以降で最も快適に動作します。WebGPU、WebCodecs、OPFS、File System AccessなどのモダンなブラウザAPIに依存しているため、現時点ではフルワークフローはChromium優先です。",
+            "answerP1": "ReelCinemaは現在、ChromeまたはEdge 113以降で最も快適に動作します。WebGPU、WebCodecs、OPFS、File System AccessなどのモダンなブラウザAPIに依存しているため、現時点ではフルワークフローはChromium優先です。",
             "answerP2": "<strong>Braveユーザーの方:</strong> File System Access APIはデフォルトで無効になっています。有効にするには、<code>brave://flags/#file-system-access-api</code>に移動し、<strong>Enabled</strong>に設定して、ブラウザを再起動してください。"
           },
           "exportFormats": {
@@ -3016,7 +3016,7 @@
         "selectedCount_other": "{{count}}개 선택됨",
         "deleteN_one": "{{count}}개 삭제",
         "deleteN_other": "{{count}}개 삭제",
-        "welcomeTitle": "FreeCut에 오신 것을 환영합니다",
+        "welcomeTitle": "ReelCinema에 오신 것을 환영합니다",
         "welcomeDescription": "첫 번째 동영상 프로젝트를 만들어 시작하세요. 해상도와 프레임 속도를 선택하고 편집을 시작하세요!",
         "noResultsTitle": "프로젝트를 찾을 수 없습니다",
         "noResultsDescription": "검색 조건과 일치하는 프로젝트를 찾을 수 없습니다. 필터나 검색어를 조정해 보세요.",
@@ -3081,9 +3081,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "지원되지 않는 브라우저",
-        "unsupportedBrowserDescription": "FreeCut의 작업 공간 폴더 저장소에는 Chromium 기반 브라우저(Chrome, Edge, Brave, Arc)가 필요합니다. Firefox와 Safari는 아직 File System Access API를 지원하지 않습니다.",
+        "unsupportedBrowserDescription": "ReelCinema의 작업 공간 폴더 저장소에는 Chromium 기반 브라우저(Chrome, Edge, Brave, Arc)가 필요합니다. Firefox와 Safari는 아직 File System Access API를 지원하지 않습니다.",
         "pickTitle": "작업 공간 폴더 선택",
-        "pickDescription": "FreeCut은 모든 프로젝트, 미디어, 캐시를 사용자가 관리하는 폴더에 일반 파일로 저장합니다. 디스크의 아무 폴더나 선택하세요 — 프로젝트가 그곳에 저장됩니다.",
+        "pickDescription": "ReelCinema은 모든 프로젝트, 미디어, 캐시를 사용자가 관리하는 폴더에 일반 파일로 저장합니다. 디스크의 아무 폴더나 선택하세요 — 프로젝트가 그곳에 저장됩니다.",
         "chooseFolder": "폴더 선택",
         "pickTip": "팁: Dropbox, iCloud, Google Drive 내의 폴더를 선택하면 기기 간에 프로젝트를 동기화할 수 있습니다. 나중에 옮길 수 있습니다.",
         "reconnectTitle": "작업 공간 다시 연결",
@@ -3161,15 +3161,15 @@
         "showcaseSubheading": "완전한 동영상 편집 도구 모음을 브라우저에서.",
         "screenshot": "스크린샷",
         "seeItInAction": "실제로 보기",
-        "seeItInActionSubheading": "FreeCut 편집 기능의 빠른 데모를 확인하세요.",
-        "demoPreviewAlt": "FreeCut 데모 미리보기",
+        "seeItInActionSubheading": "ReelCinema 편집 기능의 빠른 데모를 확인하세요.",
+        "demoPreviewAlt": "ReelCinema 데모 미리보기",
         "watchDemoOnYouTube": "YouTube에서 데모 보기",
         "faqHeading": "자주 묻는 질문",
-        "faqSubheading": "FreeCut에 대해 알아야 할 모든 것.",
+        "faqSubheading": "ReelCinema에 대해 알아야 할 모든 것.",
         "ctaHeading": "편집을 시작할 준비가 되셨나요?",
         "ctaSubheading": "바로 시작해서 몇 초 만에 첫 프로젝트를 만드세요.",
         "startEditing": "편집 시작",
-        "footer": "MIT 라이선스 © {{year}} FreeCut",
+        "footer": "MIT 라이선스 © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "타임라인 편집",
@@ -3190,12 +3190,12 @@
         },
         "faq": {
           "free": {
-            "question": "FreeCut은 정말 무료인가요?",
-            "answer": "네, FreeCut은 MIT 라이선스 하에 완전히 무료이며 오픈 소스입니다. 숨겨진 요금, 구독, 워터마크가 없습니다."
+            "question": "ReelCinema은 정말 무료인가요?",
+            "answer": "네, ReelCinema은 MIT 라이선스 하에 완전히 무료이며 오픈 소스입니다. 숨겨진 요금, 구독, 워터마크가 없습니다."
           },
           "install": {
             "question": "설치해야 하는 것이 있나요?",
-            "answer": "설치가 필요 없습니다. FreeCut은 전적으로 브라우저에서 실행됩니다. 웹사이트를 열고 편집을 시작하기만 하면 됩니다."
+            "answer": "설치가 필요 없습니다. ReelCinema은 전적으로 브라우저에서 실행됩니다. 웹사이트를 열고 편집을 시작하기만 하면 됩니다."
           },
           "storage": {
             "question": "내 동영상은 어디에 저장되나요?",
@@ -3203,7 +3203,7 @@
           },
           "browsers": {
             "question": "어떤 브라우저가 지원되나요?",
-            "answerP1": "FreeCut은 현재 Chrome 또는 Edge 113 이상에서 가장 잘 작동합니다. WebGPU, WebCodecs, OPFS, File System Access 같은 최신 브라우저 API에 의존하므로 현재 전체 워크플로는 Chromium 우선입니다.",
+            "answerP1": "ReelCinema은 현재 Chrome 또는 Edge 113 이상에서 가장 잘 작동합니다. WebGPU, WebCodecs, OPFS, File System Access 같은 최신 브라우저 API에 의존하므로 현재 전체 워크플로는 Chromium 우선입니다.",
             "answerP2": "<strong>Brave 사용자:</strong> File System Access API는 기본적으로 비활성화되어 있습니다. 활성화하려면 <code>brave://flags/#file-system-access-api</code>로 이동하여 <strong>Enabled</strong>로 설정한 다음 브라우저를 다시 시작하세요."
           },
           "exportFormats": {
@@ -3500,7 +3500,7 @@
         "selectedCount_other": "已选 {{count}} 个",
         "deleteN_one": "删除 {{count}} 个",
         "deleteN_other": "删除 {{count}} 个",
-        "welcomeTitle": "欢迎使用 FreeCut",
+        "welcomeTitle": "欢迎使用 ReelCinema",
         "welcomeDescription": "创建你的第一个视频项目开始吧。选择分辨率和帧率，然后开始编辑！",
         "noResultsTitle": "未找到项目",
         "noResultsDescription": "我们找不到符合你搜索条件的项目。请尝试调整筛选条件或搜索词。",
@@ -3565,9 +3565,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "不支持的浏览器",
-        "unsupportedBrowserDescription": "FreeCut 的工作区文件夹存储需要基于 Chromium 的浏览器（Chrome、Edge、Brave、Arc）。Firefox 和 Safari 尚不支持 File System Access API。",
+        "unsupportedBrowserDescription": "ReelCinema 的工作区文件夹存储需要基于 Chromium 的浏览器（Chrome、Edge、Brave、Arc）。Firefox 和 Safari 尚不支持 File System Access API。",
         "pickTitle": "选择你的工作区文件夹",
-        "pickDescription": "FreeCut 将你的所有项目、媒体和缓存作为普通文件存储在你控制的文件夹中。选择磁盘上的任意文件夹——你的项目将存放在那里。",
+        "pickDescription": "ReelCinema 将你的所有项目、媒体和缓存作为普通文件存储在你控制的文件夹中。选择磁盘上的任意文件夹——你的项目将存放在那里。",
         "chooseFolder": "选择文件夹",
         "pickTip": "提示：选择 Dropbox、iCloud 或 Google Drive 中的文件夹，可在多个设备间同步项目。你可以稍后移动它。",
         "reconnectTitle": "重新连接你的工作区",
@@ -3645,15 +3645,15 @@
         "showcaseSubheading": "完整的视频编辑套件，就在你的浏览器中。",
         "screenshot": "截图",
         "seeItInAction": "查看实际效果",
-        "seeItInActionSubheading": "观看 FreeCut 编辑功能的快速演示。",
-        "demoPreviewAlt": "FreeCut 演示预览",
+        "seeItInActionSubheading": "观看 ReelCinema 编辑功能的快速演示。",
+        "demoPreviewAlt": "ReelCinema 演示预览",
         "watchDemoOnYouTube": "在 YouTube 上观看演示",
         "faqHeading": "常见问题",
-        "faqSubheading": "关于 FreeCut 你需要知道的一切。",
+        "faqSubheading": "关于 ReelCinema 你需要知道的一切。",
         "ctaHeading": "准备好开始编辑了吗？",
         "ctaSubheading": "立即开始，几秒钟内创建你的第一个项目。",
         "startEditing": "开始编辑",
-        "footer": "MIT 许可证 © {{year}} FreeCut",
+        "footer": "MIT 许可证 © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "时间线编辑",
@@ -3674,12 +3674,12 @@
         },
         "faq": {
           "free": {
-            "question": "FreeCut 真的免费吗？",
-            "answer": "是的，FreeCut 在 MIT 许可证下完全免费且开源。没有隐藏费用、订阅或水印。"
+            "question": "ReelCinema 真的免费吗？",
+            "answer": "是的，ReelCinema 在 MIT 许可证下完全免费且开源。没有隐藏费用、订阅或水印。"
           },
           "install": {
             "question": "我需要安装什么吗？",
-            "answer": "无需安装。FreeCut 完全在你的浏览器中运行。只需打开网站即可开始编辑。"
+            "answer": "无需安装。ReelCinema 完全在你的浏览器中运行。只需打开网站即可开始编辑。"
           },
           "storage": {
             "question": "我的视频存储在哪里？",
@@ -3687,7 +3687,7 @@
           },
           "browsers": {
             "question": "支持哪些浏览器？",
-            "answerP1": "FreeCut 目前在 Chrome 或 Edge 113+ 上效果最佳。它依赖 WebGPU、WebCodecs、OPFS 和 File System Access 等现代浏览器 API，因此完整的工作流程目前以 Chromium 为先。",
+            "answerP1": "ReelCinema 目前在 Chrome 或 Edge 113+ 上效果最佳。它依赖 WebGPU、WebCodecs、OPFS 和 File System Access 等现代浏览器 API，因此完整的工作流程目前以 Chromium 为先。",
             "answerP2": "<strong>Brave 用户：</strong>File System Access API 默认处于禁用状态。要启用它，请前往 <code>brave://flags/#file-system-access-api</code>，将其设置为 <strong>Enabled</strong>，然后重新启动浏览器。"
           },
           "exportFormats": {
@@ -3984,7 +3984,7 @@
         "selectedCount_other": "{{count}} seçili",
         "deleteN_one": "{{count}} sil",
         "deleteN_other": "{{count}} sil",
-        "welcomeTitle": "FreeCut'a Hoş Geldiniz",
+        "welcomeTitle": "ReelCinema'ya Hoş Geldiniz",
         "welcomeDescription": "İlk video projenizi oluşturarak başlayın. Çözünürlüğünüzü ve kare hızınızı seçin, sonra düzenlemeye başlayın!",
         "noResultsTitle": "Proje bulunamadı",
         "noResultsDescription": "Arama ölçütlerinizle eşleşen proje bulamadık. Filtreleri veya arama terimlerini değiştirmeyi deneyin.",
@@ -4058,15 +4058,15 @@
         "showcaseSubheading": "Eksiksiz bir video düzenleme paketi, doğrudan tarayıcınızda.",
         "screenshot": "Ekran görüntüsü",
         "seeItInAction": "Çalışırken Gör",
-        "seeItInActionSubheading": "FreeCut'ın düzenleme yeteneklerinin kısa bir demosunu izleyin.",
-        "demoPreviewAlt": "FreeCut demo önizlemesi",
+        "seeItInActionSubheading": "ReelCinema'nın düzenleme yeteneklerinin kısa bir demosunu izleyin.",
+        "demoPreviewAlt": "ReelCinema demo önizlemesi",
         "watchDemoOnYouTube": "Demoyu YouTube'da İzle",
         "faqHeading": "Sık Sorulan Sorular",
-        "faqSubheading": "FreeCut hakkında bilmeniz gereken her şey.",
+        "faqSubheading": "ReelCinema hakkında bilmeniz gereken her şey.",
         "ctaHeading": "Düzenlemeye başlamaya hazır mısınız?",
         "ctaSubheading": "Hemen girin ve ilk projenizi saniyeler içinde oluşturun.",
         "startEditing": "Düzenlemeye Başla",
-        "footer": "MIT Lisansı © {{year}} FreeCut",
+        "footer": "MIT Lisansı © {{year}} ReelCinema",
         "showcase": {
           "timeline": {
             "title": "Zaman Çizelgesi Düzenleme",
@@ -4087,12 +4087,12 @@
         },
         "faq": {
           "free": {
-            "question": "FreeCut gerçekten ücretsiz mi?",
-            "answer": "Evet, FreeCut MIT lisansı altında tamamen ücretsiz ve açık kaynaklıdır. Gizli ücret, abonelik veya filigran yoktur."
+            "question": "ReelCinema gerçekten ücretsiz mi?",
+            "answer": "Evet, ReelCinema MIT lisansı altında tamamen ücretsiz ve açık kaynaklıdır. Gizli ücret, abonelik veya filigran yoktur."
           },
           "install": {
             "question": "Bir şey yüklemem gerekiyor mu?",
-            "answer": "Kurulum gerekmez. FreeCut tamamen tarayıcınızda çalışır. Web sitesini açın ve düzenlemeye başlayın."
+            "answer": "Kurulum gerekmez. ReelCinema tamamen tarayıcınızda çalışır. Web sitesini açın ve düzenlemeye başlayın."
           },
           "storage": {
             "question": "Videolarım nerede saklanır?",
@@ -4100,7 +4100,7 @@
           },
           "browsers": {
             "question": "Hangi tarayıcılar destekleniyor?",
-            "answerP1": "FreeCut şu anda Chrome veya Edge 113+ üzerinde en iyi şekilde çalışır. WebGPU, WebCodecs, OPFS ve File System Access gibi modern tarayıcı API'lerine dayanır; bu yüzden tam iş akışı şimdilik Chromium önceliklidir.",
+            "answerP1": "ReelCinema şu anda Chrome veya Edge 113+ üzerinde en iyi şekilde çalışır. WebGPU, WebCodecs, OPFS ve File System Access gibi modern tarayıcı API'lerine dayanır; bu yüzden tam iş akışı şimdilik Chromium önceliklidir.",
             "answerP2": "<strong>Brave kullanıcıları:</strong> File System Access API varsayılan olarak kapalıdır. Etkinleştirmek için <code>brave://flags/#file-system-access-api</code> adresine gidin, <strong>Enabled</strong> yapın ve tarayıcıyı yeniden başlatın."
           },
           "exportFormats": {
@@ -4120,9 +4120,9 @@
       },
       "workspaceGate": {
         "unsupportedBrowser": "Desteklenmeyen tarayıcı",
-        "unsupportedBrowserDescription": "FreeCut çalışma alanı klasörü depolaması için Chromium tabanlı bir tarayıcı (Chrome, Edge, Brave, Arc) gerektirir. Firefox ve Safari henüz File System Access API'yi desteklemiyor.",
+        "unsupportedBrowserDescription": "ReelCinema çalışma alanı klasörü depolaması için Chromium tabanlı bir tarayıcı (Chrome, Edge, Brave, Arc) gerektirir. Firefox ve Safari henüz File System Access API'yi desteklemiyor.",
         "pickTitle": "Çalışma alanı klasörünüzü seçin",
-        "pickDescription": "FreeCut tüm projelerinizi, medyanızı ve önbelleklerinizi kontrol ettiğiniz bir klasörde düz dosyalar olarak saklar. Diskte herhangi bir klasör seçin; projeleriniz orada yaşar.",
+        "pickDescription": "ReelCinema tüm projelerinizi, medyanızı ve önbelleklerinizi kontrol ettiğiniz bir klasörde düz dosyalar olarak saklar. Diskte herhangi bir klasör seçin; projeleriniz orada yaşar.",
         "chooseFolder": "Klasör seç",
         "pickTip": "İpucu: projeleri cihazlar arasında eşitlemek için Dropbox, iCloud veya Google Drive içinde bir klasör seçin. Daha sonra taşıyabilirsiniz.",
         "reconnectTitle": "Çalışma alanınızı yeniden bağlayın",

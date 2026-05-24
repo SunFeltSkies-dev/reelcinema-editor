@@ -46,7 +46,7 @@ export function FreeCutLogo({ variant = 'full', size = 'md', className }: FreeCu
     <div className={cn('flex items-center', config.gap, className)}>
       <ScissorIcon className={cn(config.icon, 'text-primary')} />
       <span className={cn(config.text, 'font-semibold tracking-tight text-foreground')}>
-        FreeCut
+        ReelCinema
       </span>
     </div>
   )

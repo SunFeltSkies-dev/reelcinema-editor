@@ -1,10 +1,10 @@
 /**
  * Type bridge between the ReelCinema backbone `Asset` row and the
- * lean `ImportedAsset` shape FreeCut needs at the playback edge.
+ * lean `ImportedAsset` shape ReelCinema needs at the playback edge.
  *
  * Why a bridge instead of a wholesale `MediaMetadata` replacement:
  *
- * FreeCut's existing `MediaMetadata` (`@/types/storage`) carries 100+
+ * ReelCinema's existing `MediaMetadata` (`@/types/storage`) carries 100+
  * fields that come from importing user-picked files at the filesystem
  * surface — `FileSystemFileHandle`, OPFS paths, content hashes, decoded
  * preview-audio paths, keyframe timestamp arrays, GOP intervals, AI
@@ -61,7 +61,7 @@ export interface ImportedAsset {
 }
 
 /**
- * Convert a backbone `Asset` row into the FreeCut-facing `ImportedAsset`
+ * Convert a backbone `Asset` row into the ReelCinema-facing `ImportedAsset`
  * shape. Pure function — no network, no cache interaction. The caller
  * is responsible for resolving signed URLs (via `useAsset` /
  * `BackboneClient.signAssetUrl`) when it actually needs to play bytes.

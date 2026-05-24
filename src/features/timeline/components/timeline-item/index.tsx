@@ -347,7 +347,7 @@ export const TimelineItem = memo(
           if (!granted) {
             mediaStore.showNotification?.({
               type: 'error',
-              message: `FreeCut needs permission to read "${mediaForItem.fileName}" before extracting subtitles.`,
+              message: `ReelCinema needs permission to read "${mediaForItem.fileName}" before extracting subtitles.`,
             })
             return
           }
@@ -360,7 +360,7 @@ export const TimelineItem = memo(
         if (!blob) {
           mediaStore.showNotification?.({
             type: 'error',
-            message: `FreeCut could not load "${mediaForItem.fileName}".`,
+            message: `ReelCinema could not load "${mediaForItem.fileName}".`,
           })
           return
         }

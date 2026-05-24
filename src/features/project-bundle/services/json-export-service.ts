@@ -142,7 +142,7 @@ export function downloadSnapshotJson(snapshot: ProjectSnapshot, filename?: strin
   const safeName = sanitizeDownloadFilename(filename || snapshot.project.name)
   const a = document.createElement('a')
   a.href = url
-  a.download = `${safeName}.freecut.json`
+  a.download = `${safeName}.reelcinema.json`
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)

@@ -1,7 +1,7 @@
 /**
  * Project Bundle Types
  *
- * Defines the format for exportable/importable project bundles (.freecut.zip)
+ * Defines the format for exportable/importable project bundles (.reelcinema.zip)
  */
 
 import type { Project, ProjectTimeline } from '@/types/project'
@@ -24,7 +24,7 @@ type BundleTimeline = Omit<ProjectTimeline, 'items' | 'compositions'> & {
 export const BUNDLE_VERSION = '1.0'
 
 // Bundle file extension
-export const BUNDLE_EXTENSION = '.freecut.zip'
+export const BUNDLE_EXTENSION = '.reelcinema.zip'
 
 /**
  * Manifest file structure (manifest.json in bundle)

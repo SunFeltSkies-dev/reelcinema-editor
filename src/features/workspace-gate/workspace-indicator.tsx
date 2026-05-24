@@ -76,7 +76,7 @@ export function WorkspaceIndicator() {
   const handleAdd = useCallback(async () => {
     try {
       const handle = await window.showDirectoryPicker({
-        id: 'freecut-workspace',
+        id: 'reelcinema-workspace',
         mode: 'readwrite',
         startIn: 'documents',
       })

@@ -5,8 +5,8 @@
     "reloadWithoutSaving": "Kaydetmeden Yeniden Yükle",
     "dockPanel": "Paneli sabitle",
     "installPrompt": {
-      "label": "FreeCut’ı yükle",
-      "title": "FreeCut’ı yükle",
+      "label": "ReelCinema’yı yükle",
+      "title": "ReelCinema’yı yükle",
       "description": "Masaüstünden veya ana ekrandan aç.",
       "install": "Yükle",
       "notNow": "Şimdi değil",

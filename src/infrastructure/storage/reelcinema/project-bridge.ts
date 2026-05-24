@@ -1,11 +1,11 @@
 /**
  * Project-library bridge — translates the backbone
  * `GET /api/projects/:id/library` response into the lean
- * `ImportedProjectLibrary` shape FreeCut consumes on the library /
+ * `ImportedProjectLibrary` shape ReelCinema consumes on the library /
  * project-media surface.
  *
  * Mirrors the SC-3.b bridge pattern: a pure converter that exposes the
- * honest intersection between backbone reality and FreeCut consumer
+ * honest intersection between backbone reality and ReelCinema consumer
  * expectations. Read-only — write-path association is implicit in asset
  * creation on the backbone (`asset.project_id` is set at POST time;
  * there is no separate "associate-media-with-project" surface needed).
@@ -43,7 +43,7 @@ import type { Asset, ProjectLibraryResponse } from './types'
 import { assetToImportedAsset, type ImportedAsset } from './asset-bridge'
 
 /**
- * Project library state as FreeCut consumes it. Flat `assets` list +
+ * Project library state as ReelCinema consumes it. Flat `assets` list +
  * pre-grouped `assetsByType` for surfaces that switch on category.
  *
  * `total` mirrors the backbone count so callers can sanity-check that

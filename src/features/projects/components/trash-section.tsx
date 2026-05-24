@@ -6,7 +6,7 @@
  * "Empty trash" action permanently deletes every entry in one go.
  *
  * Data flow:
- *   - Trashed projects live on disk as `projects/{id}/.freecut-trashed.json`
+ *   - Trashed projects live on disk as `projects/{id}/.reelcinema-trashed.json`
  *     markers; the authoritative list comes from `listTrashedProjects()`.
  *   - The live projects store doesn't track trashed items, so this
  *     component self-manages the list via `useState`.

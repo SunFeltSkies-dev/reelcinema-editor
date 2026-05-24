@@ -1442,5 +1442,5 @@ export function shouldLogTransitionGpuDiagnostics(): boolean {
     return true
   }
   if (typeof localStorage === 'undefined') return false
-  return localStorage.getItem('freecut.debugGpuTransitions') === '1'
+  return localStorage.getItem('reelcinema.debugGpuTransitions') === '1'
 }
