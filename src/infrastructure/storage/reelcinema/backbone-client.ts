@@ -15,7 +15,13 @@
  */
 
 import { createLogger } from '@/shared/logging/logger'
-import type { Asset, BackboneConfig, SignUrlRequest, SignedUrlResponse } from './types'
+import type {
+  Asset,
+  BackboneConfig,
+  ProjectLibraryResponse,
+  SignUrlRequest,
+  SignedUrlResponse,
+} from './types'
 import { BackboneError } from './types'
 
 const log = createLogger('reelcinema/backbone-client')
@@ -51,6 +57,18 @@ export class BackboneClient {
     const qs = search.toString()
     const path = qs ? `/api/assets?${qs}` : '/api/assets'
     return this.request<Asset[]>(path, { method: 'GET' })
+  }
+
+  /** `GET /api/projects/{id}/library` — fetch the project's non-rejected
+   * asset rows, grouped by `Asset.type`. Source-of-truth for the
+   * project library view; replaces workspace-fs `getProjectMediaIds` /
+   * `getMediaForProject` (drift-repair becomes a non-issue because the
+   * backbone owns the association directly via `asset.project_id`).
+   */
+  async getProjectLibrary(projectId: string): Promise<ProjectLibraryResponse> {
+    return this.request<ProjectLibraryResponse>(`/api/projects/${projectId}/library`, {
+      method: 'GET',
+    })
   }
 
   /** `POST /api/assets/{id}/sign-url` — issue a signed B2 URL for the target. */

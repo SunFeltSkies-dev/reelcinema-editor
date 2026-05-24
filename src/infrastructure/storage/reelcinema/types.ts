@@ -63,6 +63,23 @@ export interface SignUrlRequest {
   expires_in?: number
 }
 
+/**
+ * Response from `GET /api/projects/{project_id}/library`.
+ *
+ * Returns the project's library state for sidebar consumption: every
+ * non-rejected asset, grouped by `Asset.type`. Rejected assets are
+ * excluded because they're scheduled for purge and shouldn't surface in
+ * user-facing library views.
+ *
+ * The map keys are `Asset['type']` values (16 valid types per A10);
+ * `total` is the count of asset rows the response carries.
+ */
+export interface ProjectLibraryResponse {
+  project_id: string
+  assets_by_type: Record<string, Asset[]>
+  total: number
+}
+
 /** Backbone client configuration. */
 export interface BackboneConfig {
   /** Base URL for the ReelCinema backend, e.g. `https://app.reelcinema.com`. */
