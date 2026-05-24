@@ -8,23 +8,13 @@ import {
   Maximize2,
   HardDrive,
   FileType,
-  Loader2,
-  FileText,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import type { MediaMetadata, MediaTranscript } from '@/types/storage'
+import type { MediaMetadata } from '@/types/storage'
 import { getMediaType, formatDuration } from '../utils/validation'
 import { formatBytes } from '@/shared/utils/format-utils'
-import { mediaTranscriptionService } from '../services/media-transcription-service'
-import { getMediaTranscriptionModelLabel } from '../transcription/registry'
-
-function formatTimestamp(sec: number): string {
-  const m = Math.floor(sec / 60)
-  const s = Math.floor(sec % 60)
-  return `${m}:${s.toString().padStart(2, '0')}`
-}
 
 interface MediaInfoPopoverProps {
   media: MediaMetadata
@@ -34,15 +24,9 @@ interface MediaInfoPopoverProps {
   onSeekToCaption?: (timeSec: number) => void
 }
 
-export function MediaInfoPopover({
-  media,
-  triggerClassName,
-  onSeekToCaption,
-}: MediaInfoPopoverProps) {
+export function MediaInfoPopover({ media, triggerClassName }: MediaInfoPopoverProps) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [transcript, setTranscript] = useState<MediaTranscript | null>(null)
-  const [transcriptLoading, setTranscriptLoading] = useState(false)
   const mediaType = getMediaType(media.mimeType)
   const typeLabel =
     mediaType === 'video'
@@ -50,7 +34,6 @@ export function MediaInfoPopover({
       : mediaType === 'audio'
         ? t('media.type.audio')
         : t('media.type.image')
-  const isTranscribable = mediaType === 'video' || mediaType === 'audio'
 
   const rows: Array<{ icon: React.ReactNode; label: string; value: string }> = []
 
@@ -96,32 +79,6 @@ export function MediaInfoPopover({
     })
   }
 
-  useEffect(() => {
-    if (!open || !isTranscribable) {
-      return
-    }
-
-    let cancelled = false
-    setTranscriptLoading(true)
-
-    void mediaTranscriptionService
-      .getTranscript(media.id)
-      .then((loadedTranscript) => {
-        if (!cancelled) {
-          setTranscript(loadedTranscript ?? null)
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setTranscriptLoading(false)
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [isTranscribable, media.id, open])
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -162,57 +119,6 @@ export function MediaInfoPopover({
             </div>
           ))}
         </div>
-
-        {(transcriptLoading || transcript) && (
-          <div className="border-t border-border/50">
-            <div className="flex items-center gap-1.5 px-3 py-1.5">
-              <FileText className="w-3 h-3 text-primary" />
-              <span className="text-[10px] font-medium text-muted-foreground">
-                {transcript
-                  ? t('media.info.transcriptWithCount', { count: transcript.segments.length })
-                  : t('media.info.transcript')}
-              </span>
-              {transcript && (
-                <span className="ml-auto text-[10px] text-muted-foreground">
-                  {getMediaTranscriptionModelLabel(transcript.model)}
-                </span>
-              )}
-            </div>
-            {transcriptLoading ? (
-              <div className="px-3 pb-3 flex items-center gap-2 text-[10px] text-muted-foreground">
-                <Loader2 className="w-3 h-3 animate-spin" />
-                {t('media.info.loadingTranscript')}
-              </div>
-            ) : transcript ? (
-              <div className="px-3 pb-2 space-y-2">
-                <p className="text-[10px] leading-snug text-foreground/85 line-clamp-3">
-                  {transcript.text}
-                </p>
-                <div className="space-y-1.5 max-h-40 overflow-y-auto">
-                  {transcript.segments.map((segment, i) => (
-                    <div
-                      key={`${segment.start}-${segment.end}-${i}`}
-                      className="flex gap-2 text-[10px]"
-                    >
-                      <button
-                        type="button"
-                        className="text-primary/80 hover:text-primary font-mono flex-shrink-0 w-10 text-right cursor-pointer hover:underline"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onSeekToCaption?.(segment.start)
-                        }}
-                        title={t('media.info.openInSourceMonitor')}
-                      >
-                        {formatTimestamp(segment.start)}
-                      </button>
-                      <span className="text-foreground leading-snug">{segment.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        )}
       </PopoverContent>
     </Popover>
   )

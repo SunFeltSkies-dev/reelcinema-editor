@@ -24,7 +24,6 @@ import {
   Check,
   Upload,
   Sparkles,
-  FileText,
   ScanSearch,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -82,16 +81,11 @@ import {
 import { useProjectStore } from '@/features/media-library/deps/projects'
 import { proxyService } from '../services/proxy-service'
 import { mediaLibraryService } from '../services/media-library-service'
-import { mediaTranscriptionService } from '../services/media-transcription-service'
 import { mediaAnalysisService } from '../services/media-analysis-service'
 import { extractValidMediaFileEntriesFromDataTransfer } from '../utils/file-drop'
 import { getSharedProxyKey } from '../utils/proxy-key'
 import { getMediaType } from '../utils/validation'
 import { getProjectBrokenMediaIds } from '@/features/media-library/utils/broken-media'
-import {
-  getTranscriptionOverallProgress,
-  getTranscriptionStageLabel,
-} from '@/shared/utils/transcription-progress'
 import type { MediaMetadata } from '@/types/storage'
 import {
   isMarqueeJustFinished,
@@ -259,8 +253,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
   const projectStoreProjectId = useProjectStore((s) => s.currentProject?.id ?? null)
   const proxyStatus = useMediaLibraryStore((s) => s.proxyStatus)
   const proxyProgress = useMediaLibraryStore((s) => s.proxyProgress)
-  const transcriptStatus = useMediaLibraryStore((s) => s.transcriptStatus)
-  const transcriptProgress = useMediaLibraryStore((s) => s.transcriptProgress)
   const filteredMediaItems = useFilteredMediaItems()
   const mediaGroups = useMemo(() => {
     const groups: {
@@ -638,14 +630,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
       ? (analysisProgress.completed / analysisProgress.total) * 100
       : 0
 
-  const transcribingCount = useMemo(() => {
-    let count = 0
-    for (const status of transcriptStatus.values()) {
-      if (status === 'queued' || status === 'transcribing') count++
-    }
-    return count
-  }, [transcriptStatus])
-
   const currentProjectBrokenMediaIds = useMemo(
     () => getProjectBrokenMediaIds(brokenMediaIds, mediaById),
     [brokenMediaIds, mediaById],
@@ -664,31 +648,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
     }
     return count > 0 ? total / count : 0
   }, [proxyStatus, proxyProgress, generatingCount])
-
-  const transcribingAvgProgress = useMemo(() => {
-    if (transcribingCount === 0) return 0
-    let total = 0
-    let count = 0
-    for (const [id, status] of transcriptStatus.entries()) {
-      if (status === 'queued' || status === 'transcribing') {
-        const progress = transcriptProgress.get(id)
-        total += progress ? getTranscriptionOverallProgress(progress) : 0
-        count++
-      }
-    }
-    return count > 0 ? total / count : 0
-  }, [transcriptStatus, transcriptProgress, transcribingCount])
-
-  const singleTranscriptionStageLabel = useMemo(() => {
-    if (transcribingCount !== 1) return null
-    for (const [id, status] of transcriptStatus.entries()) {
-      if (status === 'queued' || status === 'transcribing') {
-        const progress = transcriptProgress.get(id)
-        return progress ? getTranscriptionStageLabel(progress.stage) : null
-      }
-    }
-    return null
-  }, [transcriptStatus, transcriptProgress, transcribingCount])
 
   const handleGenerateSelectedProxies = async () => {
     const selectedItems = selectedMediaIds
@@ -724,16 +683,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
 
       const media = mediaById[mediaId]
       proxyService.cancelProxy(mediaId, media ? getSharedProxyKey(media) : undefined)
-    }
-  }
-
-  const handleCancelAllTranscriptions = () => {
-    for (const [mediaId, status] of transcriptStatus.entries()) {
-      if (status !== 'queued' && status !== 'transcribing') {
-        continue
-      }
-
-      mediaTranscriptionService.cancelTranscription(mediaId)
     }
   }
 
@@ -1507,32 +1456,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
           }
           trailing={<Sparkles className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />}
           fillClassName="bg-purple-500"
-        />
-      )}
-
-      {/* Transcript generation progress bar */}
-      {transcribingCount > 0 && (
-        <BackgroundTaskProgress
-          icon={<FileText className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />}
-          label={t('media.library.generatingTranscripts', { count: transcribingCount })}
-          progressAriaLabel={t('media.library.transcriptGenerationProgress')}
-          progressPercent={transcribingAvgProgress * 100}
-          meta={
-            <>
-              {singleTranscriptionStageLabel && (
-                <span className="hidden sm:inline truncate">{singleTranscriptionStageLabel}</span>
-              )}
-              <span className="tabular-nums">{Math.round(transcribingAvgProgress * 100)}%</span>
-              <button
-                type="button"
-                onClick={handleCancelAllTranscriptions}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {t('media.library.cancelAll')}
-              </button>
-            </>
-          }
-          fillClassName="bg-blue-500"
         />
       )}
 
