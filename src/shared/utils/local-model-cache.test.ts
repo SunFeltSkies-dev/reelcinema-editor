@@ -117,10 +117,6 @@ describe('local-model-cache', () => {
             new Response(new Uint8Array(9), {
               headers: { 'content-length': '9' },
             }),
-          'https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/onnx/model.onnx':
-            new Response(new Uint8Array(21), {
-              headers: { 'content-length': '21' },
-            }),
           'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/ort-wasm-simd-threaded.wasm':
             new Response(new Uint8Array(7), {
               headers: { 'content-length': '7' },
@@ -137,12 +133,11 @@ describe('local-model-cache', () => {
   it('inspects configured local model caches without creating missing caches', async () => {
     const summaries = await inspectAllLocalModelCaches()
 
-    expect(summaries).toHaveLength(5)
+    expect(summaries).toHaveLength(4)
     expect(summaries.map((summary) => summary.id)).toEqual([
       'whisper',
       ...SCENE_VERIFICATION_MODEL_IDS,
       ...MUSICGEN_MODEL_IDS,
-      'kokoro-tts',
     ])
 
     expect(summaries).toContainEqual(
@@ -193,18 +188,6 @@ describe('local-model-cache', () => {
         entryCount: 0,
         totalBytes: 0,
         sizeStatus: 'unavailable',
-        inspectionState: 'ready',
-      }),
-    )
-    expect(summaries).toContainEqual(
-      expect.objectContaining({
-        id: 'kokoro-tts',
-        cacheName: TRANSFORMERS_CACHE_NAME,
-        exists: true,
-        downloaded: true,
-        entryCount: 1,
-        totalBytes: 21,
-        sizeStatus: 'exact',
         inspectionState: 'ready',
       }),
     )

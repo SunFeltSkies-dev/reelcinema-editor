@@ -7,8 +7,6 @@ import type { MediaTranscriptModel, MediaTranscriptQuantization } from '@/types/
 import { useSelectionStore } from '@/shared/state/selection'
 import { usePlaybackStore } from '@/shared/state/playback'
 import { useClearKeyframesDialogStore } from '@/shared/state/clear-keyframes-dialog'
-import { useTtsGenerateDialogStore } from '@/shared/state/tts-generate-dialog'
-import { getTextItemPlainText } from '@/shared/utils/text-item-spans'
 import { scheduleAfterPaint } from '@/shared/utils/schedule-after-paint'
 import {
   isTranscriptionCancellationError,
@@ -185,16 +183,6 @@ export function useTimelineItemActions({
     const { currentFrame } = usePlaybackStore.getState()
     void insertFreezeFrame(item.id, currentFrame)
   }, [item.id, item.type])
-
-  const textContent = item.type === 'text' ? getTextItemPlainText(item) : ''
-  const hasSpeakableText = textContent.trim().length > 0
-
-  const handleGenerateAudioFromText = useCallback(() => {
-    if (!hasSpeakableText) {
-      return
-    }
-    useTtsGenerateDialogStore.getState().open(textContent, item.id)
-  }, [hasSpeakableText, item.id, textContent])
 
   const handleCaptionGeneration = useCallback(
     (
@@ -621,7 +609,6 @@ export function useTimelineItemActions({
     getCanJoinSelected,
     getCanLinkSelected,
     getCanUnlinkSelected,
-    hasSpeakableText,
     isSceneDetectionActive,
     isRemovingSilence,
     isCompositionItem,
@@ -637,7 +624,6 @@ export function useTimelineItemActions({
     handleClearPropertyKeyframes,
     handleBentoLayout,
     handleFreezeFrame,
-    handleGenerateAudioFromText,
     handleCaptionsFromDialog,
     handleApplyCaptionsFromTranscript,
     handleCreatePreComp,

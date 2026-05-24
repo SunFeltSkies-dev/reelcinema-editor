@@ -73,9 +73,6 @@ interface ItemContextMenuProps {
   /** Whether multiple items are selected (enables pre-comp creation) */
   canCreatePreComp?: boolean
   onCreatePreComp?: () => void
-  /** Whether this item is a text item (enables generate audio option) */
-  isTextItem?: boolean
-  onGenerateAudioFromText?: () => void
   /** Whether scene detection is available for this item */
   canDetectScenes?: boolean
   isDetectingScenes?: boolean
@@ -139,8 +136,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
   onDissolveComposition,
   canCreatePreComp,
   onCreatePreComp,
-  isTextItem,
-  onGenerateAudioFromText,
   canDetectScenes,
   isDetectingScenes,
   onDetectScenes,
@@ -211,8 +206,6 @@ export const ItemContextMenu = memo(function ItemContextMenu({
       onDissolveComposition={onDissolveComposition}
       canCreatePreComp={canCreatePreComp}
       onCreatePreComp={onCreatePreComp}
-      isTextItem={isTextItem}
-      onGenerateAudioFromText={onGenerateAudioFromText}
       canDetectScenes={canDetectScenes}
       isDetectingScenes={isDetectingScenes}
       onDetectScenes={onDetectScenes}
@@ -301,8 +294,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
   onDissolveComposition,
   canCreatePreComp,
   onCreatePreComp,
-  isTextItem,
-  onGenerateAudioFromText,
   canDetectScenes,
   isDetectingScenes,
   onDetectScenes,
@@ -501,16 +492,6 @@ const ItemContextMenuFull = memo(function ItemContextMenuFull({
               {isRemovingSilence
                 ? t('timeline.contextMenu.detectingSilence')
                 : t('timeline.contextMenu.removeSilence')}
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-          </>
-        )}
-
-        {/* Generate Audio from Text - only show for text items */}
-        {isTextItem && onGenerateAudioFromText && (
-          <>
-            <ContextMenuItem onClick={onGenerateAudioFromText}>
-              {t('timeline.contextMenu.generateAudioFromText')}
             </ContextMenuItem>
             <ContextMenuSeparator />
           </>

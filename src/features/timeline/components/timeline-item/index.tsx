@@ -1867,7 +1867,6 @@ export const TimelineItem = memo(
       getCanJoinSelected,
       getCanLinkSelected,
       getCanUnlinkSelected,
-      hasSpeakableText,
       isSceneDetectionActive,
       isCompositionItem,
       handleJoinSelected,
@@ -1882,7 +1881,6 @@ export const TimelineItem = memo(
       handleClearPropertyKeyframes,
       handleBentoLayout,
       handleFreezeFrame,
-      handleGenerateAudioFromText,
       handleCaptionsFromDialog,
       handleApplyCaptionsFromTranscript,
       handleCreatePreComp,
@@ -3229,8 +3227,6 @@ export const TimelineItem = memo(
             return frame > item.from && frame < item.from + item.durationInFrames
           })()}
           onFreezeFrame={handleFreezeFrame}
-          isTextItem={item.type === 'text' && hasSpeakableText}
-          onGenerateAudioFromText={handleGenerateAudioFromText}
           canManageCaptions={canManageCaptions}
           hasCaptions={hasGeneratedCaptions}
           hasTranscript={mediaHasTranscript}

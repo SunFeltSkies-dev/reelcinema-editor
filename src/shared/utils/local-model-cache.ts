@@ -14,13 +14,8 @@ import {
 export const TRANSFORMERS_CACHE_NAME = 'transformers-cache'
 export const LOCAL_MODEL_CACHE_STORAGE_LABEL = 'Browser cache storage'
 const WHISPER_CACHE_MATCH_FRAGMENTS = ['/onnx-community/whisper-']
-const KOKORO_TTS_CACHE_MATCH_FRAGMENTS = ['/onnx-community/kokoro-82m-v1.0-onnx/']
 
-export type LocalModelCacheId =
-  | 'whisper'
-  | SceneVerificationModelId
-  | MusicgenModelId
-  | 'kokoro-tts'
+export type LocalModelCacheId = 'whisper' | SceneVerificationModelId | MusicgenModelId
 
 export interface LocalModelCacheDefinition {
   id: LocalModelCacheId
@@ -73,13 +68,6 @@ export const LOCAL_MODEL_CACHE_DEFINITIONS: LocalModelCacheDefinition[] = [
   },
   ...SCENE_VERIFICATION_MODEL_CACHE_DEFINITIONS,
   ...MUSICGEN_MODEL_CACHE_DEFINITIONS,
-  {
-    id: 'kokoro-tts',
-    label: 'Kokoro TTS',
-    description: 'Kokoro ONNX model weights and tokenizer files.',
-    cacheName: TRANSFORMERS_CACHE_NAME,
-    matchPathFragments: KOKORO_TTS_CACHE_MATCH_FRAGMENTS,
-  },
 ]
 
 function getCacheStorage(): CacheStorage | null {

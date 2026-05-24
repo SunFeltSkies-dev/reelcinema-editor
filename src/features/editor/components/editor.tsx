@@ -43,7 +43,6 @@ import {
 } from '@/features/editor/deps/projects'
 import { ProjectUpgradeDialog } from './project-upgrade-dialog'
 import { useClearKeyframesDialogStore } from '@/shared/state/clear-keyframes-dialog'
-import { useTtsGenerateDialogStore } from '@/shared/state/tts-generate-dialog'
 import { useProjectMediaMatchDialogStore } from '@/shared/state/project-media-match-dialog'
 import {
   importEmbeddedSubtitleTrackPickerHost,
@@ -66,11 +65,6 @@ const LazyBundleExportDialog = lazy(() =>
 const LazyClearKeyframesDialog = lazy(() =>
   import('@/features/editor/components/clear-keyframes-dialog').then((module) => ({
     default: module.ClearKeyframesDialog,
-  })),
-)
-const LazyTtsGenerateDialog = lazy(() =>
-  import('@/features/editor/components/tts-generate-dialog').then((module) => ({
-    default: module.TtsGenerateDialog,
   })),
 )
 const LazyProjectMediaMatchDialog = lazy(() =>
@@ -182,7 +176,6 @@ export const Editor = memo(function Editor({ projectId, project, migration }: Ed
 
 const EditorDialogHost = memo(function EditorDialogHost({ projectId }: { projectId: string }) {
   const clearKeyframesDialogOpen = useClearKeyframesDialogStore((s) => s.isOpen)
-  const ttsGenerateDialogOpen = useTtsGenerateDialogStore((s) => s.isOpen)
   const projectMediaMatchDialogOpen = useProjectMediaMatchDialogStore(
     (s) => s.isOpen && s.projectId === projectId,
   )
@@ -199,11 +192,6 @@ const EditorDialogHost = memo(function EditorDialogHost({ projectId }: { project
       {projectMediaMatchDialogOpen && (
         <Suspense fallback={null}>
           <LazyProjectMediaMatchDialog projectId={projectId} />
-        </Suspense>
-      )}
-      {ttsGenerateDialogOpen && (
-        <Suspense fallback={null}>
-          <LazyTtsGenerateDialog />
         </Suspense>
       )}
       {embeddedSubtitlePickerOpen && (
