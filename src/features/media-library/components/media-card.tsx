@@ -34,7 +34,6 @@ import {
 } from '@/components/ui/context-menu'
 import type { MediaMetadata } from '@/types/storage'
 import { FileAccessError, mediaLibraryService } from '../services/media-library-service'
-import { mediaAnalysisService } from '../services/media-analysis-service'
 import { getMediaType, formatDuration } from '../utils/validation'
 import { MediaInfoPopover } from './media-info-popover'
 import { getSharedProxyKey } from '../utils/proxy-key'
@@ -67,12 +66,9 @@ interface MediaCardActionMenuProps {
   proxyStatus?: 'generating' | 'ready' | 'error'
   canExtractEmbeddedSubtitles: boolean
   isExtractingEmbeddedSubtitles: boolean
-  isTaggable: boolean
-  isTagging: boolean
   onGenerateProxy: (event: React.MouseEvent) => void | Promise<void>
   onDeleteProxy: (event: React.MouseEvent) => Promise<void>
   onExtractEmbeddedSubtitles: (event: React.MouseEvent) => void | Promise<void>
-  onAnalyzeWithAI: (event: React.MouseEvent) => void
   onDelete: (event: React.MouseEvent) => void
 }
 
@@ -189,12 +185,9 @@ function MediaCardActionMenuItems({
   proxyStatus,
   canExtractEmbeddedSubtitles,
   isExtractingEmbeddedSubtitles,
-  isTaggable,
-  isTagging,
   onGenerateProxy,
   onDeleteProxy,
   onExtractEmbeddedSubtitles,
-  onAnalyzeWithAI,
   onDelete,
 }: MediaCardActionMenuProps) {
   const { t } = useTranslation()
@@ -202,7 +195,6 @@ function MediaCardActionMenuItems({
   const canShowGenerateProxy = canGenerateProxy && !hasProxy && proxyStatus !== 'generating'
   const showProxyGroup = !isBroken && (canShowGenerateProxy || hasProxy)
   const showEmbeddedSubtitleGroup = canExtractEmbeddedSubtitles && !isBroken
-  const showAiGroup = isTaggable && !isBroken && !isTagging
 
   const groups: ReactNode[] = []
 
@@ -266,18 +258,6 @@ function MediaCardActionMenuItems({
     )
   }
 
-  if (showAiGroup) {
-    groups.push(
-      <Fragment key="ai">
-        <ContextMenuLabel>{t('media.card.menuAi')}</ContextMenuLabel>
-        <ContextMenuItem onClick={onAnalyzeWithAI}>
-          <Sparkles className="w-3 h-3 mr-2" />
-          {t('media.card.analyzeWithAI')}
-        </ContextMenuItem>
-      </Fragment>,
-    )
-  }
-
   groups.push(
     <Fragment key="destructive">
       <ContextMenuItem onClick={onDelete} className="text-destructive focus:text-destructive">
@@ -325,8 +305,6 @@ export const MediaCard = memo(function MediaCard({
     !isImporting &&
     proxyService.canGenerateProxy(media.mimeType)
   const hasProxy = proxyStatus === 'ready'
-  const isTagging = useMediaLibraryStore((s) => s.taggingMediaIds.has(media.id))
-  const isTaggable = mediaType === 'video' || mediaType === 'image'
   const hasCaptions = (media.aiCaptions?.length ?? 0) > 0
   const [audioPlaying, setAudioPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -550,31 +528,6 @@ export const MediaCard = memo(function MediaCard({
       message: lastErrorMessage ?? i18n.t('media.card.subtitlesScanFailed'),
     })
   }
-
-  const handleAnalyzeWithAI = useCallback(
-    async (e: React.MouseEvent) => {
-      e.stopPropagation()
-      const store = useMediaLibraryStore.getState()
-      const analyzable = getTargetMediaItems().filter((m) => {
-        const type = getMediaType(m.mimeType)
-        if (type !== 'video' && type !== 'image') return false
-        if (store.brokenMediaIds?.includes(m.id)) return false
-        if (store.importingIds?.includes(m.id)) return false
-        return true
-      })
-      if (analyzable.length > 1) {
-        await mediaAnalysisService.analyzeBatch({ mediaIds: analyzable.map((m) => m.id) })
-      } else if (analyzable.length === 1) {
-        await mediaAnalysisService.analyzeMedia(analyzable[0]!)
-      } else {
-        const type = getMediaType(media.mimeType)
-        if (type === 'video' || type === 'image') {
-          await mediaAnalysisService.analyzeMedia(media)
-        }
-      }
-    },
-    [media, getTargetMediaItems],
-  )
 
   const removeNativeDragCleanupListenersRef = useRef<(() => void) | null>(null)
 
@@ -886,12 +839,9 @@ export const MediaCard = memo(function MediaCard({
       proxyStatus={proxyStatus}
       canExtractEmbeddedSubtitles={getTargetMediaItems().some(canExtractEmbeddedSubtitlesFromMedia)}
       isExtractingEmbeddedSubtitles={isExtractingEmbeddedSubtitles}
-      isTaggable={isTaggable}
-      isTagging={isTagging}
       onGenerateProxy={handleGenerateProxy}
       onDeleteProxy={handleDeleteProxy}
       onExtractEmbeddedSubtitles={handleExtractEmbeddedSubtitles}
-      onAnalyzeWithAI={handleAnalyzeWithAI}
       onDelete={handleDelete}
     />
   )
@@ -971,14 +921,6 @@ export const MediaCard = memo(function MediaCard({
                 {/* Proxy badge for list view */}
                 {!isBroken && !isImporting && proxyStatus === 'generating' && (
                   <div className="absolute bottom-0.5 right-0.5 p-0.5 rounded bg-green-500/90 text-black">
-                    <Loader2 className="w-2.5 h-2.5 animate-spin" />
-                  </div>
-                )}
-                {!isBroken && !isImporting && isTagging && (
-                  <div
-                    className="absolute bottom-0.5 left-0.5 p-0.5 rounded bg-purple-500/90 text-white"
-                    title={t('media.card.analyzingWithAI')}
-                  >
                     <Loader2 className="w-2.5 h-2.5 animate-spin" />
                   </div>
                 )}
@@ -1143,14 +1085,6 @@ export const MediaCard = memo(function MediaCard({
                   )}
                   {!isBroken && proxyStatus === 'generating' && (
                     <div className="p-0.5 rounded bg-green-500/90 text-black pointer-events-none">
-                      <Loader2 className="w-2.5 h-2.5 animate-spin" />
-                    </div>
-                  )}
-                  {!isBroken && isTagging && (
-                    <div
-                      className="p-0.5 rounded bg-purple-500/90 text-white pointer-events-none"
-                      title={t('media.card.analyzingWithAI')}
-                    >
                       <Loader2 className="w-2.5 h-2.5 animate-spin" />
                     </div>
                   )}

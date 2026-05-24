@@ -23,7 +23,6 @@ import {
   Copy,
   Check,
   Upload,
-  Sparkles,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { createLogger } from '@/shared/logging/logger'
@@ -79,7 +78,6 @@ import {
 import { useProjectStore } from '@/features/media-library/deps/projects'
 import { proxyService } from '../services/proxy-service'
 import { mediaLibraryService } from '../services/media-library-service'
-import { mediaAnalysisService } from '../services/media-analysis-service'
 import { extractValidMediaFileEntriesFromDataTransfer } from '../utils/file-drop'
 import { getSharedProxyKey } from '../utils/proxy-key'
 import { getMediaType } from '../utils/validation'
@@ -618,12 +616,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
     }
     return count
   }, [proxyStatus])
-
-  const analysisProgress = useMediaLibraryStore((s) => s.analysisProgress)
-  const analysisPercent =
-    analysisProgress && analysisProgress.total > 0
-      ? (analysisProgress.completed / analysisProgress.total) * 100
-      : 0
 
   const currentProjectBrokenMediaIds = useMemo(
     () => getProjectBrokenMediaIds(brokenMediaIds, mediaById),
@@ -1362,41 +1354,6 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
           </div>
         )}
       </div>
-
-      {/* Background AI analysis status */}
-      {analysisProgress && (
-        <BackgroundTaskProgress
-          icon={<Loader2 className="w-3.5 h-3.5 text-purple-400 animate-spin flex-shrink-0" />}
-          label={
-            analysisProgress.total > 1
-              ? t('media.library.analyzingMultiple', {
-                  current: Math.min(analysisProgress.completed + 1, analysisProgress.total),
-                  total: analysisProgress.total,
-                })
-              : t('media.library.analyzingSingle')
-          }
-          progressAriaLabel={t('media.library.aiAnalysisProgress')}
-          progressPercent={analysisPercent}
-          meta={
-            <>
-              <span className="tabular-nums">{Math.round(analysisPercent)}%</span>
-              {!analysisProgress.cancelRequested ? (
-                <button
-                  type="button"
-                  onClick={() => mediaAnalysisService.requestCancel()}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {t('common.cancel')}
-                </button>
-              ) : (
-                <span className="text-muted-foreground/80">{t('media.library.cancelling')}</span>
-              )}
-            </>
-          }
-          trailing={<Sparkles className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />}
-          fillClassName="bg-purple-500"
-        />
-      )}
 
       {/* Proxy generation progress bar */}
       {generatingCount > 0 && (

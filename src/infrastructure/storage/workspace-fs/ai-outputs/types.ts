@@ -6,7 +6,7 @@
  * invalidation logic works uniformly. Service-specific data goes inside `data`.
  */
 
-import type { MediaCaption } from '@/infrastructure/analysis'
+import type { MediaCaption } from '@/shared/types/analysis-types'
 
 /**
  * Registry of AI output kinds. Adding a new AI service means:

@@ -104,10 +104,6 @@ const newStore: MediaLibraryStoreApi =
         proxyStatus: new Map(),
         proxyProgress: new Map(),
 
-        // AI tagging
-        taggingMediaIds: new Set(),
-        analysisProgress: null,
-
         // v3: Set current project context
         setCurrentProject: (projectId: string | null) => {
           const previousMediaIds = get().mediaItems.map((item) => item.id)
@@ -125,8 +121,6 @@ const newStore: MediaLibraryStoreApi =
             isLoading: !!projectId, // Set loading if switching to a project
             proxyStatus: new Map(),
             proxyProgress: new Map(),
-            taggingMediaIds: new Set(),
-            analysisProgress: null,
           })
           // Note: loadMediaItems is triggered by the component's useEffect
           // Don't call it here to avoid double loading
@@ -311,76 +305,6 @@ const newStore: MediaLibraryStoreApi =
             newProgress.set(mediaId, progress)
             return { proxyProgress: newProgress }
           })
-        },
-
-        // AI tagging
-        setTaggingMedia: (mediaId, active) => {
-          set((state) => {
-            const taggingMediaIds = new Set(state.taggingMediaIds)
-            if (active) {
-              taggingMediaIds.add(mediaId)
-            } else {
-              taggingMediaIds.delete(mediaId)
-            }
-            return { taggingMediaIds }
-          })
-        },
-
-        updateMediaCaptions: (mediaId, captions) => {
-          set((state) => {
-            const mediaItems = state.mediaItems.map((item) =>
-              item.id === mediaId ? { ...item, aiCaptions: captions, updatedAt: Date.now() } : item,
-            )
-            return { mediaItems }
-          })
-        },
-
-        beginAnalysisRun: (count) => {
-          if (count <= 0) return
-          set((state) => {
-            const current = state.analysisProgress
-            if (!current) {
-              return { analysisProgress: { total: count, completed: 0, cancelRequested: false } }
-            }
-            // Merge concurrent runs (e.g. a per-card analyze while a batch is
-            // in flight) by growing the total so the percent keeps decreasing
-            // toward completion instead of snapping back.
-            return {
-              analysisProgress: {
-                total: current.total + count,
-                completed: current.completed,
-                cancelRequested: current.cancelRequested,
-              },
-            }
-          })
-        },
-
-        incrementAnalysisCompleted: (n = 1) => {
-          set((state) => {
-            if (!state.analysisProgress) return state
-            return {
-              analysisProgress: {
-                ...state.analysisProgress,
-                completed: Math.min(
-                  state.analysisProgress.total,
-                  state.analysisProgress.completed + n,
-                ),
-              },
-            }
-          })
-        },
-
-        requestAnalysisCancel: () => {
-          set((state) => {
-            if (!state.analysisProgress) return state
-            return {
-              analysisProgress: { ...state.analysisProgress, cancelRequested: true },
-            }
-          })
-        },
-
-        endAnalysisRun: () => {
-          set({ analysisProgress: null })
         },
       }),
       {
