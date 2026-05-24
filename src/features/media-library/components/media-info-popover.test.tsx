@@ -1,12 +1,8 @@
 import type { ReactNode, MouseEvent } from 'react'
 import { createContext, cloneElement, isValidElement, useContext } from 'react'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, it, expect, vi, beforeEach } from 'vite-plus/test'
-import type { MediaMetadata, MediaTranscript } from '@/types/storage'
-
-const mediaTranscriptionServiceMocks = vi.hoisted(() => ({
-  getTranscript: vi.fn(),
-}))
+import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vite-plus/test'
+import type { MediaMetadata } from '@/types/storage'
 
 vi.mock('@/components/ui/popover', () => {
   const PopoverContext = createContext<{
@@ -53,14 +49,6 @@ vi.mock('@/components/ui/popover', () => {
   }
 })
 
-vi.mock('../services/media-transcription-service', () => ({
-  mediaTranscriptionService: mediaTranscriptionServiceMocks,
-}))
-
-vi.mock('../transcription/registry', () => ({
-  getMediaTranscriptionModelLabel: (model: string) => (model === 'whisper-tiny' ? 'Tiny' : model),
-}))
-
 import { MediaInfoPopover } from './media-info-popover'
 
 function makeMedia(overrides: Partial<MediaMetadata> = {}): MediaMetadata {
@@ -84,37 +72,13 @@ function makeMedia(overrides: Partial<MediaMetadata> = {}): MediaMetadata {
 }
 
 describe('MediaInfoPopover', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  it('loads and displays transcript details when opened', async () => {
-    const transcript: MediaTranscript = {
-      id: 'media-1',
-      mediaId: 'media-1',
-      model: 'whisper-tiny',
-      quantization: 'q8',
-      text: 'Hello world from transcript',
-      segments: [{ text: 'Hello world', start: 1.25, end: 2.5 }],
-      createdAt: 1,
-      updatedAt: 1,
-    }
-    mediaTranscriptionServiceMocks.getTranscript.mockResolvedValue(transcript)
-    const onSeekToCaption = vi.fn()
-
-    render(<MediaInfoPopover media={makeMedia()} onSeekToCaption={onSeekToCaption} />)
+  it('renders file metadata rows when opened', () => {
+    render(<MediaInfoPopover media={makeMedia()} />)
 
     fireEvent.click(screen.getByTitle('Media info'))
 
-    await waitFor(() => {
-      expect(mediaTranscriptionServiceMocks.getTranscript).toHaveBeenCalledWith('media-1')
-    })
-
-    expect(await screen.findByText('Transcript (1)')).toBeInTheDocument()
-    expect(screen.getByText('Tiny')).toBeInTheDocument()
-    expect(screen.getByText('Hello world from transcript')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('button', { name: '0:01' }))
-    expect(onSeekToCaption).toHaveBeenCalledWith(1.25)
+    expect(screen.getByText('clip.mp4')).toBeInTheDocument()
+    expect(screen.getByText('1920 × 1080')).toBeInTheDocument()
+    expect(screen.getByText('h264')).toBeInTheDocument()
   })
 })

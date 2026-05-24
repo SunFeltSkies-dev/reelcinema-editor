@@ -19,12 +19,6 @@ const proxyServiceMocks = vi.hoisted(() => ({
   clearProxyKey: vi.fn(),
 }))
 
-const mediaTranscriptionServiceMocks = vi.hoisted(() => ({
-  transcribeMedia: vi.fn(),
-  deleteTranscript: vi.fn(),
-  cancelTranscription: vi.fn(),
-}))
-
 const subtitleSidecarServiceMocks = vi.hoisted(() => ({
   scanEmbeddedSubtitleTracks: vi.fn(),
   insertEmbeddedSubtitleTrack: vi.fn(),
@@ -56,14 +50,9 @@ const mediaStoreState = vi.hoisted(() => ({
   importingIds: [] as string[],
   proxyStatus: new Map<string, 'generating' | 'ready' | 'error'>(),
   proxyProgress: new Map<string, number>(),
-  transcriptStatus: new Map<string, 'idle' | 'queued' | 'transcribing' | 'ready' | 'error'>(),
-  transcriptProgress: new Map(),
   taggingMediaIds: new Set<string>(),
   setProxyStatus: vi.fn(),
   clearProxyStatus: vi.fn(),
-  setTranscriptStatus: vi.fn(),
-  setTranscriptProgress: vi.fn(),
-  clearTranscriptProgress: vi.fn(),
   setTaggingMedia: vi.fn(),
   updateMediaCaptions: vi.fn(),
   showNotification: vi.fn(),
@@ -121,37 +110,6 @@ vi.mock('@/components/ui/context-menu', () => ({
   ContextMenuSeparator: () => <hr />,
 }))
 
-vi.mock('./transcribe-dialog', () => ({
-  TranscribeDialog: ({
-    open,
-    onStart,
-    onCancel,
-  }: {
-    open: boolean
-    onStart: (values: { model: string; quantization: string; language: string }) => void
-    onCancel: () => void
-  }) =>
-    open ? (
-      <div data-testid="transcribe-dialog">
-        <button
-          type="button"
-          onClick={() =>
-            onStart({
-              model: 'whisper-base',
-              quantization: 'hybrid',
-              language: '',
-            })
-          }
-        >
-          Start Transcription
-        </button>
-        <button type="button" onClick={() => onCancel()}>
-          Stop Transcription
-        </button>
-      </div>
-    ) : null,
-}))
-
 vi.mock('./media-info-popover', () => ({
   MediaInfoPopover: ({ onSeekToCaption }: { onSeekToCaption?: (timeSec: number) => void }) => (
     <button data-testid="media-info-popover" onClick={() => onSeekToCaption?.(2.5)}>
@@ -175,10 +133,6 @@ vi.mock('../services/media-library-service', () => ({
 
 vi.mock('../services/proxy-service', () => ({
   proxyService: proxyServiceMocks,
-}))
-
-vi.mock('../services/media-transcription-service', () => ({
-  mediaTranscriptionService: mediaTranscriptionServiceMocks,
 }))
 
 vi.mock('../services/subtitle-sidecar-service', () => ({
@@ -321,8 +275,6 @@ describe('MediaCard', () => {
     mediaStoreState.importingIds = []
     mediaStoreState.proxyStatus = new Map()
     mediaStoreState.proxyProgress = new Map()
-    mediaStoreState.transcriptStatus = new Map()
-    mediaStoreState.transcriptProgress = new Map()
     mediaStoreState.taggingMediaIds = new Set()
     mediaStoreState.markMediaBroken.mockReset()
     mediaStoreState.openMissingMediaDialog.mockReset()
@@ -343,7 +295,6 @@ describe('MediaCard', () => {
     mediaLibraryServiceMocks.getMediaBlobUrl.mockResolvedValue('blob:media-1')
     proxyServiceMocks.canGenerateProxy.mockReturnValue(true)
     proxyServiceMocks.deleteProxy.mockResolvedValue(undefined)
-    mediaTranscriptionServiceMocks.transcribeMedia.mockResolvedValue(undefined)
     subtitleSidecarServiceMocks.scanEmbeddedSubtitleTracks.mockResolvedValue({
       tracks: [
         {
@@ -385,73 +336,6 @@ describe('MediaCard', () => {
     expect(generateProxyCall?.[3]).toBe(2160)
     expect(generateProxyCall?.[4]).toBe('proxy-media-1')
     expect(typeof generateProxyCall?.[1]).toBe('function')
-  })
-
-  it('opens the transcribe dialog and defers work until the user confirms', async () => {
-    const media = makeMedia()
-    mediaTranscriptionServiceMocks.transcribeMedia.mockResolvedValue(undefined)
-
-    render(<MediaCard media={media} viewMode="list" />)
-
-    fireEvent.click(screen.getByText('Generate Transcript'))
-
-    // Clicking the menu item opens the dialog; transcription has NOT started.
-    expect(screen.getByTestId('transcribe-dialog')).toBeInTheDocument()
-    expect(mediaTranscriptionServiceMocks.transcribeMedia).not.toHaveBeenCalled()
-
-    fireEvent.click(screen.getByText('Start Transcription'))
-
-    await waitFor(() => {
-      expect(mediaTranscriptionServiceMocks.transcribeMedia).toHaveBeenCalledWith(
-        'media-1',
-        expect.objectContaining({
-          model: 'whisper-base',
-          quantization: 'hybrid',
-          onProgress: expect.any(Function),
-        }),
-      )
-    })
-  })
-
-  it('uses transcript wording in the media action menu', () => {
-    const { rerender } = render(<MediaCard media={makeMedia()} viewMode="list" />)
-    expect(screen.getByText('Generate Transcript')).toBeInTheDocument()
-
-    mediaStoreState.transcriptStatus = new Map([['media-1', 'ready']])
-    rerender(<MediaCard media={makeMedia()} viewMode="list" />)
-    expect(screen.getByText('Refresh Transcript')).toBeInTheDocument()
-    expect(screen.getByText('Delete Transcript')).toBeInTheDocument()
-  })
-
-  it('shows the inline transcript progress bar while transcribing', () => {
-    mediaStoreState.transcriptStatus = new Map([['media-1', 'queued']])
-    mediaStoreState.transcriptProgress = new Map([['media-1', { stage: 'queued', progress: 0 }]])
-
-    render(<MediaCard media={makeMedia()} viewMode="list" />)
-
-    expect(screen.getByRole('progressbar', { name: 'Transcript progress' })).toHaveAttribute(
-      'aria-valuenow',
-      '0',
-    )
-  })
-
-  it('deletes a transcript from the media action menu', async () => {
-    mediaStoreState.transcriptStatus = new Map([['media-1', 'ready']])
-    mediaTranscriptionServiceMocks.deleteTranscript.mockResolvedValue(undefined)
-
-    render(<MediaCard media={makeMedia()} viewMode="list" />)
-
-    fireEvent.click(screen.getByText('Delete Transcript'))
-
-    await waitFor(() => {
-      expect(mediaTranscriptionServiceMocks.deleteTranscript).toHaveBeenCalledWith('media-1')
-    })
-    expect(mediaStoreState.setTranscriptStatus).toHaveBeenCalledWith('media-1', 'idle')
-    expect(mediaStoreState.clearTranscriptProgress).toHaveBeenCalledWith('media-1')
-    expect(mediaStoreState.showNotification).toHaveBeenCalledWith({
-      type: 'success',
-      message: 'Transcript deleted for "clip.mp4"',
-    })
   })
 
   it('runs a scan-only cache extract from the media library and never opens the track picker', async () => {
