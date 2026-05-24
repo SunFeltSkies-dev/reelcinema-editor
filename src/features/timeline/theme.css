@@ -19,8 +19,10 @@
   --color-timeline-text: oklch(0.671 0 290);
   --color-timeline-shape: oklch(0.68 0.19 45);
 
-  /* Playhead color */
-  --color-timeline-playhead: oklch(0.68 0.19 45); /* Orange (matches primary) */
+  /* Playhead color — functional orange, deliberately distinct from chrome
+     (chrome accent is ReelCinema ice; playhead stays orange for high-contrast
+     visibility against neutral chrome). */
+  --color-timeline-playhead: oklch(0.68 0.19 45);
 
   /* In/Out marker colors */
   --color-timeline-in: oklch(0.65 0.18 142); /* Green - in point */

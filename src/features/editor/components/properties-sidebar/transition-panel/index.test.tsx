@@ -125,7 +125,7 @@ describe('TransitionPanel', () => {
     expect(screen.getByRole('combobox')).toHaveTextContent('Slide')
     expect(screen.getByText('Preset')).toBeInTheDocument()
     expect(screen.getByText('Direction')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Left' })).toHaveClass('bg-background')
+    expect(screen.getByRole('button', { name: 'Left' })).toHaveClass('bg-bg')
   })
 
   it('filters transition presets from the dropdown search box', () => {
@@ -157,7 +157,7 @@ describe('TransitionPanel', () => {
     render(<TransitionPanel />)
 
     expect(screen.getByText('Ease')).toBeInTheDocument()
-    expect(screen.getByText('Linear').closest('button')).toHaveClass('bg-background')
+    expect(screen.getByText('Linear').closest('button')).toHaveClass('bg-bg')
 
     fireEvent.click(screen.getByText('Out').closest('button')!)
 
@@ -220,7 +220,7 @@ describe('TransitionPanel', () => {
     render(<TransitionPanel />)
 
     expect(screen.getByText('Placement')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Center placement' })).toHaveClass('bg-background')
+    expect(screen.getByRole('button', { name: 'Center placement' })).toHaveClass('bg-bg')
 
     fireEvent.click(screen.getByRole('button', { name: 'Left placement' }))
 

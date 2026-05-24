@@ -77,14 +77,14 @@ const ColorPicker = memo(function ColorPicker({
         className="flex items-center gap-2 w-full"
       >
         <div
-          className="w-6 h-6 rounded border border-border flex-shrink-0"
+          className="w-6 h-6 rounded border border-b1 flex-shrink-0"
           style={{ backgroundColor: color }}
         />
-        <span className="text-xs font-mono text-muted-foreground uppercase">{color}</span>
+        <span className="text-xs font-mono text-t3 uppercase">{color}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute top-8 left-0 z-50 p-2 bg-popover border border-border rounded-lg shadow-lg">
+        <div className="absolute top-8 left-0 z-50 p-2 bg-s2 border border-b1 rounded-lg shadow-lg">
           <HexColorPicker color={color} onChange={handleColorChange} />
         </div>
       )}
@@ -220,7 +220,7 @@ export const CanvasPanel = memo(function CanvasPanel() {
   if (!currentProject) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-xs text-muted-foreground">{t('editor.canvasPanel.noProjectLoaded')}</p>
+        <p className="text-xs text-t3">{t('editor.canvasPanel.noProjectLoaded')}</p>
       </div>
     )
   }
@@ -293,19 +293,15 @@ export const CanvasPanel = memo(function CanvasPanel() {
       {/* Duration Section */}
       <PropertySection title={t('editor.canvasPanel.duration')} icon={Clock} defaultOpen={true}>
         <PropertyRow label={t('editor.canvasPanel.duration')}>
-          <span className="text-xs text-muted-foreground tabular-nums">
-            {formatDuration(timelineDuration)}
-          </span>
+          <span className="text-xs text-t3 tabular-nums">{formatDuration(timelineDuration)}</span>
         </PropertyRow>
 
         <PropertyRow label={t('editor.canvasPanel.frameRate')}>
-          <span className="text-xs text-muted-foreground tabular-nums">
-            {currentProject.metadata.fps} fps
-          </span>
+          <span className="text-xs text-t3 tabular-nums">{currentProject.metadata.fps} fps</span>
         </PropertyRow>
 
         <PropertyRow label={t('editor.canvasPanel.totalFrames')}>
-          <span className="text-xs text-muted-foreground tabular-nums">{timelineDuration} fr</span>
+          <span className="text-xs text-t3 tabular-nums">{timelineDuration} fr</span>
         </PropertyRow>
       </PropertySection>
     </div>
