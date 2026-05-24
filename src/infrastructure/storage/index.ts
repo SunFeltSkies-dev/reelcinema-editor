@@ -53,7 +53,7 @@ export {
   getMediaForProject,
 } from '@/infrastructure/storage/workspace-fs/project-media'
 
-// Waveforms
+// Waveforms — backed by OpfsDerivedCache (SC-3.f retire)
 export {
   getWaveform,
   getWaveformRecord,
@@ -63,7 +63,7 @@ export {
   saveWaveformMeta,
   saveWaveformBin,
   deleteWaveform,
-} from '@/infrastructure/storage/workspace-fs/waveforms'
+} from '@/infrastructure/storage/reelcinema/waveform-bridge-singleton'
 
 // GIF frames
 export {
