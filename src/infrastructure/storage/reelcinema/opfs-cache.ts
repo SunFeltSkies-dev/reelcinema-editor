@@ -27,8 +27,7 @@ import type { AssetTarget } from './types'
 
 const log = createLogger('reelcinema/opfs-cache')
 
-const ROOT_DIR_NAME = 'reelcinema'
-const ASSETS_DIR_NAME = 'assets'
+const DEFAULT_ROOT_PATH: readonly string[] = ['reelcinema', 'assets']
 const DEFAULT_QUOTA_THRESHOLD = 0.8
 const DEFAULT_QUOTA_TARGET_AFTER_EVICT = 0.6
 
@@ -49,6 +48,15 @@ export interface OpfsCacheConfig {
    * Evict until usage drops to this ratio (0–1). Default 0.6.
    */
   quotaTargetAfterEvict?: number
+  /**
+   * OPFS directory segments under `navigator.storage.getDirectory()`
+   * that hold the asset subtree. Default `['reelcinema', 'assets']`.
+   * Editor-scope (Path B iframe at `/editor/`) instances use
+   * `['editor', 'projects', projectId, 'cache', 'assets']` so the
+   * iframe's storage subtree stays bounded under the editor namespace
+   * and doesn't collide with the host page's OPFS usage.
+   */
+  rootPath?: readonly string[]
 }
 
 function isOpfsAvailable(): boolean {
@@ -59,17 +67,37 @@ function isOpfsAvailable(): boolean {
   )
 }
 
-async function getCacheRoot(): Promise<FileSystemDirectoryHandle> {
-  const root = await navigator.storage.getDirectory()
-  const reelcinemaDir = await root.getDirectoryHandle(ROOT_DIR_NAME, { create: true })
-  return reelcinemaDir.getDirectoryHandle(ASSETS_DIR_NAME, { create: true })
+async function resolveDir(
+  segments: readonly string[],
+  create: boolean,
+): Promise<FileSystemDirectoryHandle | null> {
+  let dir: FileSystemDirectoryHandle = await navigator.storage.getDirectory()
+  for (const segment of segments) {
+    try {
+      dir = await dir.getDirectoryHandle(segment, { create })
+    } catch (err) {
+      if (!create && err instanceof DOMException && err.name === 'NotFoundError') return null
+      throw err
+    }
+  }
+  return dir
+}
+
+async function getCacheRoot(rootPath: readonly string[]): Promise<FileSystemDirectoryHandle> {
+  const dir = await resolveDir(rootPath, true)
+  // create: true above never returns null
+  return dir as FileSystemDirectoryHandle
 }
 
 async function getAssetDir(
+  rootPath: readonly string[],
   assetId: string,
   create: boolean,
 ): Promise<FileSystemDirectoryHandle | null> {
-  const assets = await getCacheRoot()
+  const assets = create
+    ? await getCacheRoot(rootPath)
+    : await resolveDir(rootPath, false)
+  if (!assets) return null
   try {
     return await assets.getDirectoryHandle(assetId, { create })
   } catch (err) {
@@ -118,10 +146,12 @@ async function writeMeta(
 export class OpfsAssetCache {
   private readonly quotaThreshold: number
   private readonly quotaTargetAfterEvict: number
+  private readonly rootPath: readonly string[]
 
   constructor(config: OpfsCacheConfig = {}) {
     this.quotaThreshold = config.quotaThreshold ?? DEFAULT_QUOTA_THRESHOLD
     this.quotaTargetAfterEvict = config.quotaTargetAfterEvict ?? DEFAULT_QUOTA_TARGET_AFTER_EVICT
+    this.rootPath = config.rootPath ?? DEFAULT_ROOT_PATH
   }
 
   /** Returns the cached bytes + meta, or null on miss. Touches lastUsedAt on hit. */
@@ -130,7 +160,7 @@ export class OpfsAssetCache {
     target: AssetTarget,
   ): Promise<{ bytes: Uint8Array; meta: CacheEntryMeta } | null> {
     if (!isOpfsAvailable()) return null
-    const dir = await getAssetDir(assetId, false)
+    const dir = await getAssetDir(this.rootPath, assetId, false)
     if (!dir) return null
     const meta = await readMeta(dir, target)
     if (!meta) return null
@@ -158,7 +188,7 @@ export class OpfsAssetCache {
     contentType: string,
   ): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getAssetDir(assetId, true)
+    const dir = await getAssetDir(this.rootPath, assetId, true)
     if (!dir) return
     const blobHandle = await dir.getFileHandle(blobFileName(target), { create: true })
     const writable = await blobHandle.createWritable()
@@ -177,7 +207,7 @@ export class OpfsAssetCache {
   /** Removes a single (assetId, target) entry. */
   async delete(assetId: string, target: AssetTarget): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getAssetDir(assetId, false)
+    const dir = await getAssetDir(this.rootPath, assetId, false)
     if (!dir) return
     await dir.removeEntry(blobFileName(target)).catch(() => undefined)
     await dir.removeEntry(metaFileName(target)).catch(() => undefined)
@@ -186,19 +216,19 @@ export class OpfsAssetCache {
   /** Removes all cached entries for an asset (all three targets). */
   async deleteAsset(assetId: string): Promise<void> {
     if (!isOpfsAvailable()) return
-    const assets = await getCacheRoot()
+    const assets = await resolveDir(this.rootPath, false)
+    if (!assets) return
     await assets.removeEntry(assetId, { recursive: true }).catch(() => undefined)
   }
 
-  /** Clears the entire reelcinema/assets OPFS subtree. */
+  /** Clears the entire configured assets subtree (the last segment of rootPath). */
   async clear(): Promise<void> {
     if (!isOpfsAvailable()) return
-    const root = await navigator.storage.getDirectory()
-    const reelcinemaDir = await root
-      .getDirectoryHandle(ROOT_DIR_NAME, { create: false })
-      .catch(() => null)
-    if (!reelcinemaDir) return
-    await reelcinemaDir.removeEntry(ASSETS_DIR_NAME, { recursive: true }).catch(() => undefined)
+    if (this.rootPath.length === 0) return
+    const parent = await resolveDir(this.rootPath.slice(0, -1), false)
+    if (!parent) return
+    const lastSegment = this.rootPath[this.rootPath.length - 1]!
+    await parent.removeEntry(lastSegment, { recursive: true }).catch(() => undefined)
   }
 
   /**
@@ -236,7 +266,7 @@ export class OpfsAssetCache {
   > {
     const out: Array<{ assetId: string; target: AssetTarget; size: number; lastUsedAt: string }> =
       []
-    const assets = await getCacheRoot()
+    const assets = await getCacheRoot(this.rootPath)
     for await (const [assetId, handle] of assets.entries() as AsyncIterable<
       [string, FileSystemHandle]
     >) {

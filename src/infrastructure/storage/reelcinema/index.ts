@@ -16,6 +16,13 @@ export { OpfsAssetCache } from './opfs-cache'
 export type { OpfsCacheConfig, CacheEntryMeta } from './opfs-cache'
 export { OpfsDerivedCache } from './opfs-derived-cache'
 export type { OpfsDerivedCacheConfig } from './opfs-derived-cache'
+export {
+  createEditorScopeAssetCache,
+  createEditorScopeDerivedCache,
+  editorScopeAssetCachePath,
+  editorScopeDerivedCacheParent,
+  editorScopeProjectCacheRoot,
+} from './editor-scope-cache'
 export { WaveformBridge } from './waveform-bridge'
 export { useAsset } from './use-asset'
 export type { UseAssetOptions, UseAssetResult } from './use-asset'

@@ -40,8 +40,7 @@ import { createLogger } from '@/shared/logging/logger'
 
 const log = createLogger('reelcinema/opfs-derived-cache')
 
-const ROOT_DIR_NAME = 'reelcinema'
-const DERIVED_DIR_NAME = 'derived'
+const DEFAULT_PARENT_PATH: readonly string[] = ['reelcinema', 'derived']
 const RECORD_META_FILE = '_record.json'
 
 const DEFAULT_QUOTA_THRESHOLD = 0.8
@@ -49,9 +48,9 @@ const DEFAULT_QUOTA_TARGET_AFTER_EVICT = 0.6
 
 export interface OpfsDerivedCacheConfig {
   /**
-   * Namespace under `reelcinema/derived/`. One cache instance per
-   * namespace; namespaces don't share storage, only the OPFS root.
-   * Example values: `'waveforms'`, `'gif-frames'`,
+   * Namespace under the cache's parent path (default `reelcinema/derived/`).
+   * One cache instance per namespace; namespaces don't share storage,
+   * only the OPFS root. Example values: `'waveforms'`, `'gif-frames'`,
    * `'decoded-preview-audio'`, `'embedded-subtitles'`.
    */
   namespace: string
@@ -59,6 +58,16 @@ export interface OpfsDerivedCacheConfig {
   quotaThreshold?: number
   /** Evict until usage drops to this ratio (0–1). Default 0.6. */
   quotaTargetAfterEvict?: number
+  /**
+   * OPFS directory segments under `navigator.storage.getDirectory()`
+   * that hold derived-cache namespaces. Default
+   * `['reelcinema', 'derived']`. Editor-scope (Path B iframe at
+   * `/editor/`) instances use
+   * `['editor', 'projects', projectId, 'cache', 'derived']` so the
+   * iframe's storage subtree stays bounded under the editor namespace
+   * and doesn't collide with the host page's OPFS usage.
+   */
+  parentPath?: readonly string[]
 }
 
 /**
@@ -78,19 +87,50 @@ function isOpfsAvailable(): boolean {
   )
 }
 
-async function getNamespaceDir(namespace: string): Promise<FileSystemDirectoryHandle> {
-  const root = await navigator.storage.getDirectory()
-  const reelcinemaDir = await root.getDirectoryHandle(ROOT_DIR_NAME, { create: true })
-  const derivedDir = await reelcinemaDir.getDirectoryHandle(DERIVED_DIR_NAME, { create: true })
-  return derivedDir.getDirectoryHandle(namespace, { create: true })
+async function resolveDir(
+  segments: readonly string[],
+  create: boolean,
+): Promise<FileSystemDirectoryHandle | null> {
+  let dir: FileSystemDirectoryHandle = await navigator.storage.getDirectory()
+  for (const segment of segments) {
+    try {
+      dir = await dir.getDirectoryHandle(segment, { create })
+    } catch (err) {
+      if (!create && err instanceof DOMException && err.name === 'NotFoundError') return null
+      throw err
+    }
+  }
+  return dir
+}
+
+async function getNamespaceDir(
+  parentPath: readonly string[],
+  namespace: string,
+): Promise<FileSystemDirectoryHandle> {
+  const parent = await resolveDir(parentPath, true)
+  // create: true above never returns null
+  return (parent as FileSystemDirectoryHandle).getDirectoryHandle(namespace, { create: true })
 }
 
 async function getRecordDir(
+  parentPath: readonly string[],
   namespace: string,
   recordKey: string,
   create: boolean,
 ): Promise<FileSystemDirectoryHandle | null> {
-  const ns = await getNamespaceDir(namespace)
+  const ns = create
+    ? await getNamespaceDir(parentPath, namespace)
+    : await (async () => {
+        const parent = await resolveDir(parentPath, false)
+        if (!parent) return null
+        try {
+          return await parent.getDirectoryHandle(namespace, { create: false })
+        } catch (err) {
+          if (err instanceof DOMException && err.name === 'NotFoundError') return null
+          throw err
+        }
+      })()
+  if (!ns) return null
   try {
     return await ns.getDirectoryHandle(recordKey, { create })
   } catch (err) {
@@ -134,17 +174,19 @@ export class OpfsDerivedCache {
   private readonly namespace: string
   private readonly quotaThreshold: number
   private readonly quotaTargetAfterEvict: number
+  private readonly parentPath: readonly string[]
 
   constructor(config: OpfsDerivedCacheConfig) {
     this.namespace = config.namespace
     this.quotaThreshold = config.quotaThreshold ?? DEFAULT_QUOTA_THRESHOLD
     this.quotaTargetAfterEvict = config.quotaTargetAfterEvict ?? DEFAULT_QUOTA_TARGET_AFTER_EVICT
+    this.parentPath = config.parentPath ?? DEFAULT_PARENT_PATH
   }
 
   /** Returns the parsed JSON file from a record, or null on miss. */
   async getJson<T>(recordKey: string, fileName: string): Promise<T | null> {
     if (!isOpfsAvailable()) return null
-    const dir = await getRecordDir(this.namespace, recordKey, false)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, false)
     if (!dir) return null
     try {
       const handle = await dir.getFileHandle(fileName)
@@ -161,7 +203,7 @@ export class OpfsDerivedCache {
   /** Returns the raw bytes from a record file, or null on miss. */
   async getBytes(recordKey: string, fileName: string): Promise<Uint8Array | null> {
     if (!isOpfsAvailable()) return null
-    const dir = await getRecordDir(this.namespace, recordKey, false)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, false)
     if (!dir) return null
     try {
       const handle = await dir.getFileHandle(fileName)
@@ -179,7 +221,7 @@ export class OpfsDerivedCache {
   /** Writes a JSON file into a record. Creates the record dir on demand. */
   async putJson<T>(recordKey: string, fileName: string, value: T): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getRecordDir(this.namespace, recordKey, true)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, true)
     if (!dir) return
     const handle = await dir.getFileHandle(fileName, { create: true })
     const writable = await handle.createWritable()
@@ -192,7 +234,7 @@ export class OpfsDerivedCache {
   /** Writes raw bytes into a record file. Creates the record dir on demand. */
   async putBytes(recordKey: string, fileName: string, bytes: Uint8Array): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getRecordDir(this.namespace, recordKey, true)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, true)
     if (!dir) return
     const handle = await dir.getFileHandle(fileName, { create: true })
     const writable = await handle.createWritable()
@@ -205,7 +247,7 @@ export class OpfsDerivedCache {
   /** Removes a single file from a record. Record dir + meta stay intact. */
   async removeFile(recordKey: string, fileName: string): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getRecordDir(this.namespace, recordKey, false)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, false)
     if (!dir) return
     await dir.removeEntry(fileName).catch(() => undefined)
   }
@@ -213,23 +255,16 @@ export class OpfsDerivedCache {
   /** Removes the entire record dir (all files + meta). */
   async removeRecord(recordKey: string): Promise<void> {
     if (!isOpfsAvailable()) return
-    const ns = await getNamespaceDir(this.namespace)
+    const ns = await getNamespaceDir(this.parentPath, this.namespace)
     await ns.removeEntry(recordKey, { recursive: true }).catch(() => undefined)
   }
 
   /** Clears every record in this namespace. Leaves sibling namespaces alone. */
   async clearNamespace(): Promise<void> {
     if (!isOpfsAvailable()) return
-    const root = await navigator.storage.getDirectory()
-    const reelcinemaDir = await root
-      .getDirectoryHandle(ROOT_DIR_NAME, { create: false })
-      .catch(() => null)
-    if (!reelcinemaDir) return
-    const derivedDir = await reelcinemaDir
-      .getDirectoryHandle(DERIVED_DIR_NAME, { create: false })
-      .catch(() => null)
-    if (!derivedDir) return
-    await derivedDir.removeEntry(this.namespace, { recursive: true }).catch(() => undefined)
+    const parent = await resolveDir(this.parentPath, false)
+    if (!parent) return
+    await parent.removeEntry(this.namespace, { recursive: true }).catch(() => undefined)
   }
 
   /**
@@ -239,7 +274,7 @@ export class OpfsDerivedCache {
    */
   async touch(recordKey: string): Promise<void> {
     if (!isOpfsAvailable()) return
-    const dir = await getRecordDir(this.namespace, recordKey, false)
+    const dir = await getRecordDir(this.parentPath, this.namespace, recordKey, false)
     if (!dir) return
     await touchRecord(dir)
   }
@@ -287,7 +322,7 @@ export class OpfsDerivedCache {
     Array<{ recordKey: string; lastUsedAt: string }>
   > {
     const out: Array<{ recordKey: string; lastUsedAt: string }> = []
-    const ns = await getNamespaceDir(this.namespace)
+    const ns = await getNamespaceDir(this.parentPath, this.namespace)
     for await (const [recordKey, handle] of ns.entries() as AsyncIterable<
       [string, FileSystemHandle]
     >) {
