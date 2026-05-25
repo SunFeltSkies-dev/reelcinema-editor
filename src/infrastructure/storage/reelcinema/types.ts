@@ -142,6 +142,43 @@ export interface CinematographyHandoffResponse {
 }
 
 /**
+ * Wire shape of `GET /api/projects/{project_id}/directors-view/handoff/cinematography`.
+ *
+ * Returns the latest non-superseded DV → Cinematography handoff
+ * envelope. The Editorial bin (SC-I-5) walks `scenes[]` as the
+ * canonical project-scoped ordered scene list. Per-scene shape inside
+ * `scenes[]` carries more fields per §8 v2.0.0; here we expose only
+ * what the bin needs (the editorial-bin feature defines the richer
+ * shape it consumes internally).
+ *
+ * Server returns 404 when no envelope has been emitted (DV unlocked).
+ * Callers map 404 to "empty bin" rather than an error.
+ */
+export interface DirectorsViewToCinematographyHandoffResponse {
+  type: 'director_view'
+  project_id: string
+  schema_version: string
+  emitted_at: string
+  scenes: Array<{
+    scene_id: string
+    scene_number: number
+    scene_identifier: string
+    /** §8 v2.0.0 carries additional per-scene fields (director_intent,
+     * briefs, anchor_asset_id, veo_prompt_ready). Consumers that need
+     * them widen this type locally; the backbone surface only commits
+     * to what's listed. */
+    [key: string]: unknown
+  }>
+  handoff_id: string
+  version: number
+  locked_at: string | null
+  superseded_by: string | null
+  previous_version: string | null
+  revision_reason: string | null
+  revision_requested_at: string | null
+}
+
+/**
  * Bearer token source. Either:
  *   - a static string (fixed token, used in tests or non-iframe builds), OR
  *   - a callback that returns the current token (used to pull from
