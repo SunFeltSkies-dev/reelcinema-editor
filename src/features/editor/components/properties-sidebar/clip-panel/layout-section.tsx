@@ -749,7 +749,7 @@ export const LayoutSection = memo(function LayoutSection({
           <Button
             variant="ghost"
             size="icon"
-            className={`h-7 w-7 flex-shrink-0 ${aspectLocked ? 'text-primary' : ''}`}
+            className={`h-7 w-7 flex-shrink-0 ${aspectLocked ? 'text-nudge' : ''}`}
             onClick={onAspectLockToggle}
             title={
               aspectLocked

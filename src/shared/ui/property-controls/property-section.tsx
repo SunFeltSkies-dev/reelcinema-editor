@@ -10,10 +10,6 @@ interface PropertySectionProps {
   children: React.ReactNode
 }
 
-/**
- * Collapsible section wrapper for property groups.
- * Used for Source, Layout, Fill, Video, Audio sections.
- */
 export function PropertySection({
   title,
   icon: Icon,
@@ -24,16 +20,17 @@ export function PropertySection({
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger className="flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors">
+      <CollapsibleTrigger className="group flex items-center gap-2 w-full py-1.5 hover:bg-s2/40 rounded-sm px-2 -mx-2 transition-colors">
         <ChevronRight
-          className={cn('w-3 h-3 text-muted-foreground transition-transform', open && 'rotate-90')}
+          className={cn('w-2.5 h-2.5 text-t5 transition-transform', open && 'rotate-90')}
         />
-        {Icon && <Icon className="w-3 h-3 text-muted-foreground" />}
-        <span className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">
+        {Icon && <Icon className="w-3 h-3 text-t5" />}
+        <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-t5 group-hover:text-t3 transition-colors">
           {title}
         </span>
+        <span aria-hidden className="flex-1 h-px bg-b1/60" />
       </CollapsibleTrigger>
-      <CollapsibleContent className="pt-1 pb-2 space-y-0">{children}</CollapsibleContent>
+      <CollapsibleContent className="pt-1.5 pb-2 space-y-0">{children}</CollapsibleContent>
     </Collapsible>
   )
 }
