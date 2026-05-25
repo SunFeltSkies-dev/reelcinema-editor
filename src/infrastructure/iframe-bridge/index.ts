@@ -33,3 +33,9 @@ export type {
   AuthContextSnapshot,
   AuthContextSubscriber,
 } from './auth-context-receiver'
+export {
+  getIframeAppShell,
+  initIframeAppShell,
+  resetIframeAppShellForTests,
+} from './app-shell-handshake'
+export type { IframeAppShell } from './app-shell-handshake'

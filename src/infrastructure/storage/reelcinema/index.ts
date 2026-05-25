@@ -44,6 +44,7 @@ export type {
   AssetApprovalState,
   AssetTarget,
   BackboneConfig,
+  BearerTokenSource,
   CinematographyHandoffResponse,
   CinematographyToEditorialHandoff,
   ProjectLibraryResponse,
