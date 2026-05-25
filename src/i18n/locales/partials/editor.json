@@ -140,6 +140,7 @@
       "clipPanel": {
         "tabVideo": "Video",
         "tabAudio": "Audio",
+        "tabTransform": "Transform",
         "tabEffects": "Effects",
         "adjustmentLayerHint": "Effects on adjustment layers apply to all items on tracks above."
       },
@@ -466,6 +467,7 @@
       "clipPanel": {
         "tabVideo": "Vídeo",
         "tabAudio": "Audio",
+        "tabTransform": "Transformar",
         "tabEffects": "Efectos",
         "adjustmentLayerHint": "Los efectos en capas de ajuste se aplican a todos los elementos de las pistas superiores."
       },
@@ -792,6 +794,7 @@
       "clipPanel": {
         "tabVideo": "Vidéo",
         "tabAudio": "Audio",
+        "tabTransform": "Transformer",
         "tabEffects": "Effets",
         "adjustmentLayerHint": "Les effets sur les calques de réglage s'appliquent à tous les éléments des pistes situées au-dessus."
       },
@@ -1118,6 +1121,7 @@
       "clipPanel": {
         "tabVideo": "Video",
         "tabAudio": "Audio",
+        "tabTransform": "Transformieren",
         "tabEffects": "Effekte",
         "adjustmentLayerHint": "Effekte auf Einstellungsebenen gelten für alle Elemente auf Spuren darüber."
       },
@@ -1444,6 +1448,7 @@
       "clipPanel": {
         "tabVideo": "Vídeo",
         "tabAudio": "Áudio",
+        "tabTransform": "Transformar",
         "tabEffects": "Efeitos",
         "adjustmentLayerHint": "Os efeitos em camadas de ajuste se aplicam a todos os itens das faixas acima."
       },
@@ -1770,6 +1775,7 @@
       "clipPanel": {
         "tabVideo": "ビデオ",
         "tabAudio": "オーディオ",
+        "tabTransform": "トランスフォーム",
         "tabEffects": "エフェクト",
         "adjustmentLayerHint": "調整レイヤーのエフェクトは、上のトラックのすべてのアイテムに適用されます。"
       },
@@ -2096,6 +2102,7 @@
       "clipPanel": {
         "tabVideo": "비디오",
         "tabAudio": "오디오",
+        "tabTransform": "변환",
         "tabEffects": "효과",
         "adjustmentLayerHint": "조정 레이어의 효과는 위쪽 트랙의 모든 항목에 적용됩니다."
       },
@@ -2422,6 +2429,7 @@
       "clipPanel": {
         "tabVideo": "视频",
         "tabAudio": "音频",
+        "tabTransform": "变换",
         "tabEffects": "效果",
         "adjustmentLayerHint": "调整图层上的效果会应用到上方所有轨道的项目。"
       },
@@ -2748,6 +2756,7 @@
       "clipPanel": {
         "tabVideo": "Video",
         "tabAudio": "Ses",
+        "tabTransform": "Dönüştür",
         "tabEffects": "Efektler",
         "adjustmentLayerHint": "Ayar katmanlarındaki efektler, üst izlerdeki tüm öğelere uygulanır."
       },

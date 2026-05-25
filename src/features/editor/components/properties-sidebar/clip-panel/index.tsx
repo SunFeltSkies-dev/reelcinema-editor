@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useEffect, memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Film, Sparkles, Volume2 } from 'lucide-react'
+import { Film, Move, Sparkles, Volume2 } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Separator } from '@/components/ui/separator'
@@ -184,15 +184,17 @@ export const ClipPanel = memo(function ClipPanel() {
   // Determine which categories should be visible
   const showVideoTab = layoutFillItems.length > 0
   const showAudioTab = hasAudioItems
+  const showTransformTab = layoutFillItems.length > 0
   const showEffectsTab = hasVisualItems
 
   const availableTabs = useMemo(() => {
     const tabs: ClipInspectorTab[] = []
     if (showVideoTab) tabs.push('video')
     if (showAudioTab) tabs.push('audio')
+    if (showTransformTab) tabs.push('transform')
     if (showEffectsTab) tabs.push('effects')
     return tabs
-  }, [showAudioTab, showEffectsTab, showVideoTab])
+  }, [showAudioTab, showEffectsTab, showTransformTab, showVideoTab])
 
   const fallbackTab = availableTabs[0] ?? 'video'
   const activeTab = availableTabs.includes(clipInspectorTab) ? clipInspectorTab : fallbackTab
@@ -239,6 +241,14 @@ export const ClipPanel = memo(function ClipPanel() {
             {t('editor.clipPanel.tabAudio')}
           </TabsTrigger>
           <TabsTrigger
+            value="transform"
+            disabled={!showTransformTab}
+            className="flex-1 h-full rounded-none border-b-[1.5px] border-transparent bg-transparent shadow-none text-[10px] uppercase tracking-[0.12em] text-t5 gap-1.5 px-2 transition-colors hover:text-t3 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-t2 data-[state=active]:border-nudge"
+          >
+            <Move className="h-3 w-3" />
+            {t('editor.clipPanel.tabTransform')}
+          </TabsTrigger>
+          <TabsTrigger
             value="effects"
             disabled={!showEffectsTab}
             className="flex-1 h-full rounded-none border-b-[1.5px] border-transparent bg-transparent shadow-none text-[10px] uppercase tracking-[0.12em] text-t5 gap-1.5 px-2 transition-colors hover:text-t3 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-t2 data-[state=active]:border-nudge"
@@ -248,20 +258,10 @@ export const ClipPanel = memo(function ClipPanel() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Video Tab - visual layout, content, and clip-specific controls */}
+        {/* Video Tab - visual content and clip-specific controls */}
         <TabsContent value="video" className="mt-3">
           {showVideoTab && (
             <div className="divide-y divide-b1/60 [&>*]:py-3 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
-              {showVideoTab && (
-                <LayoutSection
-                  items={layoutFillItems}
-                  mediaTransformItems={mediaTransformItems}
-                  canvas={canvas}
-                  onTransformChange={handleTransformChange}
-                  aspectLocked={aspectLocked}
-                  onAspectLockToggle={handleAspectLockToggle}
-                />
-              )}
               {hasVideoItems && <VideoSection items={selectedItems} />}
               {showVideoTab && (
                 <FillSection
@@ -291,6 +291,22 @@ export const ClipPanel = memo(function ClipPanel() {
           {hasAudioItems && (
             <div className="divide-y divide-b1/60 [&>*]:py-3 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
               <AudioSection items={selectedItems} />
+            </div>
+          )}
+        </TabsContent>
+
+        {/* Transform Tab - position, dimensions, rotation, aspect lock */}
+        <TabsContent value="transform" className="mt-3">
+          {showTransformTab && (
+            <div className="divide-y divide-b1/60 [&>*]:py-3 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
+              <LayoutSection
+                items={layoutFillItems}
+                mediaTransformItems={mediaTransformItems}
+                canvas={canvas}
+                onTransformChange={handleTransformChange}
+                aspectLocked={aspectLocked}
+                onAspectLockToggle={handleAspectLockToggle}
+              />
             </div>
           )}
         </TabsContent>
