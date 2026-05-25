@@ -27,3 +27,9 @@ export type {
   ProtocolErrorPayload,
   ProtocolVersion,
 } from './types'
+export { AuthContextReceiver } from './auth-context-receiver'
+export type {
+  AuthContextReceiverConfig,
+  AuthContextSnapshot,
+  AuthContextSubscriber,
+} from './auth-context-receiver'
