@@ -287,8 +287,12 @@ export const ClipPanel = memo(function ClipPanel() {
         </TabsContent>
 
         {/* Audio Tab - gain and fades */}
-        <TabsContent value="audio" className="space-y-4 mt-3">
-          {hasAudioItems && <AudioSection items={selectedItems} />}
+        <TabsContent value="audio" className="mt-3">
+          {hasAudioItems && (
+            <div className="divide-y divide-b1/60 [&>*]:py-3 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
+              <AudioSection items={selectedItems} />
+            </div>
+          )}
         </TabsContent>
 
         {/* Effects Tab - clip effects plus text styling and animation */}
