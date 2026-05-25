@@ -165,6 +165,17 @@ export const Toolbar = memo(function Toolbar({
             })}
           </span>
         </div>
+
+        <Separator orientation="vertical" className="h-5" />
+
+        {/* SC-8 placeholder — conversational surface implementation deferred.
+            File/Edit/View are pure structural anchors at this point: visible
+            labels in the menu-bar slot so SC-8 can attach the real
+            command/dropdown surfaces without disturbing toolbar layout. They
+            intentionally have no click behavior. */}
+        <MenuBarPlaceholder label="File" />
+        <MenuBarPlaceholder label="Edit" />
+        <MenuBarPlaceholder label="View" />
       </div>
 
       <div className="flex-1" />
@@ -317,6 +328,22 @@ function SaveAnimationIcon({ className }: { className?: string }) {
   )
 }
 
+// SC-8 placeholder — conversational surface implementation deferred.
+// No onClick is wired: click is a no-op until SC-8 lands the real
+// command/dropdown surfaces behind these triggers.
+function MenuBarPlaceholder({ label }: { label: string }) {
+  return (
+    <button
+      type="button"
+      aria-disabled="true"
+      tabIndex={-1}
+      className="h-7 rounded-sm px-2 text-[11px] font-medium text-t3 hover:text-t1 hover:bg-s2/40 transition-colors cursor-default"
+    >
+      {label}
+    </button>
+  )
+}
+
 function DebugPopover({ projectId }: { projectId: string }) {
   const { t } = useTranslation()
   const debugPanelOpen = useDebugStore((s) => s.debugPanelOpen)
@@ -339,11 +366,7 @@ function DebugPopover({ projectId }: { projectId: string }) {
           <Bug className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        sideOffset={8}
-        className="w-64 p-0 bg-zinc-900 border-zinc-700 text-zinc-100"
-      >
+      <PopoverContent align="end" sideOffset={8} className="w-64 p-0 bg-s1 border-b2 text-t1">
         <ProjectDebugPanel projectId={projectId} />
       </PopoverContent>
     </Popover>
