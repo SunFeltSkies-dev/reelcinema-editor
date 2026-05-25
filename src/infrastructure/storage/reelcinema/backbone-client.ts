@@ -20,6 +20,7 @@ import type {
   BackboneConfig,
   BearerTokenSource,
   CinematographyHandoffResponse,
+  DirectorsViewToCinematographyHandoffResponse,
   ProjectLibraryResponse,
   SignUrlRequest,
   SignedUrlResponse,
@@ -96,6 +97,25 @@ export class BackboneClient {
   ): Promise<CinematographyHandoffResponse> {
     return this.request<CinematographyHandoffResponse>(
       `/api/projects/${projectId}/scenes/${sceneId}/cinematography-handoff`,
+      { method: 'GET' },
+    )
+  }
+
+  /**
+   * `GET /api/projects/{project_id}/directors-view/handoff/cinematography`
+   * — fetch the latest non-superseded Directors View → Cinematography
+   * handoff envelope for this project (per DECISIONS §8 v2.0.0). Carries
+   * the project-scoped ordered scene list the Editorial bin uses to
+   * walk the cinematography envelopes downstream of DV lock.
+   *
+   * Throws BackboneError(404) when no envelope has been emitted yet
+   * — callers map 404 to "empty bin" rather than an error condition.
+   */
+  async getDirectorsViewToCinematographyHandoff(
+    projectId: string,
+  ): Promise<DirectorsViewToCinematographyHandoffResponse> {
+    return this.request<DirectorsViewToCinematographyHandoffResponse>(
+      `/api/projects/${projectId}/directors-view/handoff/cinematography`,
       { method: 'GET' },
     )
   }

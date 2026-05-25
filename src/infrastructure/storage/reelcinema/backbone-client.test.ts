@@ -171,6 +171,48 @@ describe('BackboneClient', () => {
     expect(url).toBe(`${ORIGIN}/api/assets?project_id=p-1&type=veo_take&limit=50`)
   })
 
+  it('getDirectorsViewToCinematographyHandoff GETs the project envelope', async () => {
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse({
+        type: 'director_view',
+        project_id: 'p-1',
+        schema_version: '2.0.0',
+        emitted_at: '2026-05-26T00:00:00Z',
+        scenes: [
+          { scene_id: 's-1', scene_number: 1, scene_identifier: 'INT. ROOM' },
+          { scene_id: 's-2', scene_number: 2, scene_identifier: 'EXT. STREET' },
+        ],
+        handoff_id: 'h-1',
+        version: 3,
+        locked_at: '2026-05-26T00:00:00Z',
+        superseded_by: null,
+        previous_version: null,
+        revision_reason: null,
+        revision_requested_at: null,
+      }),
+    )
+    const client = new BackboneClient({ baseUrl: ORIGIN })
+    const response = await client.getDirectorsViewToCinematographyHandoff('p-1')
+
+    expect(response.scenes).toHaveLength(2)
+    expect(response.scenes[0]!.scene_id).toBe('s-1')
+    expect(response.version).toBe(3)
+
+    const [url, init] = fetchMock.mock.calls[0]!
+    expect(url).toBe(`${ORIGIN}/api/projects/p-1/directors-view/handoff/cinematography`)
+    expect((init as RequestInit).method).toBe('GET')
+  })
+
+  it('getDirectorsViewToCinematographyHandoff surfaces 404 as BackboneError', async () => {
+    fetchMock.mockResolvedValue(new Response('No envelope', { status: 404 }))
+    const client = new BackboneClient({ baseUrl: ORIGIN })
+    const caught = await client
+      .getDirectorsViewToCinematographyHandoff('p-unlocked')
+      .catch((err) => err)
+    expect(caught).toBeInstanceOf(BackboneError)
+    expect((caught as BackboneError).status).toBe(404)
+  })
+
   it('strips trailing slashes on baseUrl', async () => {
     fetchMock.mockResolvedValueOnce(jsonResponse([]))
     const client = new BackboneClient({ baseUrl: `${ORIGIN}///` })

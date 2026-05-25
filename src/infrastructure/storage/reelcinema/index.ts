@@ -47,6 +47,7 @@ export type {
   BearerTokenSource,
   CinematographyHandoffResponse,
   CinematographyToEditorialHandoff,
+  DirectorsViewToCinematographyHandoffResponse,
   ProjectLibraryResponse,
   ShotSnapshot,
   SignUrlRequest,
