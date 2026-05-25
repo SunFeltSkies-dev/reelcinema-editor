@@ -108,6 +108,43 @@ describe('BackboneClient', () => {
     expect(new Headers((init as RequestInit).headers).get('authorization')).toBe('Bearer tk')
   })
 
+  it('function-form bearerToken is resolved per request', async () => {
+    let current = 'tk-1'
+    const tokenSource = vi.fn(() => current)
+    const client = new BackboneClient({ baseUrl: ORIGIN, bearerToken: tokenSource })
+
+    fetchMock.mockResolvedValueOnce(jsonResponse([]))
+    await client.listAssets({ projectId: 'p-1' })
+    expect(new Headers((fetchMock.mock.calls[0]![1] as RequestInit).headers).get('authorization')).toBe(
+      'Bearer tk-1',
+    )
+
+    current = 'tk-2'
+    fetchMock.mockResolvedValueOnce(jsonResponse([]))
+    await client.listAssets({ projectId: 'p-1' })
+    expect(new Headers((fetchMock.mock.calls[1]![1] as RequestInit).headers).get('authorization')).toBe(
+      'Bearer tk-2',
+    )
+
+    expect(tokenSource).toHaveBeenCalledTimes(2)
+  })
+
+  it('function-form bearerToken returning undefined omits Authorization', async () => {
+    fetchMock.mockResolvedValueOnce(jsonResponse([]))
+    const client = new BackboneClient({ baseUrl: ORIGIN, bearerToken: () => undefined })
+    await client.listAssets({ projectId: 'p-1' })
+    const headers = new Headers((fetchMock.mock.calls[0]![1] as RequestInit).headers)
+    expect(headers.get('authorization')).toBeNull()
+  })
+
+  it('function-form bearerToken returning null omits Authorization', async () => {
+    fetchMock.mockResolvedValueOnce(jsonResponse([]))
+    const client = new BackboneClient({ baseUrl: ORIGIN, bearerToken: () => null })
+    await client.listAssets({ projectId: 'p-1' })
+    const headers = new Headers((fetchMock.mock.calls[0]![1] as RequestInit).headers)
+    expect(headers.get('authorization')).toBeNull()
+  })
+
   it('non-OK response throws BackboneError with status', async () => {
     fetchMock.mockResolvedValue(new Response('Asset not found', { status: 404 }))
     const client = new BackboneClient({ baseUrl: ORIGIN })

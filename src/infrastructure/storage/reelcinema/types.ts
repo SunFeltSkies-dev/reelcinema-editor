@@ -141,16 +141,31 @@ export interface CinematographyHandoffResponse {
   handoff: CinematographyToEditorialHandoff | null
 }
 
+/**
+ * Bearer token source. Either:
+ *   - a static string (fixed token, used in tests or non-iframe builds), OR
+ *   - a callback that returns the current token (used to pull from
+ *     `AuthContextReceiver` on each request without reconstructing the
+ *     client; introduced by SC-I-4).
+ *
+ * `null`/`undefined` returned from the callback signals "no bearer"
+ * — the client omits the Authorization header and falls back to
+ * Clerk session cookies (the primary auth path per architect
+ * amendment #3).
+ */
+export type BearerTokenSource = string | (() => string | null | undefined)
+
 /** Backbone client configuration. */
 export interface BackboneConfig {
   /** Base URL for the ReelCinema backend, e.g. `https://app.reelcinema.com`. */
   baseUrl: string
   /**
-   * Optional bearer token. When omitted, the client relies on
+   * Optional bearer source. When omitted, the client relies on
    * same-origin Clerk session cookies (the primary auth path per
-   * architect amendment #3).
+   * architect amendment #3). For dynamic tokens (e.g. fed from
+   * `AuthContextReceiver`), pass a callback.
    */
-  bearerToken?: string
+  bearerToken?: BearerTokenSource
 }
 
 export class BackboneError extends Error {

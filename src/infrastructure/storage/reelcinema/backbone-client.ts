@@ -18,6 +18,7 @@ import { createLogger } from '@/shared/logging/logger'
 import type {
   Asset,
   BackboneConfig,
+  BearerTokenSource,
   CinematographyHandoffResponse,
   ProjectLibraryResponse,
   SignUrlRequest,
@@ -29,11 +30,19 @@ const log = createLogger('reelcinema/backbone-client')
 
 export class BackboneClient {
   private readonly baseUrl: string
-  private readonly bearerToken: string | undefined
+  private readonly bearerToken: BearerTokenSource | undefined
 
   constructor(config: BackboneConfig) {
     this.baseUrl = config.baseUrl.replace(/\/+$/, '')
     this.bearerToken = config.bearerToken
+  }
+
+  private resolveBearer(): string | null {
+    if (this.bearerToken === undefined) return null
+    if (typeof this.bearerToken === 'function') {
+      return this.bearerToken() ?? null
+    }
+    return this.bearerToken
   }
 
   /** `GET /api/assets/{id}` — fetch asset metadata. */
@@ -103,8 +112,9 @@ export class BackboneClient {
   private async request<T>(path: string, init: RequestInit): Promise<T> {
     const url = `${this.baseUrl}${path}`
     const headers = new Headers(init.headers)
-    if (this.bearerToken) {
-      headers.set('authorization', `Bearer ${this.bearerToken}`)
+    const bearer = this.resolveBearer()
+    if (bearer) {
+      headers.set('authorization', `Bearer ${bearer}`)
     }
     let response: Response
     try {

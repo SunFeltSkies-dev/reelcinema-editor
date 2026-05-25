@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { i18n } from './i18n'
 import { App } from './app'
 import { initializeDebugUtils } from '@/app/debug'
+import { initIframeAppShell } from '@/infrastructure/iframe-bridge'
 import { createLogger } from '@/shared/logging/logger'
 import './index.css'
 
@@ -217,8 +218,21 @@ if (!rootElement) {
   throw new Error('Root element not found')
 }
 
+// Wires the postMessage bridge + auth-context receiver before the React
+// tree mounts so storage-layer consumers can read the receiver token
+// during initialization. Returns null when not embedded as an iframe;
+// downstream consumers tolerate that.
+const iframeShell = initIframeAppShell()
+
 createRoot(rootElement).render(
   <StrictMode>
     <App />
   </StrictMode>,
 )
+
+// Signal to the ReelCinema host that the FreeCut app shell is mounted.
+// React 18 createRoot.render is synchronous enough that the tree is
+// committed by the next microtask; queueMicrotask defers until React
+// commit boundary so the host sees ready immediately after the first
+// paint cycle. No-op when not running embedded.
+queueMicrotask(() => iframeShell?.emitReady())
