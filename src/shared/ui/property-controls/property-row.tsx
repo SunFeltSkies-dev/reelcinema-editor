@@ -8,13 +8,11 @@ interface PropertyRowProps {
   className?: string
 }
 
-/**
- * Consistent two-column layout for property controls.
- * Label on left, control on right.
- */
 export function PropertyRow({ label, children, tooltip, className }: PropertyRowProps) {
   const labelContent = (
-    <span className="text-xs text-muted-foreground min-w-[56px] text-right">{label}</span>
+    <span className="text-[10px] uppercase tracking-[0.08em] text-t5 min-w-[56px] text-right">
+      {label}
+    </span>
   )
 
   return (

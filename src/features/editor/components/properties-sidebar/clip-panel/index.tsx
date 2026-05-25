@@ -217,18 +217,32 @@ export const ClipPanel = memo(function ClipPanel() {
 
   return (
     <div className="space-y-3">
-      {/* Tabbed sections */}
+      {/* V1.8 inspector tab strip: equal-flex, bottom border, underline-active.
+          Active tab uses --nudge (V1.8 "warm" accent). Inactive tabs read
+          uppercase t5 micro-tracked text per V1.8 .insp-tab convention. */}
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-8">
-          <TabsTrigger value="video" disabled={!showVideoTab} className="text-xs gap-1 px-2">
+        <TabsList className="flex w-full h-[29px] bg-transparent rounded-none border-b border-b1 p-0 gap-0">
+          <TabsTrigger
+            value="video"
+            disabled={!showVideoTab}
+            className="flex-1 h-full rounded-none border-b-[1.5px] border-transparent bg-transparent shadow-none text-[10px] uppercase tracking-[0.12em] text-t5 gap-1.5 px-2 transition-colors hover:text-t3 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-t2 data-[state=active]:border-nudge"
+          >
             <Film className="h-3 w-3" />
             {t('editor.clipPanel.tabVideo')}
           </TabsTrigger>
-          <TabsTrigger value="audio" disabled={!showAudioTab} className="text-xs gap-1 px-2">
+          <TabsTrigger
+            value="audio"
+            disabled={!showAudioTab}
+            className="flex-1 h-full rounded-none border-b-[1.5px] border-transparent bg-transparent shadow-none text-[10px] uppercase tracking-[0.12em] text-t5 gap-1.5 px-2 transition-colors hover:text-t3 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-t2 data-[state=active]:border-nudge"
+          >
             <Volume2 className="h-3 w-3" />
             {t('editor.clipPanel.tabAudio')}
           </TabsTrigger>
-          <TabsTrigger value="effects" disabled={!showEffectsTab} className="text-xs gap-1 px-2">
+          <TabsTrigger
+            value="effects"
+            disabled={!showEffectsTab}
+            className="flex-1 h-full rounded-none border-b-[1.5px] border-transparent bg-transparent shadow-none text-[10px] uppercase tracking-[0.12em] text-t5 gap-1.5 px-2 transition-colors hover:text-t3 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-t2 data-[state=active]:border-nudge"
+          >
             <Sparkles className="h-3 w-3" />
             {t('editor.clipPanel.tabEffects')}
           </TabsTrigger>
@@ -237,7 +251,7 @@ export const ClipPanel = memo(function ClipPanel() {
         {/* Video Tab - visual layout, content, and clip-specific controls */}
         <TabsContent value="video" className="mt-3">
           {showVideoTab && (
-            <div className="divide-y divide-border [&>*]:py-4 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
+            <div className="divide-y divide-b1/60 [&>*]:py-3 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
               {showVideoTab && (
                 <LayoutSection
                   items={layoutFillItems}
