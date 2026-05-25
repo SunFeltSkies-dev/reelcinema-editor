@@ -18,6 +18,7 @@ import { createLogger } from '@/shared/logging/logger'
 import type {
   Asset,
   BackboneConfig,
+  CinematographyHandoffResponse,
   ProjectLibraryResponse,
   SignUrlRequest,
   SignedUrlResponse,
@@ -69,6 +70,25 @@ export class BackboneClient {
     return this.request<ProjectLibraryResponse>(`/api/projects/${projectId}/library`, {
       method: 'GET',
     })
+  }
+
+  /**
+   * `GET /api/projects/{project_id}/scenes/{scene_id}/cinematography-handoff`
+   * — fetch the latest non-superseded Cinematography → Editorial handoff
+   * envelope for this scene (per DECISIONS A23).
+   *
+   * Returns `{ handoff: null }` when the scene has not been locked from
+   * the Cinematography page yet. Editorial UI must treat null as "no
+   * shot brief yet" rather than an error condition.
+   */
+  async getCinematographyHandoff(
+    projectId: string,
+    sceneId: string,
+  ): Promise<CinematographyHandoffResponse> {
+    return this.request<CinematographyHandoffResponse>(
+      `/api/projects/${projectId}/scenes/${sceneId}/cinematography-handoff`,
+      { method: 'GET' },
+    )
   }
 
   /** `POST /api/assets/{id}/sign-url` — issue a signed B2 URL for the target. */

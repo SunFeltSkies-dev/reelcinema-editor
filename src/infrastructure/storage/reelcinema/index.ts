@@ -27,12 +27,20 @@ export { libraryToImportedProjectLibrary } from './project-bridge'
 export type { ImportedProjectLibrary } from './project-bridge'
 export { useProjectLibrary } from './use-project-library'
 export type { UseProjectLibraryOptions, UseProjectLibraryResult } from './use-project-library'
+export { useCinematographyHandoff } from './use-cinematography-handoff'
+export type {
+  UseCinematographyHandoffOptions,
+  UseCinematographyHandoffResult,
+} from './use-cinematography-handoff'
 export type {
   Asset,
   AssetApprovalState,
   AssetTarget,
   BackboneConfig,
+  CinematographyHandoffResponse,
+  CinematographyToEditorialHandoff,
   ProjectLibraryResponse,
+  ShotSnapshot,
   SignUrlRequest,
   SignedUrlResponse,
 } from './types'

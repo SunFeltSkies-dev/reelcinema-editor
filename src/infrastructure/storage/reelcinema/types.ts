@@ -80,6 +80,67 @@ export interface ProjectLibraryResponse {
   total: number
 }
 
+/**
+ * Per-shot/take snapshot inside `CinematographyToEditorialHandoff.shots`.
+ *
+ * Six-slot fields are canonical per DECISIONS A22 — same entity serves
+ * dual purpose as shot brief content AND Veo prompt assembly source.
+ * Renaming any of the six fields requires A22 supersession first.
+ */
+export interface ShotSnapshot {
+  asset_id: string
+  take_number: number
+  shot_label: string
+  camera: string
+  action: string
+  identity_dialogue: string
+  delivery: string
+  preservation: string
+  audio: string
+  duration_seconds: number | null
+  poster_asset_id: string | null
+}
+
+/**
+ * Cinematography → Editorial handoff envelope per DECISIONS A23.
+ *
+ * One row per (project_id, scene_id, version). Editorial reads only
+ * the current version (server filters `superseded_by_id IS NULL`).
+ * Multi-asset linking pattern: query by asset_id via
+ * `shots[].asset_id == <asset>` to find parent scene + shot context.
+ */
+export interface CinematographyToEditorialHandoff {
+  id: string
+  project_id: string
+  organization_id: string
+  user_id: string
+  scene_id: string
+  locked_at: string
+  locked_by: string
+  version: number
+  previous_version_id: string | null
+  superseded_by_id: string | null
+  revision_reason: string | null
+  shot_brief_visual_purpose: string | null
+  shot_brief_editorial_note: string | null
+  shot_brief_open_questions: string | null
+  project_lut_asset_id: string | null
+  shots: ShotSnapshot[]
+  created_at: string
+  updated_at: string
+}
+
+/**
+ * Response from `GET /api/projects/{project_id}/scenes/{scene_id}/cinematography-handoff`.
+ *
+ * Returns `null` when the scene has no locked handoff yet (Cinematography
+ * page has not been locked for this scene). Editorial UI should treat
+ * `null` as "no shot brief yet" — not an error.
+ */
+export interface CinematographyHandoffResponse {
+  handoff: CinematographyToEditorialHandoff | null
+}
+
 /** Backbone client configuration. */
 export interface BackboneConfig {
   /** Base URL for the ReelCinema backend, e.g. `https://app.reelcinema.com`. */

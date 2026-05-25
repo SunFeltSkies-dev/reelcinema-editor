@@ -44,6 +44,12 @@ export interface ImportedAsset {
   id: string
   /** Backbone project id this asset belongs to. */
   projectId: string
+  /**
+   * Optional backbone scene id this asset belongs to. Needed by the
+   * Cinematography Bin to group assets by scene before fetching A23
+   * handoffs; null for project-scoped assets not tied to a scene.
+   */
+  sceneId: string | null
   /** MIME type derived from B2 content-type (set at upload time). */
   mimeType: string
   /** Total bytes for the primary target (proxy unless overridden). */
@@ -70,6 +76,7 @@ export function assetToImportedAsset(asset: Asset): ImportedAsset {
   return {
     id: asset.id,
     projectId: asset.project_id,
+    sceneId: asset.scene_id,
     mimeType: inferMimeType(asset),
     size: undefined,
     displayName: deriveDisplayName(asset),
