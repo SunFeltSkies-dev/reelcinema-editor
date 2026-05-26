@@ -36,6 +36,31 @@
  *
  * See `docs/A32_iframe_ingestion_invariant.md` for full architectural
  * context and re-enablement path.
+ *
+ * ## A32.2 iframe projects-forbidden invariant (SC-I-1b.2)
+ *
+ * Per DECISIONS A32.2 (KEEP/RETIRE table for workspace-fs surfaces),
+ * this route — and anything it transitively imports — is **forbidden
+ * from reaching `@/infrastructure/storage/workspace-fs/projects`**.
+ * That legacy module retires from the iframe surface area: cross-project
+ * listing, project creation, project deletion, and DB statistics are
+ * host territory (gap-spec D1 + D5 ratifications 2026-05-26).
+ *
+ * Project metadata in the V1 iframe flows exclusively through
+ * `BackboneClient` over HTTP; the iframe receives only `projectId`
+ * (string) as input and resolves downstream state via Backbone.
+ *
+ * Dual-layer enforcement mirrors the A32 ingestion pattern:
+ *   - Runtime: `__tests__/projects-iframe-forbidden-invariant.test.ts`
+ *     walks the transitive import graph from this file and fails on
+ *     any `workspace-fs/projects` specifier.
+ *   - Type-level: `./_projects-forbidden.types.ts` declares the
+ *     `IframeForbiddenWorkspaceFsProjects` sentinel resolving to
+ *     `never`; the same test uses `@ts-expect-error` to prove the
+ *     type system rejects iframe consumption of that module surface.
+ *
+ * See `docs/A32_2_projects_iframe_forbidden_invariant.md` for full
+ * architectural context.
  */
 
 import { useEffect, useMemo, useState } from 'react'
