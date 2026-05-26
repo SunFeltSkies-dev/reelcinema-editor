@@ -26,6 +26,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { HelpCircle } from 'lucide-react'
 import { createLogger } from '@/shared/logging/logger'
 import type { BackboneClient } from '@/infrastructure/storage/reelcinema'
+import { EditorialExportButton } from '@/features/editorial-export'
 import { loadEditorialBin, type EditorialBinSnapshot } from './editorial-bin-client'
 import type { EditorialSceneEnvelope, EditorialShotSnapshot } from './types'
 
@@ -34,6 +35,8 @@ const log = createLogger('editorial-bin/panel')
 interface EditorialBinProps {
   projectId: string
   client: BackboneClient
+  /** Optional human-readable project name for the FCPXML export label. */
+  projectName?: string
 }
 
 interface SixSlotModalState {
@@ -282,7 +285,7 @@ function SixSlotModal({
   )
 }
 
-export function EditorialBin({ projectId, client }: EditorialBinProps) {
+export function EditorialBin({ projectId, client, projectName }: EditorialBinProps) {
   const [snapshot, setSnapshot] = useState<EditorialBinSnapshot | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -341,6 +344,12 @@ export function EditorialBin({ projectId, client }: EditorialBinProps) {
               {headerCount}
             </span>
           )}
+          <EditorialExportButton
+            projectId={projectId}
+            client={client}
+            projectName={projectName}
+            disabled={loading || sceneCount === 0}
+          />
         </div>
 
         <div className="flex-1 overflow-y-auto">
