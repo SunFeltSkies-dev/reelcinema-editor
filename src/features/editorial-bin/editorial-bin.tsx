@@ -26,7 +26,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { HelpCircle } from 'lucide-react'
 import { createLogger } from '@/shared/logging/logger'
 import type { BackboneClient } from '@/infrastructure/storage/reelcinema'
-import { EditorialExportButton } from '@/features/editorial-export'
+import { EditorialExportButton } from './deps/editorial-export'
 import { loadEditorialBin, type EditorialBinSnapshot } from './editorial-bin-client'
 import type { EditorialSceneEnvelope, EditorialShotSnapshot } from './types'
 
@@ -363,7 +363,10 @@ export function EditorialBin({ projectId, client, projectName }: EditorialBinPro
             </div>
           )}
           {error && (
-            <div className="px-3 py-3 text-[10px] text-destructive" data-testid="editorial-bin-error">
+            <div
+              className="px-3 py-3 text-[10px] text-destructive"
+              data-testid="editorial-bin-error"
+            >
               Failed to load editorial bin: {error.message}
             </div>
           )}

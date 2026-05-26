@@ -20,11 +20,11 @@
 
 import type { BackboneClient } from '@/infrastructure/storage/reelcinema'
 import { createLogger } from '@/shared/logging/logger'
-import { loadEditorialBin } from '@/features/editorial-bin/editorial-bin-client'
-import type {
-  EditorialSceneEnvelope,
-  EditorialShotSnapshot,
-} from '@/features/editorial-bin/types'
+import {
+  loadEditorialBin,
+  type EditorialSceneEnvelope,
+  type EditorialShotSnapshot,
+} from './deps/editorial-bin'
 import { composeFcpxml } from './fcpxml-generator'
 import type { FcpxmlExportSummary, FcpxmlScene } from './types'
 
@@ -50,9 +50,7 @@ export interface ExportToFcpxmlResult {
   projectName: string
 }
 
-function pickFirstRenderedTake(
-  envelope: EditorialSceneEnvelope,
-): EditorialShotSnapshot | null {
+function pickFirstRenderedTake(envelope: EditorialSceneEnvelope): EditorialShotSnapshot | null {
   for (const shot of envelope.shots) {
     if (shot.asset_id) return shot
   }
@@ -166,13 +164,8 @@ export async function exportToFcpxml(
   const summary: FcpxmlExportSummary = {
     exportedSceneCount: generatorSummary.exportedSceneCount,
     exportedTakeCount: generatorSummary.exportedTakeCount,
-    totalScenesConsidered:
-      snapshot.scenes.length + snapshot.pending_scenes.length,
-    skippedScenes: [
-      ...skippedFromPending,
-      ...skippedFromShots,
-      ...generatorSummary.skippedScenes,
-    ],
+    totalScenesConsidered: snapshot.scenes.length + snapshot.pending_scenes.length,
+    skippedScenes: [...skippedFromPending, ...skippedFromShots, ...generatorSummary.skippedScenes],
   }
 
   log.info('FCPXML export composed', {

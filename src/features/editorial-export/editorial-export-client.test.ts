@@ -6,7 +6,7 @@ import type {
   EditorialSceneEnvelope,
   EditorialShotSnapshot,
   CinematographyHandoffResponse,
-} from '@/features/editorial-bin/types'
+} from './deps/editorial-bin'
 
 function makeShot(overrides: Partial<EditorialShotSnapshot> = {}): EditorialShotSnapshot {
   return {
@@ -85,23 +85,23 @@ describe('exportToFcpxml', () => {
     ])
     const cineByScene: Record<string, CinematographyHandoffResponse> = {
       s1: { handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: 'a-s1' })]) },
-      s2: { handoff: makeEnvelope('s2', 'Scene 2', [makeShot({ asset_id: 'a-s2', take_number: 1 })]) },
+      s2: {
+        handoff: makeEnvelope('s2', 'Scene 2', [makeShot({ asset_id: 'a-s2', take_number: 1 })]),
+      },
     }
     const client = makeClient({
       getDirectorsViewToCinematographyHandoff: vi.fn().mockResolvedValue(dv),
       getCinematographyHandoff: vi
         .fn()
         .mockImplementation(async (_p: string, sceneId: string) => cineByScene[sceneId]),
-      signAssetUrl: vi
-        .fn()
-        .mockImplementation(async (assetId: string) => ({
-          asset_id: assetId,
-          target: 'master',
-          key: `b2-key-${assetId}`,
-          url: `https://b2.example/${assetId}?sig=x`,
-          expires_in: 86400,
-          issued_at: '2026-05-27T00:00:00Z',
-        })),
+      signAssetUrl: vi.fn().mockImplementation(async (assetId: string) => ({
+        asset_id: assetId,
+        target: 'master',
+        key: `b2-key-${assetId}`,
+        url: `https://b2.example/${assetId}?sig=x`,
+        expires_in: 86400,
+        issued_at: '2026-05-27T00:00:00Z',
+      })),
     })
 
     const result = await exportToFcpxml(client, 'p-1', { projectName: 'My Movie' })
@@ -128,9 +128,9 @@ describe('exportToFcpxml', () => {
     })
     const client = makeClient({
       getDirectorsViewToCinematographyHandoff: vi.fn().mockResolvedValue(dv),
-      getCinematographyHandoff: vi
-        .fn()
-        .mockResolvedValue({ handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: 'a-s1' })]) }),
+      getCinematographyHandoff: vi.fn().mockResolvedValue({
+        handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: 'a-s1' })]),
+      }),
       signAssetUrl,
     })
     await exportToFcpxml(client, 'p-1')
@@ -148,7 +148,8 @@ describe('exportToFcpxml', () => {
     const client = makeClient({
       getDirectorsViewToCinematographyHandoff: vi.fn().mockResolvedValue(dv),
       getCinematographyHandoff: vi.fn().mockImplementation(async (_p: string, sceneId: string) => {
-        if (sceneId === 's1') return { handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: 'a-s1' })]) }
+        if (sceneId === 's1')
+          return { handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: 'a-s1' })]) }
         return { handoff: null }
       }),
       signAssetUrl: vi.fn().mockResolvedValue({
@@ -173,9 +174,9 @@ describe('exportToFcpxml', () => {
     const dv = makeDvResponse([{ scene_id: 's1', scene_number: 1, scene_identifier: 'INT' }])
     const client = makeClient({
       getDirectorsViewToCinematographyHandoff: vi.fn().mockResolvedValue(dv),
-      getCinematographyHandoff: vi
-        .fn()
-        .mockResolvedValue({ handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: null })]) }),
+      getCinematographyHandoff: vi.fn().mockResolvedValue({
+        handoff: makeEnvelope('s1', 'Scene 1', [makeShot({ asset_id: null })]),
+      }),
       signAssetUrl: vi.fn(),
     })
     const result = await exportToFcpxml(client, 'p-1')
@@ -191,7 +192,9 @@ describe('exportToFcpxml', () => {
     const dv = makeDvResponse([{ scene_id: 's1', scene_number: 1, scene_identifier: 'INT' }])
     const client = makeClient({
       getDirectorsViewToCinematographyHandoff: vi.fn().mockResolvedValue(dv),
-      getCinematographyHandoff: vi.fn().mockResolvedValue({ handoff: makeEnvelope('s1', 'Scene 1', []) }),
+      getCinematographyHandoff: vi
+        .fn()
+        .mockResolvedValue({ handoff: makeEnvelope('s1', 'Scene 1', []) }),
       signAssetUrl: vi.fn(),
     })
     const result = await exportToFcpxml(client, 'p-1')
