@@ -11,6 +11,13 @@
  *
  * Empty / loading / error states surface inline so each scene is
  * independently responsive.
+ *
+ * Scene-name discipline (A23 amendment 2026-05-26): when the handoff
+ * resolves, the header label switches from the panel-provided
+ * truncated-UUID fallback to `handoff.scene_name` (human-readable name
+ * captured at lock time). Legacy backfilled rows with the literal
+ * "Untitled Scene" string render as-is. Unlocked scenes retain the
+ * UUID fallback since no envelope exists to source a name from.
  */
 
 import { useState } from 'react'
@@ -49,6 +56,7 @@ export function SceneSection({
 
   const takeCount = handoff?.shots.length ?? 0
   const ChevIcon = open ? ChevronDown : ChevronRight
+  const displayLabel = handoff ? handoff.scene_name || 'Untitled Scene' : sceneLabel
 
   return (
     <div className="border-b border-border/40">
@@ -59,7 +67,7 @@ export function SceneSection({
       >
         <ChevIcon className="w-3 h-3 text-muted-foreground flex-shrink-0" />
         <span className="text-[10px] uppercase tracking-wider text-foreground font-semibold">
-          {sceneLabel}
+          {displayLabel}
         </span>
         <div className="flex-1" />
         {loading && (
@@ -100,7 +108,7 @@ export function SceneSection({
           )}
           {handoff && (
             <>
-              <ShotBriefPanel handoff={handoff} sceneLabel={sceneLabel} />
+              <ShotBriefPanel handoff={handoff} sceneLabel={displayLabel} />
               {handoff.shots.length === 0 ? (
                 <div className="px-2 py-1.5 text-[10px] text-muted-foreground italic">
                   Scene locked with no takes.
@@ -110,7 +118,7 @@ export function SceneSection({
                   <TakeItem
                     key={`${shot.asset_id}-${shot.take_number}`}
                     shot={shot}
-                    onShowSixSlot={(s) => onShowSixSlot(s, sceneLabel)}
+                    onShowSixSlot={(s) => onShowSixSlot(s, displayLabel)}
                   />
                 ))
               )}

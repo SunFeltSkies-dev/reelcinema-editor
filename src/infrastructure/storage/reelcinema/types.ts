@@ -115,6 +115,14 @@ export interface CinematographyToEditorialHandoff {
   organization_id: string
   user_id: string
   scene_id: string
+  /**
+   * Human-readable scene name captured at lock time per A23 amendment
+   * 2026-05-26. Snapshot semantics: rename post-lock requires
+   * supersession (new envelope row captures fresh name). NOT NULL on
+   * the backbone; legacy backfilled rows default to "Untitled Scene"
+   * which consumers should treat as the rendering fallback.
+   */
+  scene_name: string
   locked_at: string
   locked_by: string
   version: number

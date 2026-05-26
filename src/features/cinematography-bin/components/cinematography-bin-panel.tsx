@@ -13,9 +13,11 @@
  * the bridge yet). For each derived scene, a `SceneSection` runs its
  * own handoff fetch in parallel.
  *
- * Naming: scene labels are truncated UUIDs (`SC · ab12cd34`) until a
- * scene-name lookup endpoint exists. V1 minimum-viable; intentionally
- * narrow scope per V2 amendment.
+ * Naming (A23 amendment 2026-05-26): once a scene's handoff resolves,
+ * `SceneSection` swaps the panel-provided truncated-UUID fallback for
+ * `handoff.scene_name`. Unlocked scenes (no handoff yet) keep the
+ * truncated UUID since the library response carries no name — the
+ * scene-name signal only lands at Cinematography lock time.
  */
 
 import { useMemo, useState } from 'react'
