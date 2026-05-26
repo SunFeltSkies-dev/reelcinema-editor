@@ -179,6 +179,94 @@ export interface DirectorsViewToCinematographyHandoffResponse {
 }
 
 /**
+ * Single message inside a persona conversation transcript.
+ *
+ * Mirrors the JSON shape that `backend/app/routes/personas.py:_serialize`
+ * emits inside `invocation.conversation` — `role` is `'user' | 'assistant'`
+ * and `content` is the text payload. `mode` is tagged per Amendment 1 so
+ * structured invocations can be distinguished from conversational turns
+ * even when interleaved within one transcript.
+ */
+export interface PersonaConversationMessage {
+  role: 'user' | 'assistant'
+  content: string
+  mode?: 'conversational' | 'structured'
+}
+
+/**
+ * Persona invocation envelope as serialized by the backbone (5a
+ * provider-stripped). The wire shape is the source of truth for the
+ * iframe conversational surface — both `POST /api/personas/invoke`
+ * (under `invocation`) and `GET /api/projects/{id}/conversations`
+ * return this row shape.
+ */
+export interface PersonaInvocation {
+  id: string
+  project_id: string
+  persona: string
+  page: string | null
+  mode: 'conversational' | 'structured'
+  conversation: PersonaConversationMessage[]
+  metadata: Record<string, unknown>
+  created_at: string | null
+  updated_at: string | null
+}
+
+/**
+ * Request body for `POST /api/personas/invoke` (the SC-I-6 iframe
+ * conversational surface uses this to round-trip the Editor / Audio
+ * Engineer dialogue).
+ *
+ * `invocation_id` continuation pattern (architect H-3 ruling 2026-05-26):
+ * conversational state lives on Postgres `persona_invocations` rather
+ * than OPFS for V1. Pass an existing `invocation_id` to append to that
+ * row's transcript; omit to start a fresh conversation row.
+ */
+export interface InvokePersonaRequest {
+  project_id: string
+  organization_id: string
+  user_id: string
+  persona: string
+  user_message: string
+  mode?: 'conversational' | 'structured'
+  page?: string
+  model?: string
+  max_tokens?: number
+  invocation_id?: string
+  conversation_history?: PersonaConversationMessage[]
+}
+
+/** Response shape for `POST /api/personas/invoke`. */
+export interface InvokePersonaResponse {
+  invocation: PersonaInvocation
+  response: {
+    text: string
+    stop_reason: string | null
+  }
+}
+
+/**
+ * Query params for `GET /api/projects/{project_id}/conversations`.
+ * `organization_id` + `user_id` are required by the backbone (multi-tenant
+ * filter per discipline #4); the remaining params are optional filters
+ * + pagination.
+ */
+export interface ListConversationsParams {
+  organization_id: string
+  user_id: string
+  persona?: string
+  limit?: number
+  offset?: number
+}
+
+/** Response shape for `GET /api/projects/{project_id}/conversations`. */
+export interface ListConversationsResponse {
+  conversations: PersonaInvocation[]
+  limit: number
+  offset: number
+}
+
+/**
  * Bearer token source. Either:
  *   - a static string (fixed token, used in tests or non-iframe builds), OR
  *   - a callback that returns the current token (used to pull from

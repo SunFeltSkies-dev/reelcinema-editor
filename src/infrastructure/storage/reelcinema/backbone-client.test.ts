@@ -213,6 +213,119 @@ describe('BackboneClient', () => {
     expect((caught as BackboneError).status).toBe(404)
   })
 
+  it('invokePersona POSTs the request envelope and parses the response', async () => {
+    const wireInvocation = {
+      id: 'inv-1',
+      project_id: 'p-1',
+      persona: 'editor',
+      page: 'editorial',
+      mode: 'conversational' as const,
+      conversation: [
+        { role: 'user' as const, content: 'Should I cut SC.1?' },
+        { role: 'assistant' as const, content: 'Hold the wide.' },
+      ],
+      metadata: {},
+      created_at: '2026-05-26T00:00:00Z',
+      updated_at: '2026-05-26T00:00:01Z',
+    }
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse({
+        invocation: wireInvocation,
+        response: { text: 'Hold the wide.', stop_reason: 'end_turn' },
+      }),
+    )
+    const client = new BackboneClient({ baseUrl: ORIGIN, bearerToken: 'tok' })
+    const result = await client.invokePersona({
+      project_id: 'p-1',
+      organization_id: 'o-1',
+      user_id: 'u-1',
+      persona: 'editor',
+      user_message: 'Should I cut SC.1?',
+      page: 'editorial',
+    })
+
+    expect(result.response.text).toBe('Hold the wide.')
+    expect(result.invocation.id).toBe('inv-1')
+
+    const [url, init] = fetchMock.mock.calls[0]!
+    expect(url).toBe(`${ORIGIN}/api/personas/invoke`)
+    const requestInit = init as RequestInit
+    expect(requestInit.method).toBe('POST')
+    expect(JSON.parse(requestInit.body as string)).toMatchObject({
+      project_id: 'p-1',
+      organization_id: 'o-1',
+      user_id: 'u-1',
+      persona: 'editor',
+      user_message: 'Should I cut SC.1?',
+      page: 'editorial',
+    })
+    const headers = new Headers(requestInit.headers)
+    expect(headers.get('content-type')).toBe('application/json')
+    expect(headers.get('authorization')).toBe('Bearer tok')
+  })
+
+  it('listConversations GETs with required + optional query params', async () => {
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse({
+        conversations: [
+          {
+            id: 'inv-1',
+            project_id: 'p-1',
+            persona: 'editor',
+            page: 'editorial',
+            mode: 'conversational',
+            conversation: [],
+            metadata: {},
+            created_at: null,
+            updated_at: null,
+          },
+        ],
+        limit: 25,
+        offset: 5,
+      }),
+    )
+    const client = new BackboneClient({ baseUrl: ORIGIN })
+    const result = await client.listConversations('p-1', {
+      organization_id: 'o-1',
+      user_id: 'u-1',
+      persona: 'editor',
+      limit: 25,
+      offset: 5,
+    })
+
+    expect(result.limit).toBe(25)
+    expect(result.offset).toBe(5)
+    expect(result.conversations).toHaveLength(1)
+    expect(result.conversations[0]!.persona).toBe('editor')
+
+    const url = fetchMock.mock.calls[0]![0] as string
+    expect(url.startsWith(`${ORIGIN}/api/projects/p-1/conversations?`)).toBe(true)
+    const params = new URLSearchParams(url.split('?')[1])
+    expect(params.get('organization_id')).toBe('o-1')
+    expect(params.get('user_id')).toBe('u-1')
+    expect(params.get('persona')).toBe('editor')
+    expect(params.get('limit')).toBe('25')
+    expect(params.get('offset')).toBe('5')
+  })
+
+  it('listConversations omits optional params when undefined', async () => {
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse({ conversations: [], limit: 50, offset: 0 }),
+    )
+    const client = new BackboneClient({ baseUrl: ORIGIN })
+    await client.listConversations('p-1', {
+      organization_id: 'o-1',
+      user_id: 'u-1',
+    })
+    const url = fetchMock.mock.calls[0]![0] as string
+    const params = new URLSearchParams(url.split('?')[1])
+    expect(params.get('persona')).toBeNull()
+    expect(params.get('limit')).toBeNull()
+    expect(params.get('offset')).toBeNull()
+    expect(params.get('organization_id')).toBe('o-1')
+    expect(params.get('user_id')).toBe('u-1')
+  })
+
   it('strips trailing slashes on baseUrl', async () => {
     fetchMock.mockResolvedValueOnce(jsonResponse([]))
     const client = new BackboneClient({ baseUrl: `${ORIGIN}///` })

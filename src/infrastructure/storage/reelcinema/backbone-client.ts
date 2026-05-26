@@ -21,6 +21,10 @@ import type {
   BearerTokenSource,
   CinematographyHandoffResponse,
   DirectorsViewToCinematographyHandoffResponse,
+  InvokePersonaRequest,
+  InvokePersonaResponse,
+  ListConversationsParams,
+  ListConversationsResponse,
   ProjectLibraryResponse,
   SignUrlRequest,
   SignedUrlResponse,
@@ -116,6 +120,51 @@ export class BackboneClient {
   ): Promise<DirectorsViewToCinematographyHandoffResponse> {
     return this.request<DirectorsViewToCinematographyHandoffResponse>(
       `/api/projects/${projectId}/directors-view/handoff/cinematography`,
+      { method: 'GET' },
+    )
+  }
+
+  /**
+   * `POST /api/personas/invoke` — round-trip a user message through a
+   * Claude-backed persona (SC-I-6 conversational surface; A17 Editor +
+   * Audio Engineer for Editorial).
+   *
+   * Pass `invocation_id` to continue an existing conversation (the
+   * backbone rehydrates that row's transcript before invoking the
+   * model); omit it to start a fresh row. Per architect H-3 ruling
+   * 2026-05-26, conversational state lives on Postgres `persona_invocations`
+   * — there is no OPFS path for V1 conversation history.
+   */
+  async invokePersona(body: InvokePersonaRequest): Promise<InvokePersonaResponse> {
+    return this.request<InvokePersonaResponse>('/api/personas/invoke', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+  }
+
+  /**
+   * `GET /api/projects/{project_id}/conversations` — list persona
+   * invocations for the project, ordered most-recent-first (SC-I-6).
+   *
+   * `organization_id` + `user_id` are required by the backbone to
+   * enforce the multi-tenant filter at the route boundary (discipline
+   * #4). `persona` narrows to a single slug (e.g. `'editor'` or
+   * `'audio_engineer'`); `limit` + `offset` paginate (limit clamped
+   * server-side to [1, 200]).
+   */
+  async listConversations(
+    projectId: string,
+    params: ListConversationsParams,
+  ): Promise<ListConversationsResponse> {
+    const search = new URLSearchParams()
+    search.set('organization_id', params.organization_id)
+    search.set('user_id', params.user_id)
+    if (params.persona) search.set('persona', params.persona)
+    if (params.limit !== undefined) search.set('limit', String(params.limit))
+    if (params.offset !== undefined) search.set('offset', String(params.offset))
+    return this.request<ListConversationsResponse>(
+      `/api/projects/${projectId}/conversations?${search.toString()}`,
       { method: 'GET' },
     )
   }
