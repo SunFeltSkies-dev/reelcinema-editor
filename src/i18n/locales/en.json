@@ -51,7 +51,47 @@
     "saveAria": "Save project",
     "export": "Export",
     "exportVideo": "Export Video",
-    "downloadProjectZip": "Download Project (.zip)"
+    "downloadProjectZip": "Download Project (.zip)",
+    "menuBar": {
+      "fileMenu": {
+        "label": "File",
+        "triggerAria": "File menu",
+        "newProject": {
+          "item": "New Project…",
+          "title": "Create a New Project",
+          "message": "Project creation happens in the main ReelCinema app. Close this editor tab and return to the project list to start a new project."
+        },
+        "openProject": {
+          "item": "Open Project…",
+          "title": "Open a Project",
+          "message": "Project selection happens in the main ReelCinema app. Close this editor tab and return to the project list to open a different project."
+        },
+        "save": "Save",
+        "exportVideo": "Export Video…",
+        "exportBundle": "Export Project Bundle (.zip)…",
+        "close": {
+          "item": "Close",
+          "title": "Close Editor",
+          "message": "Close this browser tab to exit the editor. Your work is saved automatically."
+        }
+      },
+      "editMenu": {
+        "label": "Edit",
+        "triggerAria": "Edit menu",
+        "undo": "Undo",
+        "redo": "Redo"
+      },
+      "viewMenu": {
+        "label": "View",
+        "triggerAria": "View menu",
+        "toggleLeftSidebar": "Left Sidebar",
+        "toggleRightSidebar": "Right Sidebar",
+        "toggleKeyframeEditor": "Keyframe Editor"
+      },
+      "staticGuidance": {
+        "dismiss": "OK"
+      }
+    }
   },
   "unsavedChanges": {
     "title": "Unsaved Changes",
