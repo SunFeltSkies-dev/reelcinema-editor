@@ -23,6 +23,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
+import { EditMenu } from './menu-bar/edit-menu'
+import { FileMenu } from './menu-bar/file-menu'
+import { ViewMenu } from './menu-bar/view-menu'
 import { ProjectDebugPanel } from './project-debug-panel'
 import { SettingsDialog } from './settings-dialog'
 import { ShortcutsDialog } from './shortcuts-dialog'
@@ -168,14 +171,9 @@ export const Toolbar = memo(function Toolbar({
 
         <Separator orientation="vertical" className="h-5" />
 
-        {/* SC-8 placeholder — conversational surface implementation deferred.
-            File/Edit/View are pure structural anchors at this point: visible
-            labels in the menu-bar slot so SC-8 can attach the real
-            command/dropdown surfaces without disturbing toolbar layout. They
-            intentionally have no click behavior. */}
-        <MenuBarPlaceholder label="File" />
-        <MenuBarPlaceholder label="Edit" />
-        <MenuBarPlaceholder label="View" />
+        <FileMenu onSave={handleSave} onExport={onExport} onExportBundle={onExportBundle} />
+        <EditMenu />
+        <ViewMenu />
       </div>
 
       <div className="flex-1" />
@@ -325,22 +323,6 @@ function SaveAnimationIcon({ className }: { className?: string }) {
         />
       </rect>
     </svg>
-  )
-}
-
-// SC-8 placeholder — conversational surface implementation deferred.
-// No onClick is wired: click is a no-op until SC-8 lands the real
-// command/dropdown surfaces behind these triggers.
-function MenuBarPlaceholder({ label }: { label: string }) {
-  return (
-    <button
-      type="button"
-      aria-disabled="true"
-      tabIndex={-1}
-      className="h-7 rounded-sm px-2 text-[11px] font-medium text-t3 hover:text-t1 hover:bg-s2/40 transition-colors cursor-default"
-    >
-      {label}
-    </button>
   )
 }
 
